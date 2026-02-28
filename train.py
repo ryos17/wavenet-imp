@@ -170,10 +170,9 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
         torch.save(
             {
                 "epoch": epoch,
-                "model_state_dict": model.state_dict(),
-                "optimizer_state_dict": optimizer.state_dict(),
                 "avg_train_loss": avg_train_loss,
                 "avg_val_loss": avg_val_loss,
+                "model_state_dict": model.state_dict(),
                 "sample_rate": sr_x,
                 "model_cfg_path": model_cfg_path,
                 "train_cfg_path": train_cfg_path,
@@ -207,9 +206,7 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
                 {
                     "best_epoch": best_epoch,
                     "best_val_loss": best_val_loss,
-                    "epoch_checkpoint": str(ckpt_path),
                     "model_state_dict": model.state_dict(),
-                    "optimizer_state_dict": optimizer.state_dict(),
                     "sample_rate": sr_x,
                     "model_cfg_path": model_cfg_path,
                     "train_cfg_path": train_cfg_path,
