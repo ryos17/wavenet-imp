@@ -18,6 +18,14 @@ def load_json(path: str | Path) -> Dict[str, Any]:
         return json.load(f)
 
 
+def log_message(path: str | Path, message: str) -> None:
+    """Print a message and append it to a log file."""
+    print(message)
+    log_path = Path(path)
+    with log_path.open("a", encoding="utf-8") as f:
+        f.write(message + "\n")
+
+
 def get_activation(name: str) -> nn.Module:
     """Return a torch activation module from a readable name."""
     key = name.strip().lower()
@@ -33,6 +41,7 @@ def get_activation(name: str) -> nn.Module:
 
 
 def set_seed(seed: int) -> None:
+    """Set the seed for all random number generators."""
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -40,6 +49,7 @@ def set_seed(seed: int) -> None:
 
 
 def read_audio_mono(path: str | Path) -> Tuple[np.ndarray, int]:
+    """Read audio file and return mono signal and sample rate."""
     x, sr = sf.read(str(Path(path)), dtype="float32")
     if x.ndim > 1:
         x = x.mean(axis=1)
@@ -48,7 +58,7 @@ def read_audio_mono(path: str | Path) -> Tuple[np.ndarray, int]:
 
 def pre_emphasis(x: torch.Tensor, coeff: float=0.95) -> torch.Tensor:
     """
-    Pre-emphasis filter: y[t] = x[t] - coeff * x[t-1].
+    Pre-emphasis IIR filter: y[t] = x[t] - coeff * x[t-1].
     Applied along the time dimension.
     """
     if coeff <= 0.0:
@@ -65,17 +75,7 @@ class RandomChunkDataset(Dataset):
     """
 
     def __init__(self, x: np.ndarray, y: np.ndarray, chunk_size: int, samples_per_epoch: int):
-        if x.ndim != 1 or y.ndim != 1:
-            raise ValueError("Input and target audio must be 1-D mono signals.")
-        if len(x) != len(y):
-            n = min(len(x), len(y))
-            x = x[:n]
-            y = y[:n]
-        if len(x) < chunk_size:
-            raise ValueError(
-                f"Audio length ({len(x)}) is shorter than chunk_size ({chunk_size})."
-            )
-
+        """Initialize the dataset."""
         self.x = torch.from_numpy(x)
         self.y = torch.from_numpy(y)
         self.chunk_size = int(chunk_size)
@@ -83,9 +83,11 @@ class RandomChunkDataset(Dataset):
         self.max_start = len(x) - self.chunk_size
 
     def __len__(self) -> int:
+        """Return the number of samples in the dataset."""
         return self.samples_per_epoch
 
     def __getitem__(self, _: int) -> Tuple[torch.Tensor, torch.Tensor]:
+        """Get a random chunk from the dataset."""
         start = random.randint(0, self.max_start)
         end = start + self.chunk_size
         return self.x[start:end], self.y[start:end]
@@ -99,6 +101,7 @@ def build_dataloader(
     steps_per_epoch: int,
     num_workers: int,
 ) -> DataLoader:
+    """Build a data loader for the dataset."""
     ds = RandomChunkDataset(
         x=x,
         y=y,
