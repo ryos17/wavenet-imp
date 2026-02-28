@@ -1,0 +1,223 @@
+from __future__ import annotations
+
+import argparse
+from datetime import datetime
+from pathlib import Path
+from typing import Dict
+
+import numpy as np
+import soundfile as sf
+import torch
+from tqdm import tqdm
+
+from utils.util import (
+    build_dataloader,
+    load_json,
+    pre_emphasis,
+    read_audio_mono,
+    set_seed,
+)
+from utils.wavenet import WaveNet
+
+
+def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path: str) -> None:
+    seed = int(train_cfg["seed"])
+    batch_size = int(train_cfg["batch_size"])
+    learning_rate = float(train_cfg["learning_rate"])
+    epochs = int(train_cfg["epochs"])
+    input_wav = train_cfg["input_wav"]
+    target_wav = train_cfg["target_wav"]
+    chunk_size = int(train_cfg["chunk_size"])
+    steps_per_epoch = int(train_cfg["steps_per_epoch"])
+    val_steps_per_epoch = int(train_cfg["val_steps_per_epoch"])
+    num_workers = int(train_cfg["num_workers"])
+    train_split = float(train_cfg["train_split"])
+    val_split = float(train_cfg["val_split"])
+    val_audio_seconds = int(train_cfg["val_audio_seconds"])
+    device_name = train_cfg["device"]
+
+    set_seed(seed)
+    device = torch.device(device_name)
+
+    run_stamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")
+    save_dir = Path("checkpoints") / run_stamp
+    save_dir.mkdir(parents=True, exist_ok=True)
+    
+    x, sr_x = read_audio_mono(input_wav)
+    y, sr_y = read_audio_mono(target_wav)
+    if sr_x != sr_y:
+        raise ValueError(f"Input SR ({sr_x}) != target SR ({sr_y}).")
+    if train_split <= 0.0 or val_split < 0.0:
+        raise ValueError("train_split must be > 0 and val_split must be >= 0.")
+    split_total = train_split + val_split
+    if split_total <= 0.0:
+        raise ValueError("train_split + val_split must be > 0.")
+
+    model = WaveNet.from_config_dict(model_cfg).to(device)
+    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+    mse = torch.nn.MSELoss()
+    rf = model.receptive_field
+    valid_start = max(0, rf - 1)
+
+    n = min(len(x), len(y))
+    x = x[:n]
+    y = y[:n]
+    n_train = int(n * (train_split / split_total))
+    n_train = min(max(n_train, chunk_size), n - chunk_size)
+    if n < 2 * chunk_size:
+        raise ValueError("Need at least 2 * chunk_size samples to run train/val split.")
+
+    x_train = x[:n_train]
+    y_train = y[:n_train]
+    x_val = x[n_train:]
+    y_val = y[n_train:]
+
+    train_loader = build_dataloader(
+        x=x_train,
+        y=y_train,
+        batch_size=batch_size,
+        chunk_size=chunk_size,
+        steps_per_epoch=steps_per_epoch,
+        num_workers=num_workers,
+    )
+    val_loader = build_dataloader(
+        x=x_val,
+        y=y_val,
+        batch_size=batch_size,
+        chunk_size=chunk_size,
+        steps_per_epoch=val_steps_per_epoch,
+        num_workers=num_workers,
+    )
+
+    best_val_loss = float("inf")
+    best_epoch = -1
+
+    for epoch in range(1, epochs + 1):
+        model.train()
+        epoch_losses = []
+
+        pbar = tqdm(train_loader, desc=f"Epoch {epoch}/{epochs} [train]", leave=True)
+        for xb, yb in pbar:
+            xb = xb.to(device)
+            yb = yb.to(device)
+
+            pred = model(xb)
+
+            pred_valid = pred[:, valid_start:]
+            y_valid = yb[:, valid_start:]
+
+            pred_pre = pre_emphasis(pred_valid)
+            y_pre = pre_emphasis(y_valid)
+
+            loss = mse(pred_pre, y_pre)
+            optimizer.zero_grad(set_to_none=True)
+            loss.backward()
+            optimizer.step()
+
+            loss_value = float(loss.item())
+            epoch_losses.append(loss_value)
+            pbar.set_postfix(loss=f"{loss_value:.6f}")
+
+        avg_train_loss = float(np.mean(epoch_losses)) if epoch_losses else float("nan")
+
+        model.eval()
+        val_losses = []
+        with torch.no_grad():
+            val_pbar = tqdm(val_loader, desc=f"Epoch {epoch}/{epochs} [val]", leave=False)
+            for xb, yb in val_pbar:
+                xb = xb.to(device)
+                yb = yb.to(device)
+
+                pred = model(xb)
+                pred_valid = pred[:, valid_start:]
+                y_valid = yb[:, valid_start:]
+                pred_pre = pre_emphasis(pred_valid)
+                y_pre = pre_emphasis(y_valid)
+                val_loss = mse(pred_pre, y_pre)
+                val_loss_value = float(val_loss.item())
+                val_losses.append(val_loss_value)
+                val_pbar.set_postfix(loss=f"{val_loss_value:.6f}")
+
+        avg_val_loss = float(np.mean(val_losses)) if val_losses else float("nan")
+        epoch_dir = save_dir / f"epoch_{epoch:03d}"
+        epoch_dir.mkdir(parents=True, exist_ok=True)
+        ckpt_path = epoch_dir / "checkpoint.pt"
+        torch.save(
+            {
+                "epoch": epoch,
+                "model_state_dict": model.state_dict(),
+                "optimizer_state_dict": optimizer.state_dict(),
+                "avg_train_loss": avg_train_loss,
+                "avg_val_loss": avg_val_loss,
+                "sample_rate": sr_x,
+                "model_cfg_path": model_cfg_path,
+                "train_cfg_path": train_cfg_path,
+            },
+            ckpt_path,
+        )
+
+        num_samples = min(val_audio_seconds * sr_x, x_val.shape[0], y_val.shape[0])
+        sample_x = x_val[:num_samples].copy()
+        sample_y = y_val[:num_samples].copy()
+        with torch.no_grad():
+            sample_in = torch.from_numpy(sample_x).to(device)[None, :]
+            sample_pred = model(sample_in).squeeze(0).detach().cpu().numpy().astype(np.float32)
+
+        sf.write(str(epoch_dir / "source.wav"), sample_x, sr_x)
+        sf.write(str(epoch_dir / "target.wav"), sample_y, sr_x)
+        sf.write(str(epoch_dir / "model_output.wav"), sample_pred, sr_x)
+
+        print(
+            f"Epoch {epoch}/{epochs} - train_loss={avg_train_loss:.2e} "
+            f"- val_loss={avg_val_loss:.2e} - {epoch_dir}"
+        )
+
+        if avg_val_loss < best_val_loss:
+            best_val_loss = avg_val_loss
+            best_epoch = epoch
+            torch.save(
+                {
+                    "best_epoch": best_epoch,
+                    "best_val_loss": best_val_loss,
+                    "epoch_checkpoint": str(ckpt_path),
+                    "model_state_dict": model.state_dict(),
+                    "optimizer_state_dict": optimizer.state_dict(),
+                    "sample_rate": sr_x,
+                    "model_cfg_path": model_cfg_path,
+                    "train_cfg_path": train_cfg_path,
+                },
+                save_dir / "best.pt",
+            )
+            print(f"Updated best epoch - {save_dir / 'best.pt'}")
+
+    print(
+        f"Training complete. Best epoch: {best_epoch} (val_loss={best_val_loss:.2e}) - {save_dir / 'best.pt'}"
+    )
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Simple WaveNet training script.")
+    parser.add_argument(
+        "--model_cfg",
+        type=str,
+        default="cfg/model/example.json",
+        help="Path to model config JSON (default: cfg/model/example.json).",
+    )
+    parser.add_argument(
+        "--train_cfg",
+        type=str,
+        default="cfg/train/example.json",
+        help="Path to train config JSON (default: cfg/train/example.json).",
+    )
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
+    model_cfg = load_json(args.model_cfg)
+    train_cfg = load_json(args.train_cfg)
+    train(model_cfg, train_cfg, model_cfg_path=args.model_cfg, train_cfg_path=args.train_cfg)
+
+
+if __name__ == "__main__":
+    main()
