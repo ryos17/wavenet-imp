@@ -11,46 +11,43 @@ from utils.wavenet import WaveNet
 
 
 def load_model(model_path: str, device: torch.device) -> tuple[torch.nn.Module, int | None]:
+    # Load checkpoint
     ckpt = torch.load(model_path, map_location=device)
 
-    if isinstance(ckpt, dict) and "model_state_dict" in ckpt and "model_cfg" in ckpt:
-        model = WaveNet.from_config_dict(ckpt["model_cfg"]).to(device)
-        model.load_state_dict(ckpt["model_state_dict"])
-        sample_rate = ckpt.get("sample_rate")
-        return model.eval(), sample_rate
+    # Create model from config
+    model = WaveNet.from_config_dict(ckpt["model_cfg"]).to(device)
 
-    if isinstance(ckpt, torch.nn.Module):
-        return ckpt.to(device).eval(), None
+    # Load model state dict
+    model.load_state_dict(ckpt["model_state_dict"])
 
-    raise ValueError(
-        "Unsupported model file format. Expected a checkpoint with "
-        "'model_cfg' + 'model_state_dict' or a serialized torch.nn.Module."
-    )
-
+    # Return model and sample rate
+    sample_rate = ckpt.get("sample_rate")
+    return model.eval(), sample_rate
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Very simple WaveNet eval script.")
-    parser.add_argument("--model_path", type=str, required=True, help="Path to model/checkpoint file.")
     parser.add_argument("--input_wav", type=str, required=True, help="Path to input wav file.")
-    parser.add_argument(
-        "--output_path",
-        type=str,
-        default=None,
-        help="Output wav path (default: outputs/{basename of input_wav}).",
-    )
+    parser.add_argument("--model_path", type=str, default="models/ch16_ungated-best.pt", help="Path to model/checkpoint file. (default: models/ch16_ungated-best.pt)")
+    parser.add_argument("--output_path", type=str, default=None, help="Output wav path (default: outputs/{basename of input_wav}).")
     args = parser.parse_args()
 
+    # Create output path
     input_path = Path(args.input_wav)
     output_path = Path(args.output_path) if args.output_path else Path("outputs") / input_path.name
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
+    # Load model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model, checkpoint_sr = load_model(args.model_path, device)
 
+    # Load input audio
     x, sr = read_audio_mono(input_path)
+
+    # Check sample rate
     if checkpoint_sr is not None and checkpoint_sr != sr:
         print(f"Warning: checkpoint sample_rate={checkpoint_sr}, input sample_rate={sr}")
 
+    # Generate output audio
     with torch.no_grad():
         x_tensor = torch.from_numpy(x).to(device)[None, :]
         y_tensor = model(x_tensor)
@@ -58,6 +55,7 @@ def main() -> None:
             y_tensor = y_tensor[:, 0, :]
         y = y_tensor.squeeze(0).detach().cpu().numpy().astype("float32")
 
+    # Save output audio
     sf.write(str(output_path), y, sr)
     print(f"Saved output to: {output_path}")
 
