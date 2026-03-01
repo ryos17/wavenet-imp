@@ -34,7 +34,7 @@ def main() -> None:
         num_zero_params = num_params - num_nonzero_params
         print(f"Total prunable parameters: {num_params}")
         print(f"Total pruned parameters: {num_zero_params}")
-        print(f"Sparsity (by mask): {num_zero_params / num_params:.6f}")
+        print(f"Sparsity (bpruned/prunable): {num_zero_params / num_params:.6f}")
         print(f"Actual sparsity (pruned/total): {num_zero_params / total_params:.6f}")
 
 
