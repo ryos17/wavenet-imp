@@ -20,18 +20,18 @@ def main() -> None:
     obj_without_state = {k: v for k, v in loaded_obj.items() if k != "model_state_dict"}
     pprint(obj_without_state)
 
-    # Count pruning stats if pruning is present
+    # Count parameters
+    total_params = sum(
+        p.numel()
+        for k, p in loaded_obj["model_state_dict"].items()
+        if isinstance(p, torch.Tensor) and not k.endswith("weight_mask")
+    )
+    print(f"Total parameters: {total_params}")
     mask_items = [(k, v) for k, v in loaded_obj["model_state_dict"].items() if "weight_mask" in k]
     if mask_items:
         num_params = sum(mask.numel() for _, mask in mask_items)
         num_nonzero_params = sum((mask != 0).sum().item() for _, mask in mask_items)
         num_zero_params = num_params - num_nonzero_params
-        total_params = sum(
-            p.numel()
-            for k, p in loaded_obj["model_state_dict"].items()
-            if isinstance(p, torch.Tensor) and not k.endswith("weight_mask")
-        )
-        print(f"Total parameters: {total_params}")
         print(f"Total prunable parameters: {num_params}")
         print(f"Total pruned parameters: {num_zero_params}")
         print(f"Sparsity (by mask): {num_zero_params / num_params:.6f}")
