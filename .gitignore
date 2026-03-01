@@ -2,3 +2,5 @@
 checkpoints/
 outputs/
 .vscode/
+.DS_Store
+*.asd
