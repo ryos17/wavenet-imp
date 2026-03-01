@@ -10,9 +10,8 @@ def main() -> None:
     )
     parser.add_argument(
         "model_path",
-        nargs="?",
-        default="models/ch16_nongated.pt",
-        help="Path to the model/checkpoint file (default: models/ch16_nongated.pt)",
+        type=str,
+        help="Path to the model/checkpoint file",
     )
     args = parser.parse_args()
 

@@ -42,9 +42,10 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
     set_seed(seed)
     device = torch.device(device_name)
 
-    # Create save directory
+    # Create save directory with model config basename and date
+    model_basename = Path(model_cfg_path).stem
     run_stamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")
-    save_dir = Path("checkpoints") / run_stamp
+    save_dir = Path("checkpoints") / f"{model_basename}-{run_stamp}"
     save_dir.mkdir(parents=True, exist_ok=True)
 
     # Create log file
@@ -174,8 +175,8 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
                 "avg_val_loss": avg_val_loss,
                 "model_state_dict": model.state_dict(),
                 "sample_rate": sr_x,
-                "model_cfg_path": model_cfg_path,
-                "train_cfg_path": train_cfg_path,
+                "model_cfg": model_cfg,
+                "train_cfg": train_cfg,
             },
             ckpt_path,
         )
@@ -208,12 +209,12 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
                     "best_val_loss": best_val_loss,
                     "model_state_dict": model.state_dict(),
                     "sample_rate": sr_x,
-                    "model_cfg_path": model_cfg_path,
-                    "train_cfg_path": train_cfg_path,
+                    "model_cfg": model_cfg,
+                    "train_cfg": train_cfg,
                 },
-                save_dir / "best.pt",
+                save_dir / f"{model_basename}-best.pt",
             )
-            log_message(log_path, f"Updated best epoch - {save_dir / 'best.pt'}")
+            log_message(log_path, f"Updated best epoch - {save_dir / (model_basename + '-best.pt')}")
 
     # Print final results
     log_message(
@@ -227,8 +228,8 @@ def main() -> None:
     parser.add_argument(
         "--model_cfg",
         type=str,
-        default="cfg/model/example.json",
-        help="Path to model config JSON (default: cfg/model/example.json).",
+        default="cfg/model/ch16_ungated.json",
+        help="Path to model config JSON (default: cfg/model/ch16_ungated.json).",
     )
     parser.add_argument(
         "--train_cfg",
