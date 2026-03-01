@@ -2,7 +2,7 @@
     "seed": 42,
     "batch_size": 128,
     "learning_rate": 0.001,
-    "epochs": 10,
+    "epochs": 20,
     "input_wav": "data/example/input.wav",
     "target_wav": "data/example/output.wav",
     "chunk_size": 8192,
@@ -17,5 +17,5 @@
     "prune_type": "global",
     "prune_schedule": "linear",
     "prune_start_epoch": 2,
-    "prune_end_epoch": 9
+    "prune_end_epoch": 10
 }

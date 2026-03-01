@@ -26,7 +26,9 @@ PrunableParam = Tuple[torch.nn.Module, str]
 
 
 def _collect_prunable_params(model: torch.nn.Module) -> List[PrunableParam]:
+    """Collect prunable parameters from the model."""
     params: List[PrunableParam] = []
+    # Go through all modules and collect prunable parameters
     for module in model.modules():
         for name, param in module.named_parameters(recurse=False):
             if (
@@ -39,14 +41,17 @@ def _collect_prunable_params(model: torch.nn.Module) -> List[PrunableParam]:
 
 
 def _tensor_sparsity(tensor: torch.Tensor) -> float:
+    """Compute sparsity of a tensor."""
     if tensor.numel() == 0:
         return 0.0
     return float((tensor == 0).sum().item()) / float(tensor.numel())
 
 
 def _global_sparsity(params_to_prune: List[PrunableParam]) -> float:
+    """Compute global sparsity from non-zero counts on selected parameters."""
     total = 0
     zeros = 0
+    # Go through all prunable parameters and count zeros
     for module, name in params_to_prune:
         weight = getattr(module, name)
         total += weight.numel()
@@ -64,18 +69,22 @@ def _scheduled_sparsity(
     sparsity_target: float,
     prune_schedule: str,
 ) -> float:
+    """Compute scheduled sparsity based on the global step."""
     start_step = (prune_start_epoch - 1) * steps_per_epoch
     end_step_exclusive = prune_end_epoch * steps_per_epoch
-
+    
+    # Return 0.0 if before the start step, or the target sparsity if after the end step
     if global_step < start_step:
         return 0.0
     if global_step >= end_step_exclusive:
         return sparsity_target
-
+    
+    # Compute progress through the pruning schedule
     total_prune_steps = end_step_exclusive - start_step
     progress = float((global_step - start_step) + 1) / float(total_prune_steps)
     progress = min(max(progress, 0.0), 1.0)
-
+    
+    # Compute scheduled sparsity based on the prune schedule
     if prune_schedule == "linear":
         return sparsity_target * progress
     if prune_schedule == "exponential":
@@ -90,10 +99,14 @@ def _apply_incremental_pruning(
     target_sparsity: float,
     prune_type: str,
 ) -> float:
+    """Apply incremental pruning to the model."""
     del model
+
+    # Return current sparsity if target sparsity is 0.0
     if target_sparsity <= 0.0:
         return _global_sparsity(params_to_prune)
-
+    
+    # Apply global pruning
     if prune_type == "global":
         current = _global_sparsity(params_to_prune)
         if current < target_sparsity and current < 1.0:
@@ -105,6 +118,7 @@ def _apply_incremental_pruning(
             )
         return _global_sparsity(params_to_prune)
 
+    # Apply local pruning
     if prune_type == "local":
         for module, name in params_to_prune:
             weight = getattr(module, name)
@@ -140,6 +154,7 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
     prune_start_epoch = int(train_cfg["prune_start_epoch"])
     prune_end_epoch = int(train_cfg["prune_end_epoch"])
 
+    # Validate pruning parameters
     if not (0.0 <= sparsity_target < 1.0):
         raise ValueError("sparsity_target must be in [0.0, 1.0).")
     if prune_type not in {"global", "local"}:
@@ -179,7 +194,15 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
     mse = torch.nn.MSELoss()
     rf = model.receptive_field
     valid_start = max(0, rf - 1)
+
+    # Collect prunable parameters
     params_to_prune = _collect_prunable_params(model)
+    total_prunable_params = sum(getattr(module, name).numel() for module, name in params_to_prune)
+    total_params = sum(p.numel() for p in model.parameters())
+    log_message(
+        log_path,
+        f"Found {total_prunable_params} prunable parameters out of {total_params} total parameters."
+    )
     if not params_to_prune:
         raise ValueError("No prunable parameters found (expected weight tensors with dim > 1).")
     
@@ -223,6 +246,7 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
 
         pbar = tqdm(train_loader, desc=f"Epoch {epoch}/{epochs} [train]", leave=True)
         for batch_idx, (xb, yb) in enumerate(pbar):
+            # Compute scheduled sparsity
             global_step = (epoch - 1) * steps_per_epoch + batch_idx
             target_batch_sparsity = _scheduled_sparsity(
                 global_step=global_step,
@@ -232,6 +256,7 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
                 sparsity_target=sparsity_target,
                 prune_schedule=prune_schedule,
             )
+            # Apply incremental pruning
             current_sparsity = _apply_incremental_pruning(
                 model=model,
                 params_to_prune=params_to_prune,
@@ -297,7 +322,7 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
         # Create epoch directory and save checkpoint
         epoch_dir = save_dir / f"epoch_{epoch:03d}"
         epoch_dir.mkdir(parents=True, exist_ok=True)
-        ckpt_path = epoch_dir / "checkpoint.pt"
+        ckpt_path = epoch_dir / f"prune_{int(sparsity_target * 100)}_{model_basename}-epoch_{epoch}.pt"
         torch.save(
             {
                 "epoch": epoch,
@@ -348,10 +373,20 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
 
     # Print final results
     final_sparsity = _global_sparsity(params_to_prune)
+    total_prunable_params = sum(getattr(module, name).numel() for module, name in params_to_prune)
+    total_params = sum(p.numel() for p in model.parameters())
+    total_pruned_params = sum((getattr(module, name) == 0).sum().item() for module, name in params_to_prune)
     log_message(
         log_path,
-        f"Final sparsity check: target={sparsity_target:.6f}, achieved={final_sparsity:.6f}, "
-        f"delta={abs(final_sparsity - sparsity_target):.6f}",
+        f"Final sparsity check:\n"
+        f"  - Target sparsity: {sparsity_target:.6f}\n"
+        f"  - Achieved sparsity: {final_sparsity:.6f}\n"
+        f"  - Delta: {abs(final_sparsity - sparsity_target):.6f}\n"
+        f"  - Total parameters: {total_params}\n"
+        f"  - Total prunable parameters: {total_prunable_params}\n"
+        f"  - Total parameters pruned: {total_pruned_params}\n"
+        f"  - Sparsity (pruned/prunable): {total_pruned_params/total_prunable_params:.6f}\n"
+        f"  - Actual sparsity (pruned/total): {total_pruned_params/total_params:.6f}"
     )
     log_message(
         log_path,

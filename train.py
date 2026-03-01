@@ -167,7 +167,7 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
         # Create epoch directory and save checkpoint
         epoch_dir = save_dir / f"epoch_{epoch:03d}"
         epoch_dir.mkdir(parents=True, exist_ok=True)
-        ckpt_path = epoch_dir / "checkpoint.pt"
+        ckpt_path = epoch_dir / f"{model_basename}-epoch_{epoch}.pt"
         torch.save(
             {
                 "epoch": epoch,
