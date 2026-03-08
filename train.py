@@ -44,9 +44,12 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
 
     # Create save directory with model config basename and date
     model_basename = Path(model_cfg_path).stem
+    train_basename = Path(train_cfg_path).stem
     run_stamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")
-    save_dir = Path("checkpoints") / f"{model_basename}-{run_stamp}"
+    save_dir = Path("checkpoints") / f"{model_basename}-{train_basename}-{run_stamp}"
     save_dir.mkdir(parents=True, exist_ok=True)
+    models_dir = Path("models")
+    models_dir.mkdir(parents=True, exist_ok=True)
 
     # Create log file
     log_path = save_dir / "logs.txt"
@@ -167,7 +170,7 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
         # Create epoch directory and save checkpoint
         epoch_dir = save_dir / f"epoch_{epoch:03d}"
         epoch_dir.mkdir(parents=True, exist_ok=True)
-        ckpt_path = epoch_dir / f"{model_basename}-epoch_{epoch}.pt"
+        ckpt_path = epoch_dir / f"{model_basename}-{train_basename}-epoch_{epoch}.pt"
         torch.save(
             {
                 "epoch": epoch,
@@ -199,10 +202,20 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
             f"- val_loss={avg_val_loss:.5e} - {epoch_dir}"
         )
 
-        # Update best model
+        # Update best model and delete previous best
         if avg_val_loss < best_val_loss:
+            # Delete previous best checkpoint if it exists
+            if 'best_ckpt_basename' in locals():
+                prev_best_save_ckpt = save_dir / best_ckpt_basename
+                prev_best_models_ckpt = models_dir / best_ckpt_basename
+                if prev_best_save_ckpt.exists():
+                    prev_best_save_ckpt.unlink()
+                if prev_best_models_ckpt.exists():
+                    prev_best_models_ckpt.unlink()
+            # Update best model
             best_val_loss = avg_val_loss
             best_epoch = epoch
+            best_ckpt_basename = f"{model_basename}-{train_basename}-epoch_{best_epoch}-best.pt"
             torch.save(
                 {
                     "best_epoch": best_epoch,
@@ -212,14 +225,25 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
                     "model_cfg": model_cfg,
                     "train_cfg": train_cfg,
                 },
-                save_dir / f"{model_basename}-best.pt",
+                save_dir / best_ckpt_basename,
             )
-            log_message(log_path, f"Updated best epoch - {save_dir / (model_basename + '-best.pt')}")
+            torch.save(
+                {
+                    "best_epoch": best_epoch,
+                    "best_val_loss": best_val_loss,
+                    "model_state_dict": model.state_dict(),
+                    "sample_rate": sr_x,
+                    "model_cfg": model_cfg,
+                    "train_cfg": train_cfg,
+                },
+                models_dir / best_ckpt_basename,
+            )
+            log_message(log_path, f"Updated best epoch - {save_dir / best_ckpt_basename}")
 
     # Print final results
     log_message(
         log_path,
-        f"Training complete. best_epoch={best_epoch} - best_val_loss={best_val_loss:.5e} - {save_dir / 'best.pt'}"
+        f"Training complete. best_epoch={best_epoch} - best_val_loss={best_val_loss:.5e} - {save_dir / best_ckpt_basename}"
     )
 
 
@@ -228,8 +252,8 @@ def main() -> None:
     parser.add_argument(
         "--model_cfg",
         type=str,
-        default="cfg/model/ch16_ungated.json",
-        help="Path to model config JSON (default: cfg/model/ch16_ungated.json).",
+        default="cfg/model/example.json",
+        help="Path to model config JSON (default: cfg/model/example.json).",
     )
     parser.add_argument(
         "--train_cfg",
