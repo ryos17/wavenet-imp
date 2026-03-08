@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import math
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List, Tuple
@@ -61,6 +62,17 @@ def _global_sparsity(params_to_prune: List[PrunableParam]) -> float:
     return float(zeros) / float(total)
 
 
+def _global_zero_and_total(params_to_prune: List[PrunableParam]) -> Tuple[int, int]:
+    """Return global zero-count and total-count across prunable parameters."""
+    total = 0
+    zeros = 0
+    for module, name in params_to_prune:
+        weight = getattr(module, name)
+        total += weight.numel()
+        zeros += int((weight == 0).sum().item())
+    return zeros, total
+
+
 def _scheduled_sparsity(
     global_step: int,
     steps_per_epoch: int,
@@ -108,13 +120,14 @@ def _apply_incremental_pruning(
     
     # Apply global pruning
     if prune_type == "global":
-        current = _global_sparsity(params_to_prune)
-        if current < target_sparsity and current < 1.0:
-            additional = (target_sparsity - current) / max(1.0 - current, 1e-12)
+        current_zeros, total = _global_zero_and_total(params_to_prune)
+        target_zeros = min(max(math.ceil(target_sparsity * total), 0), total)
+        additional_zeros = target_zeros - current_zeros
+        if additional_zeros > 0:
             prune.global_unstructured(
                 params_to_prune,
                 pruning_method=prune.L1Unstructured,
-                amount=min(max(additional, 0.0), 1.0),
+                amount=additional_zeros,
             )
         return _global_sparsity(params_to_prune)
 
@@ -122,11 +135,13 @@ def _apply_incremental_pruning(
     if prune_type == "local":
         for module, name in params_to_prune:
             weight = getattr(module, name)
-            current = _tensor_sparsity(weight)
-            if current >= target_sparsity or current >= 1.0:
+            total = int(weight.numel())
+            current_zeros = int((weight == 0).sum().item())
+            target_zeros = min(max(math.ceil(target_sparsity * total), 0), total)
+            additional_zeros = target_zeros - current_zeros
+            if additional_zeros <= 0:
                 continue
-            additional = (target_sparsity - current) / max(1.0 - current, 1e-12)
-            prune.l1_unstructured(module, name=name, amount=min(max(additional, 0.0), 1.0))
+            prune.l1_unstructured(module, name=name, amount=additional_zeros)
         return _global_sparsity(params_to_prune)
 
     raise ValueError(f"Unsupported prune_type: {prune_type}")
@@ -170,9 +185,12 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
 
     # Create save directory with model config basename and date
     model_basename = Path(model_cfg_path).stem
+    train_basename = Path(train_cfg_path).stem
     run_stamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")
-    save_dir = Path("checkpoints") / f"prune_{int(sparsity_target * 100)}_{model_basename}-{run_stamp}"
+    save_dir = Path("checkpoints") / f"{model_basename}-{train_basename}-{run_stamp}"
     save_dir.mkdir(parents=True, exist_ok=True)
+    models_dir = Path("models")
+    models_dir.mkdir(parents=True, exist_ok=True)
 
     # Create log file
     log_path = save_dir / "logs.txt"
@@ -322,7 +340,7 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
         # Create epoch directory and save checkpoint
         epoch_dir = save_dir / f"epoch_{epoch:03d}"
         epoch_dir.mkdir(parents=True, exist_ok=True)
-        ckpt_path = epoch_dir / f"prune_{int(sparsity_target * 100)}_{model_basename}-epoch_{epoch}.pt"
+        ckpt_path = epoch_dir / f"{model_basename}-{train_basename}-epoch_{epoch}.pt"
         torch.save(
             {
                 "epoch": epoch,
@@ -354,10 +372,20 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
             f"- val_loss={avg_val_loss:.5e} - {epoch_dir}"
         )
 
-        # Update best model
-        if avg_val_loss < best_val_loss:
+        # Update best model and must be fully pruned
+        if avg_val_loss < best_val_loss and current_sparsity >= sparsity_target:
+            # Delete previous best checkpoint if it exists
+            if 'best_ckpt_basename' in locals():
+                prev_best_save_ckpt = save_dir / best_ckpt_basename
+                prev_best_models_ckpt = models_dir / best_ckpt_basename
+                if prev_best_save_ckpt.exists():
+                    prev_best_save_ckpt.unlink()
+                if prev_best_models_ckpt.exists():
+                    prev_best_models_ckpt.unlink()
+            # Update best model
             best_val_loss = avg_val_loss
             best_epoch = epoch
+            best_ckpt_basename = f"{model_basename}-{train_basename}-epoch_{best_epoch}-best.pt"
             torch.save(
                 {
                     "best_epoch": best_epoch,
@@ -367,9 +395,20 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
                     "model_cfg": model_cfg,
                     "train_cfg": train_cfg,
                 },
-                save_dir / f"prune_{int(sparsity_target * 100)}_{model_basename}-best.pt",
+                save_dir / best_ckpt_basename,
             )
-            log_message(log_path, f"Updated best epoch - {save_dir / (model_basename + '-best.pt')}")
+            torch.save(
+                {
+                    "best_epoch": best_epoch,
+                    "best_val_loss": best_val_loss,
+                    "model_state_dict": model.state_dict(),
+                    "sample_rate": sr_x,
+                    "model_cfg": model_cfg,
+                    "train_cfg": train_cfg,
+                },
+                models_dir / best_ckpt_basename,
+            )
+            log_message(log_path, f"Updated best epoch - {save_dir / best_ckpt_basename}")
 
     # Print final results
     final_sparsity = _global_sparsity(params_to_prune)
@@ -390,7 +429,7 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
     )
     log_message(
         log_path,
-        f"Training complete. best_epoch={best_epoch} - best_val_loss={best_val_loss:.5e} - {save_dir / 'best.pt'}"
+        f"Training complete. best_epoch={best_epoch} - best_val_loss={best_val_loss:.5e} - {save_dir / best_ckpt_basename}"
     )
 
 
@@ -399,8 +438,8 @@ def main() -> None:
     parser.add_argument(
         "--model_cfg",
         type=str,
-        default="cfg/model/ch16_ungated.json",
-        help="Path to model config JSON (default: cfg/model/ch16_ungated.json).",
+        default="cfg/model/example.json",
+        help="Path to model config JSON (default: cfg/model/example.json).",
     )
     parser.add_argument(
         "--train_cfg",
