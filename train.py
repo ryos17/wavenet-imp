@@ -208,7 +208,7 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
             # Update best model
             best_val_loss = avg_val_loss
             best_epoch = epoch
-            best_ckpt_basename = f"best-{run_name}-epoch_{best_epoch}-loss{best_val_loss:.5e}.pt"
+            best_ckpt_basename = f"best-{run_name}-epoch_{best_epoch}-loss_{best_val_loss:.5e}.pt"
             torch.save(
                 {
                     "best_epoch": best_epoch,
