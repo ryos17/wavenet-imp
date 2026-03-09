@@ -325,9 +325,7 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
                 # Compute loss
                 pred_valid = pred[:, valid_start:]
                 y_valid = yb[:, valid_start:]
-                pred_pre = pre_emphasis(pred_valid)
-                y_pre = pre_emphasis(y_valid)
-                val_loss = mse(pred_pre, y_pre)
+                val_loss = mse(pred_valid, y_valid)
 
                 # Update progress bar
                 val_loss_value = float(val_loss.item())
