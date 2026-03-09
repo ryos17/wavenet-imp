@@ -264,8 +264,8 @@ def main() -> None:
     parser.add_argument(
         "--chunk_size",
         type=int,
-        default=4410,
-        help="Chunk size in samples (default: 4410, i.e. 100 ms at 44.1 kHz).",
+        default=4800,
+        help="Chunk size in samples (default: 4800, i.e. 100 ms at 48 kHz).",
     )
     parser.add_argument(
         "--num_workers",

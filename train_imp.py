@@ -421,8 +421,8 @@ def main() -> None:
     parser.add_argument(
         "--batch_size",
         type=int,
-        default=128,
-        help="Batch size (default: 128).",
+        default=40,
+        help="Batch size (default: 40).",
     )
     parser.add_argument(
         "--learning_rate",
@@ -433,8 +433,8 @@ def main() -> None:
     parser.add_argument(
         "--epochs",
         type=int,
-        default=20,
-        help="Number of epochs (default: 20).",
+        default=1500,
+        help="Number of epochs (default: 1500).",
     )
     parser.add_argument(
         "--input_wav",
@@ -451,8 +451,8 @@ def main() -> None:
     parser.add_argument(
         "--chunk_size",
         type=int,
-        default=8192,
-        help="Chunk size (default: 8192).",
+        default=4800,
+        help="Chunk size in samples (default: 4800, i.e. 100 ms at 48 kHz).",
     )
     parser.add_argument(
         "--num_workers",
