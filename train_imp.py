@@ -147,7 +147,7 @@ def _apply_incremental_pruning(
     raise ValueError(f"Unsupported prune_type: {prune_type}")
 
 
-def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path: str) -> None:
+def train(model_cfg: Dict, train_cfg: Dict) -> None:
     # Load train config
     seed = int(train_cfg["seed"])
     batch_size = int(train_cfg["batch_size"])
@@ -184,13 +184,11 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
     device = torch.device(device_name)
 
     # Create save directory with model config basename and date
-    model_basename = Path(model_cfg_path).stem
-    train_basename = Path(train_cfg_path).stem
     run_stamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")
-    save_dir = Path("checkpoints") / f"{model_basename}-{train_basename}-{run_stamp}"
+    wav_name = Path(target_wav).stem
+    run_name = f"{wav_name}-b{batch_size}-lr{learning_rate}-e{epochs}-p{int(sparsity_target * 100)}-{prune_schedule}-ps{prune_start_epoch}-pe{prune_end_epoch}-{run_stamp}"
+    save_dir = Path("checkpoints") / run_name
     save_dir.mkdir(parents=True, exist_ok=True)
-    models_dir = Path("models")
-    models_dir.mkdir(parents=True, exist_ok=True)
 
     # Create log file
     log_path = save_dir / "logs.txt"
@@ -338,7 +336,7 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
         # Create epoch directory and save checkpoint
         epoch_dir = save_dir / f"epoch_{epoch:03d}"
         epoch_dir.mkdir(parents=True, exist_ok=True)
-        ckpt_path = epoch_dir / f"{model_basename}-{train_basename}-epoch_{epoch}.pt"
+        ckpt_path = epoch_dir / f"{run_name}-epoch_{epoch}.pt"
         torch.save(
             {
                 "epoch": epoch,
@@ -375,15 +373,12 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
             # Delete previous best checkpoint if it exists
             if 'best_ckpt_basename' in locals():
                 prev_best_save_ckpt = save_dir / best_ckpt_basename
-                prev_best_models_ckpt = models_dir / best_ckpt_basename
                 if prev_best_save_ckpt.exists():
                     prev_best_save_ckpt.unlink()
-                if prev_best_models_ckpt.exists():
-                    prev_best_models_ckpt.unlink()
             # Update best model
             best_val_loss = avg_val_loss
             best_epoch = epoch
-            best_ckpt_basename = f"{model_basename}-{train_basename}-epoch_{best_epoch}-best.pt"
+            best_ckpt_basename = f"best-{run_name}-epoch_{best_epoch}-loss{best_val_loss:.5e}.pt"
             torch.save(
                 {
                     "best_epoch": best_epoch,
@@ -394,17 +389,6 @@ def train(model_cfg: Dict, train_cfg: Dict, model_cfg_path: str, train_cfg_path:
                     "train_cfg": train_cfg,
                 },
                 save_dir / best_ckpt_basename,
-            )
-            torch.save(
-                {
-                    "best_epoch": best_epoch,
-                    "best_val_loss": best_val_loss,
-                    "model_state_dict": model.state_dict(),
-                    "sample_rate": sr_x,
-                    "model_cfg": model_cfg,
-                    "train_cfg": train_cfg,
-                },
-                models_dir / best_ckpt_basename,
             )
             log_message(log_path, f"Updated best epoch - {save_dir / best_ckpt_basename}")
 
@@ -436,19 +420,147 @@ def main() -> None:
     parser.add_argument(
         "--model_cfg",
         type=str,
-        default="cfg/model/example.json",
-        help="Path to model config JSON (default: cfg/model/example.json).",
+        default="model_cfg/example.json",
+        help="Path to model config JSON (default: model_cfg/example.json).",
     )
     parser.add_argument(
-        "--train_cfg",
+        "--seed",
+        type=int,
+        default=42,
+        help="Random seed (default: 42).",
+    )
+    parser.add_argument(
+        "--batch_size",
+        type=int,
+        default=128,
+        help="Batch size (default: 128).",
+    )
+    parser.add_argument(
+        "--learning_rate",
+        type=float,
+        default=0.001,
+        help="Learning rate (default: 0.001).",
+    )
+    parser.add_argument(
+        "--epochs",
+        type=int,
+        default=20,
+        help="Number of epochs (default: 20).",
+    )
+    parser.add_argument(
+        "--input_wav",
         type=str,
-        default="cfg/train_imp/example.json",
-        help="Path to train config JSON (default: cfg/train_imp/example.json).",
+        default="data/example/input.wav",
+        help="Input wav path (default: data/example/input.wav).",
+    )
+    parser.add_argument(
+        "--target_wav",
+        type=str,
+        default="data/example/output.wav",
+        help="Target wav path (default: data/example/output.wav).",
+    )
+    parser.add_argument(
+        "--chunk_size",
+        type=int,
+        default=8192,
+        help="Chunk size (default: 8192).",
+    )
+    parser.add_argument(
+        "--steps_per_epoch",
+        type=int,
+        default=200,
+        help="Training steps per epoch (default: 200).",
+    )
+    parser.add_argument(
+        "--val_steps_per_epoch",
+        type=int,
+        default=50,
+        help="Validation steps per epoch (default: 50).",
+    )
+    parser.add_argument(
+        "--num_workers",
+        type=int,
+        default=0,
+        help="Dataloader workers (default: 0).",
+    )
+    parser.add_argument(
+        "--train_split",
+        type=float,
+        default=0.8,
+        help="Train split ratio (default: 0.8).",
+    )
+    parser.add_argument(
+        "--val_split",
+        type=float,
+        default=0.2,
+        help="Validation split ratio (default: 0.2).",
+    )
+    parser.add_argument(
+        "--val_audio_seconds",
+        type=int,
+        default=5,
+        help="Validation audio export length in seconds (default: 5).",
+    )
+    parser.add_argument(
+        "--device",
+        type=str,
+        default="cuda",
+        help="Training device (default: cuda).",
+    )
+    parser.add_argument(
+        "--sparsity_target",
+        type=float,
+        default=0.9,
+        help="Target sparsity (default: 0.9).",
+    )
+    parser.add_argument(
+        "--prune_type",
+        type=str,
+        default="global",
+        help="Pruning type: global or local (default: global).",
+    )
+    parser.add_argument(
+        "--prune_schedule",
+        type=str,
+        default="linear",
+        help="Pruning schedule: linear or exponential (default: linear).",
+    )
+    parser.add_argument(
+        "--prune_start_epoch",
+        type=int,
+        default=2,
+        help="Epoch to start pruning (default: 2).",
+    )
+    parser.add_argument(
+        "--prune_end_epoch",
+        type=int,
+        default=10,
+        help="Epoch to end pruning (default: 10).",
     )
     args = parser.parse_args()
     model_cfg = load_json(args.model_cfg)
-    train_cfg = load_json(args.train_cfg)
-    train(model_cfg, train_cfg, model_cfg_path=args.model_cfg, train_cfg_path=args.train_cfg)
+    train_cfg = {
+        "seed": args.seed,
+        "batch_size": args.batch_size,
+        "learning_rate": args.learning_rate,
+        "epochs": args.epochs,
+        "input_wav": args.input_wav,
+        "target_wav": args.target_wav,
+        "chunk_size": args.chunk_size,
+        "steps_per_epoch": args.steps_per_epoch,
+        "val_steps_per_epoch": args.val_steps_per_epoch,
+        "num_workers": args.num_workers,
+        "train_split": args.train_split,
+        "val_split": args.val_split,
+        "val_audio_seconds": args.val_audio_seconds,
+        "device": args.device,
+        "sparsity_target": args.sparsity_target,
+        "prune_type": args.prune_type,
+        "prune_schedule": args.prune_schedule,
+        "prune_start_epoch": args.prune_start_epoch,
+        "prune_end_epoch": args.prune_end_epoch,
+    }
+    train(model_cfg, train_cfg)
 
 
 if __name__ == "__main__":
