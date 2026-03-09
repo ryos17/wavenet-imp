@@ -6,8 +6,33 @@ from pathlib import Path
 import soundfile as sf
 import torch
 
-from utils.util import pre_emphasis, read_audio_mono
+from utils.util import read_audio_mono
 from utils.wavenet import WaveNet
+
+
+def _materialize_pruned_state_dict(
+    state_dict: dict[str, torch.Tensor],
+) -> tuple[dict[str, torch.Tensor], int]:
+    """Convert *_orig/*_mask pruning keys into standard parameter keys."""
+    converted: dict[str, torch.Tensor] = {}
+    converted_count = 0
+
+    # Keep regular parameters/buffers
+    for key, value in state_dict.items():
+        if key.endswith("_orig") or key.endswith("_mask"):
+            continue
+        converted[key] = value
+
+    # Materialize pruned tensors: `weight = weight_orig * weight_mask`.
+    for key, value in state_dict.items():
+        if not key.endswith("_orig"):
+            continue
+        base_key = key[: -len("_orig")]
+        mask_key = f"{base_key}_mask"
+        converted[base_key] = value * state_dict[mask_key]
+        converted_count += 1
+
+    return converted, converted_count
 
 
 def load_model(model_path: str, device: torch.device) -> tuple[torch.nn.Module, int | None]:
@@ -17,12 +42,16 @@ def load_model(model_path: str, device: torch.device) -> tuple[torch.nn.Module, 
     # Create model from config
     model = WaveNet.from_config_dict(ckpt["model_cfg"]).to(device)
 
-    # Load model state dict
-    model.load_state_dict(ckpt["model_state_dict"])
+    # Load model state dict, supporting pruning reparameterized checkpoints.
+    state_dict, converted_count = _materialize_pruned_state_dict(ckpt["model_state_dict"])
+    if converted_count > 0:
+        print(f"Detected pruned checkpoint: materialized {converted_count} masked tensors.")
+    model.load_state_dict(state_dict)
 
     # Return model and sample rate
     sample_rate = ckpt.get("sample_rate")
     return model.eval(), sample_rate
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Very simple WaveNet eval script.")
@@ -50,7 +79,6 @@ def main() -> None:
     # Generate output audio
     with torch.no_grad():
         x_tensor = torch.from_numpy(x).to(device)[None, :]
-        x_tensor = pre_emphasis(x_tensor)
         y_tensor = model(x_tensor)
         if y_tensor.ndim == 3 and y_tensor.shape[1] == 1:
             y_tensor = y_tensor[:, 0, :]
