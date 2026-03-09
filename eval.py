@@ -6,7 +6,7 @@ from pathlib import Path
 import soundfile as sf
 import torch
 
-from utils.util import read_audio_mono
+from utils.util import pre_emphasis, read_audio_mono
 from utils.wavenet import WaveNet
 
 
@@ -50,6 +50,7 @@ def main() -> None:
     # Generate output audio
     with torch.no_grad():
         x_tensor = torch.from_numpy(x).to(device)[None, :]
+        x_tensor = pre_emphasis(x_tensor)
         y_tensor = model(x_tensor)
         if y_tensor.ndim == 3 and y_tensor.shape[1] == 1:
             y_tensor = y_tensor[:, 0, :]

@@ -14,24 +14,26 @@ conda activate wavenet-imp
 ### Training (standard):
 
 ```bash
-python train.py --model_cfg cfg/model/ch16_ungated.json --train_cfg cfg/train/example.json
+python train.py --model_cfg cfg/model/ch16_ungated.json
 ```
 
 **Notes:**
 - Checkpoints and logs are saved to `checkpoints/<run_stamp>/`.
-- Each epoch writes `{model_basename}-epoch_{epoch}.pt`, `source.wav`, `target.wav`, and `model_output.wav` in `epoch_<XXX>/`.
-- The best model (by validation loss) is saved as `{model_basename}-best.pt` in the run folder.
+- The best model (based on validation loss) is saved in the run folder.
+- Each run folder will also contain `source.wav`, `target.wav`, `model_output.wav`, the model checkpoint (`.pt` file), log files, and per-epoch loss history.
+- There are many configuration options you can adjust—see the argument parser in `train.py` for details. Default arguments match those used in the paper.
 
 ### Training with pruning (IMP):
 
 ```bash
-python train_imp.py --model_cfg cfg/model/ch16_ungated.json --train_cfg cfg/train_imp/example.json
+python train_imp.py --model_cfg cfg/model/ch16_ungated.json
 ```
 
 **Notes:**
 - Checkpoints and logs are saved to `checkpoints/<run_stamp>/`.
-- Each epoch writes `prune_{sparsity}_{model_basename}-epoch_{epoch}.pt`, `source.wav`, `target.wav`, and `model_output.wav` in `epoch_<XXX>/`.
-- The best model (by validation loss) is saved as `prune_{sparsity}_{model_basename}-best.pt` in the run folder.
+- The best model (based on validation loss) is saved in the run folder.
+- Each run folder will also contain `source.wav`, `target.wav`, `model_output.wav`, the model checkpoint (`.pt` file), log files, and per-epoch loss history.
+- There are many configuration options you can adjust—see the argument parser in `train.py` for details. Default arguments match those used in the paper.
 
 ### Evaluation:
 
