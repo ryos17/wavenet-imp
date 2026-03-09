@@ -52,6 +52,7 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
     losses_json_path = save_dir / "losses.json"
     log_message(log_path, f"Train config: {train_cfg}")
     log_message(log_path, f"Model config: {model_cfg}")
+    train_start_time = datetime.now()
 
     # Load audio files
     x, sr_x = read_audio_mono(input_wav)
@@ -215,6 +216,11 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
         log_message(log_path, f"Training complete. best_epoch={best_epoch} - best_val_loss={best_val_loss:.5e} - {save_dir / best_ckpt_basename}")
     else:
         log_message(log_path, "Training complete. No best checkpoint was saved.")
+    elapsed_seconds = (datetime.now() - train_start_time).total_seconds()
+    elapsed_h = int(elapsed_seconds // 3600)
+    elapsed_m = int((elapsed_seconds % 3600) // 60)
+    elapsed_s = elapsed_seconds % 60.0
+    log_message(log_path, f"Total runtime: {elapsed_h:02d}:{elapsed_m:02d}:{elapsed_s:06.3f}")
 
 
 def main() -> None:
