@@ -184,7 +184,7 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
     # Create save directory with model config basename and date
     run_stamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")
     wav_name = Path(target_wav).stem
-    run_name = f"{wav_name}-b{batch_size}-lr{learning_rate}-e{epochs}-p{int(sparsity_target * 100)}-{prune_schedule}-ps{prune_start_epoch}-pe{prune_end_epoch}-{run_stamp}"
+    run_name = f"{wav_name}-b{batch_size}-lr{learning_rate}-e{epochs}-p{int(sparsity_target * 100)}-{prune_type}-{prune_schedule}-ps{prune_start_epoch}-pe{prune_end_epoch}-{run_stamp}"
     save_dir = Path("checkpoints") / run_name
     save_dir.mkdir(parents=True, exist_ok=True)
 
@@ -517,8 +517,8 @@ def main() -> None:
     parser.add_argument(
         "--prune_end_epoch",
         type=int,
-        default=500,
-        help="Epoch to end pruning (default: 500).",
+        default=750,
+        help="Epoch to end pruning (default: 750).",
     )
     args = parser.parse_args()
     model_cfg = load_json(args.model_cfg)
