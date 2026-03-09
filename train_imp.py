@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import math
 from datetime import datetime
 from pathlib import Path
@@ -10,7 +11,6 @@ import numpy as np
 import soundfile as sf
 import torch
 import torch.nn.utils.prune as prune
-from tqdm import tqdm
 
 from utils.util import (
     build_dataloader,
@@ -156,8 +156,6 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
     input_wav = train_cfg["input_wav"]
     target_wav = train_cfg["target_wav"]
     chunk_size = int(train_cfg["chunk_size"])
-    steps_per_epoch = int(train_cfg["steps_per_epoch"])
-    val_steps_per_epoch = int(train_cfg["val_steps_per_epoch"])
     num_workers = int(train_cfg["num_workers"])
     train_split = float(train_cfg["train_split"])
     val_split = float(train_cfg["val_split"])
@@ -192,6 +190,7 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
 
     # Create log file
     log_path = save_dir / "logs.txt"
+    losses_json_path = save_dir / "losses.json"
     log_message(log_path, f"Train config: {train_cfg}")
     log_message(log_path, f"Model config: {model_cfg}")
 
@@ -215,10 +214,9 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
     params_to_prune = _collect_prunable_params(model)
     total_prunable_params = sum(getattr(module, name).numel() for module, name in params_to_prune)
     total_params = sum(p.numel() for p in model.parameters())
-    log_message(
-        log_path,
-        f"Found {total_prunable_params} prunable parameters out of {total_params} total parameters."
-    )
+    log_message(log_path, "=============================================================")
+    log_message(log_path, f"Found {total_prunable_params} prunable parameters out of {total_params} total parameters.")
+    log_message(log_path, "=============================================================")
     if not params_to_prune:
         raise ValueError("No prunable parameters found (expected weight tensors with dim > 1).")
     
@@ -241,7 +239,6 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
         y=y_train,
         batch_size=batch_size,
         chunk_size=chunk_size,
-        steps_per_epoch=steps_per_epoch,
         num_workers=num_workers,
     )
     val_loader = build_dataloader(
@@ -249,24 +246,26 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
         y=y_val,
         batch_size=batch_size,
         chunk_size=chunk_size,
-        steps_per_epoch=val_steps_per_epoch,
         num_workers=num_workers,
     )
+    train_steps_per_epoch = len(train_loader)
 
     # Train loop
     best_val_loss = float("inf")
     best_epoch = -1
+    best_ckpt_basename: str | None = None
+    epoch_loss_history: list[dict[str, float | None]] = []
     for epoch in range(1, epochs + 1):
         model.train()
         epoch_losses = []
+        current_sparsity = _global_sparsity(params_to_prune)
 
-        pbar = tqdm(train_loader, desc=f"Epoch {epoch}/{epochs} [train]", leave=True)
-        for batch_idx, (xb, yb) in enumerate(pbar):
+        for batch_idx, (xb, yb) in enumerate(train_loader):
             # Compute scheduled sparsity
-            global_step = (epoch - 1) * steps_per_epoch + batch_idx
+            global_step = (epoch - 1) * train_steps_per_epoch + batch_idx
             target_batch_sparsity = _scheduled_sparsity(
                 global_step=global_step,
-                steps_per_epoch=steps_per_epoch,
+                steps_per_epoch=train_steps_per_epoch,
                 prune_start_epoch=prune_start_epoch,
                 prune_end_epoch=prune_end_epoch,
                 sparsity_target=sparsity_target,
@@ -299,10 +298,9 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
             loss.backward()
             optimizer.step()
 
-            # Update progress bar
+            # Track batch loss
             loss_value = float(loss.item())
             epoch_losses.append(loss_value)
-            pbar.set_postfix(loss=f"{loss_value:.6f}", sparse=f"{current_sparsity:.4f}")
 
         # Compute average train loss
         avg_train_loss = float(np.mean(epoch_losses)) if epoch_losses else float("nan")
@@ -311,8 +309,7 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
         model.eval()
         val_losses = []
         with torch.no_grad():
-            val_pbar = tqdm(val_loader, desc=f"Epoch {epoch}/{epochs} [val]", leave=False)
-            for xb, yb in val_pbar:
+            for xb, yb in val_loader:
                 # Move data to device
                 xb = xb.to(device)
                 yb = yb.to(device)
@@ -323,62 +320,31 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
                 # Compute loss
                 pred_valid = pred[:, valid_start:]
                 y_valid = yb[:, valid_start:]
-                val_loss = mse(pred_valid, y_valid)
+                pred_pre = pre_emphasis(pred_valid)
+                y_pre = pre_emphasis(y_valid)
+                val_loss = mse(pred_pre, y_pre)
 
-                # Update progress bar
+                # Track batch validation loss
                 val_loss_value = float(val_loss.item())
                 val_losses.append(val_loss_value)
-                val_pbar.set_postfix(loss=f"{val_loss_value:.6f}")
 
         # Compute average validation loss
         avg_val_loss = float(np.mean(val_losses)) if val_losses else float("nan")
 
-        # Create epoch directory and save checkpoint
-        epoch_dir = save_dir / f"epoch_{epoch:03d}"
-        epoch_dir.mkdir(parents=True, exist_ok=True)
-        ckpt_path = epoch_dir / f"{run_name}-epoch_{epoch}.pt"
-        torch.save(
-            {
-                "epoch": epoch,
-                "avg_train_loss": avg_train_loss,
-                "avg_val_loss": avg_val_loss,
-                "model_state_dict": model.state_dict(),
-                "sample_rate": sr_x,
-                "model_cfg": model_cfg,
-                "train_cfg": train_cfg,
-            },
-            ckpt_path,
-        )
-
-        # Save validation sample
-        num_samples = min(val_audio_seconds * sr_x, x_val.shape[0], y_val.shape[0])
-        sample_x = x_val[:num_samples].copy()
-        sample_y = y_val[:num_samples].copy()
-        with torch.no_grad():
-            sample_in = torch.from_numpy(sample_x).to(device)[None, :]
-            sample_pred = model(sample_in).squeeze(0).detach().cpu().numpy().astype(np.float32)
-        sf.write(str(epoch_dir / "source.wav"), sample_x, sr_x)
-        sf.write(str(epoch_dir / "target.wav"), sample_y, sr_x)
-        sf.write(str(epoch_dir / "model_output.wav"), sample_pred, sr_x)
-
         # Print epoch results
-        log_message(
-            log_path,
-            f"Epoch {epoch}/{epochs} - train_loss={avg_train_loss:.5e} "
-            f"- val_loss={avg_val_loss:.5e} - {epoch_dir}"
-        )
+        log_message(log_path, f"Epoch {epoch}/{epochs} - train_loss={avg_train_loss:.5e} - val_loss={avg_val_loss:.5e} - current_sparsity={current_sparsity:.2f}")
 
         # Update best model and must be fully pruned
         if avg_val_loss < best_val_loss and current_sparsity >= sparsity_target:
             # Delete previous best checkpoint if it exists
-            if 'best_ckpt_basename' in locals():
+            if best_ckpt_basename is not None:
                 prev_best_save_ckpt = save_dir / best_ckpt_basename
                 if prev_best_save_ckpt.exists():
                     prev_best_save_ckpt.unlink()
             # Update best model
             best_val_loss = avg_val_loss
             best_epoch = epoch
-            best_ckpt_basename = f"best-{run_name}-epoch_{best_epoch}-loss_{best_val_loss:.5e}.pt"
+            best_ckpt_basename = f"{run_name}-epoch_{best_epoch}-loss_{best_val_loss:.5e}.pt"
             torch.save(
                 {
                     "best_epoch": best_epoch,
@@ -390,7 +356,30 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
                 },
                 save_dir / best_ckpt_basename,
             )
-            log_message(log_path, f"Updated best epoch - {save_dir / best_ckpt_basename}")
+
+            # Save validation sample only for the current best model
+            num_samples = min(val_audio_seconds * sr_x, x_val.shape[0], y_val.shape[0])
+            sample_x = x_val[:num_samples].copy()
+            sample_y = y_val[:num_samples].copy()
+            with torch.no_grad():
+                sample_in = torch.from_numpy(sample_x).to(device)[None, :]
+                sample_pred = model(sample_in).squeeze(0).detach().cpu().numpy().astype(np.float32)
+            sf.write(str(save_dir / "source.wav"), sample_x, sr_x)
+            sf.write(str(save_dir / "target.wav"), sample_y, sr_x)
+            sf.write(str(save_dir / "model_output.wav"), sample_pred, sr_x)
+
+            log_message(log_path, "=============================================================")
+            log_message(log_path, f"Updated best model - epoch={best_epoch} - val_loss={best_val_loss:.5e}")
+            log_message(log_path, "=============================================================")
+            
+        epoch_loss_history.append(
+            {
+                "train_loss": float(avg_train_loss) if np.isfinite(avg_train_loss) else None,
+                "val_loss": float(avg_val_loss) if np.isfinite(avg_val_loss) else None,
+            }
+        )
+        with losses_json_path.open("w", encoding="utf-8") as f:
+            json.dump(epoch_loss_history, f, indent=2)
 
     # Print final results
     final_sparsity = _global_sparsity(params_to_prune)
@@ -409,10 +398,10 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
         f"  - Sparsity (pruned/prunable): {total_pruned_params/total_prunable_params:.6f}\n"
         f"  - Actual sparsity (pruned/total): {total_pruned_params/total_params:.6f}"
     )
-    log_message(
-        log_path,
-        f"Training complete. best_epoch={best_epoch} - best_val_loss={best_val_loss:.5e} - {save_dir / best_ckpt_basename}"
-    )
+    if best_ckpt_basename is not None:
+        log_message(log_path, f"Training complete. best_epoch={best_epoch} - best_val_loss={best_val_loss:.5e} - {save_dir / best_ckpt_basename}")
+    else:
+        log_message(log_path, "Training complete. No best checkpoint was saved.")
 
 
 def main() -> None:
@@ -466,18 +455,6 @@ def main() -> None:
         help="Chunk size (default: 8192).",
     )
     parser.add_argument(
-        "--steps_per_epoch",
-        type=int,
-        default=200,
-        help="Training steps per epoch (default: 200).",
-    )
-    parser.add_argument(
-        "--val_steps_per_epoch",
-        type=int,
-        default=50,
-        help="Validation steps per epoch (default: 50).",
-    )
-    parser.add_argument(
         "--num_workers",
         type=int,
         default=0,
@@ -528,14 +505,14 @@ def main() -> None:
     parser.add_argument(
         "--prune_start_epoch",
         type=int,
-        default=2,
-        help="Epoch to start pruning (default: 2).",
+        default=10,
+        help="Epoch to start pruning (default: 10).",
     )
     parser.add_argument(
         "--prune_end_epoch",
         type=int,
-        default=10,
-        help="Epoch to end pruning (default: 10).",
+        default=500,
+        help="Epoch to end pruning (default: 500).",
     )
     args = parser.parse_args()
     model_cfg = load_json(args.model_cfg)
@@ -547,8 +524,6 @@ def main() -> None:
         "input_wav": args.input_wav,
         "target_wav": args.target_wav,
         "chunk_size": args.chunk_size,
-        "steps_per_epoch": args.steps_per_epoch,
-        "val_steps_per_epoch": args.val_steps_per_epoch,
         "num_workers": args.num_workers,
         "train_split": args.train_split,
         "val_split": args.val_split,

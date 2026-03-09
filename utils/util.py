@@ -69,26 +69,27 @@ def pre_emphasis(x: torch.Tensor, coeff: float=0.95) -> torch.Tensor:
     return y
 
 
-class RandomChunkDataset(Dataset):
+class FixedChunkDataset(Dataset):
     """
-    Draw random aligned chunks from paired input/target waveforms.
+    Split paired waveforms into aligned fixed-size chunks.
     """
 
-    def __init__(self, x: np.ndarray, y: np.ndarray, chunk_size: int, samples_per_epoch: int):
+    def __init__(self, x: np.ndarray, y: np.ndarray, chunk_size: int):
         """Initialize the dataset."""
         self.x = torch.from_numpy(x)
         self.y = torch.from_numpy(y)
         self.chunk_size = int(chunk_size)
-        self.samples_per_epoch = int(samples_per_epoch)
-        self.max_start = len(x) - self.chunk_size
+        self.num_chunks = len(x) // self.chunk_size
+        if self.num_chunks <= 0:
+            raise ValueError("Not enough samples to build fixed chunks.")
 
     def __len__(self) -> int:
-        """Return the number of samples in the dataset."""
-        return self.samples_per_epoch
+        """Return the number of chunks in the dataset."""
+        return self.num_chunks
 
-    def __getitem__(self, _: int) -> Tuple[torch.Tensor, torch.Tensor]:
-        """Get a random chunk from the dataset."""
-        start = random.randint(0, self.max_start)
+    def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor]:
+        """Get chunk by index."""
+        start = idx * self.chunk_size
         end = start + self.chunk_size
         return self.x[start:end], self.y[start:end]
 
@@ -98,21 +99,19 @@ def build_dataloader(
     y: np.ndarray,
     batch_size: int,
     chunk_size: int,
-    steps_per_epoch: int,
     num_workers: int,
 ) -> DataLoader:
-    """Build a data loader for the dataset."""
-    ds = RandomChunkDataset(
+    """Build a fixed-chunk shuffled data loader."""
+    ds = FixedChunkDataset(
         x=x,
         y=y,
         chunk_size=chunk_size,
-        samples_per_epoch=steps_per_epoch * batch_size,
     )
     return DataLoader(
         ds,
         batch_size=batch_size,
         shuffle=True,
-        drop_last=True,
+        drop_last=False,
         num_workers=num_workers,
         pin_memory=torch.cuda.is_available(),
     )
