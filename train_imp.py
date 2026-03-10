@@ -499,14 +499,14 @@ def main() -> None:
     parser.add_argument(
         "--prune_type",
         type=str,
-        default="global",
-        help="Pruning type: global or local (default: global).",
+        default="local",
+        help="Pruning type: global or local (default: local).",
     )
     parser.add_argument(
         "--prune_schedule",
         type=str,
-        default="linear",
-        help="Pruning schedule: linear or exponential (default: linear).",
+        default="exponential",
+        help="Pruning schedule: linear or exponential (default: exponential).",
     )
     parser.add_argument(
         "--prune_start_epoch",
