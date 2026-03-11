@@ -1,0 +1,1678 @@
+Train config: {'seed': 42, 'batch_size': 40, 'learning_rate': 0.001, 'epochs': 1500, 'input_wav': 'data/example/input.wav', 'target_wav': 'data/example/output.wav', 'chunk_size': 4800, 'num_workers': 0, 'train_split': 0.8, 'val_split': 0.2, 'val_audio_seconds': 5, 'device': 'cuda', 'sparsity_target': 0.9, 'prune_type': 'local', 'prune_schedule': 'exponential', 'prune_start_epoch': 10, 'prune_end_epoch': 750}
+Model config: {'layers_configs': [{'input_size': 1, 'channels': 16, 'head_size': 16, 'kernel_size': 3, 'dilations': [1, 2, 4, 8, 16, 32, 64, 128, 256], 'activation': 'tanh', 'gated': False}, {'input_size': 16, 'channels': 16, 'head_size': 1, 'kernel_size': 3, 'dilations': [1, 2, 4, 8, 16, 32, 64, 128, 256], 'activation': 'tanh', 'gated': False}]}
+=============================================================
+Found 21152 prunable parameters out of 21913 total parameters.
+=============================================================
+Epoch 1/1500 - train_loss=1.12384e-03 - val_loss=4.02157e-04 - current_sparsity=0.00
+Epoch 2/1500 - train_loss=8.13343e-04 - val_loss=4.14525e-04 - current_sparsity=0.00
+Epoch 3/1500 - train_loss=7.74555e-04 - val_loss=4.07642e-04 - current_sparsity=0.00
+Epoch 4/1500 - train_loss=7.54190e-04 - val_loss=3.85350e-04 - current_sparsity=0.00
+Epoch 5/1500 - train_loss=7.41296e-04 - val_loss=3.93833e-04 - current_sparsity=0.00
+Epoch 6/1500 - train_loss=7.28535e-04 - val_loss=3.86409e-04 - current_sparsity=0.00
+Epoch 7/1500 - train_loss=7.22054e-04 - val_loss=3.98616e-04 - current_sparsity=0.00
+Epoch 8/1500 - train_loss=7.20790e-04 - val_loss=3.82586e-04 - current_sparsity=0.00
+Epoch 9/1500 - train_loss=7.19292e-04 - val_loss=3.79603e-04 - current_sparsity=0.00
+Epoch 10/1500 - train_loss=7.19123e-04 - val_loss=3.78757e-04 - current_sparsity=0.00
+Epoch 11/1500 - train_loss=7.13525e-04 - val_loss=3.86157e-04 - current_sparsity=0.01
+Epoch 12/1500 - train_loss=7.14098e-04 - val_loss=3.85287e-04 - current_sparsity=0.01
+Epoch 13/1500 - train_loss=7.06594e-04 - val_loss=3.80942e-04 - current_sparsity=0.01
+Epoch 14/1500 - train_loss=7.03769e-04 - val_loss=3.80719e-04 - current_sparsity=0.02
+Epoch 15/1500 - train_loss=6.91822e-04 - val_loss=3.66584e-04 - current_sparsity=0.02
+Epoch 16/1500 - train_loss=6.70702e-04 - val_loss=3.68543e-04 - current_sparsity=0.02
+Epoch 17/1500 - train_loss=6.41213e-04 - val_loss=3.31066e-04 - current_sparsity=0.03
+Epoch 18/1500 - train_loss=5.79691e-04 - val_loss=3.06442e-04 - current_sparsity=0.03
+Epoch 19/1500 - train_loss=5.26666e-04 - val_loss=2.62114e-04 - current_sparsity=0.03
+Epoch 20/1500 - train_loss=4.36497e-04 - val_loss=1.93130e-04 - current_sparsity=0.03
+Epoch 21/1500 - train_loss=3.55672e-04 - val_loss=1.38948e-04 - current_sparsity=0.04
+Epoch 22/1500 - train_loss=2.84327e-04 - val_loss=1.03090e-04 - current_sparsity=0.04
+Epoch 23/1500 - train_loss=2.35298e-04 - val_loss=7.48983e-05 - current_sparsity=0.04
+Epoch 24/1500 - train_loss=2.03271e-04 - val_loss=6.58733e-05 - current_sparsity=0.05
+Epoch 25/1500 - train_loss=1.80454e-04 - val_loss=5.04345e-05 - current_sparsity=0.05
+Epoch 26/1500 - train_loss=1.63747e-04 - val_loss=7.45850e-05 - current_sparsity=0.05
+Epoch 27/1500 - train_loss=1.49136e-04 - val_loss=5.06710e-05 - current_sparsity=0.05
+Epoch 28/1500 - train_loss=1.42999e-04 - val_loss=4.65395e-05 - current_sparsity=0.06
+Epoch 29/1500 - train_loss=1.30771e-04 - val_loss=3.17149e-05 - current_sparsity=0.06
+Epoch 30/1500 - train_loss=1.27302e-04 - val_loss=4.07630e-05 - current_sparsity=0.07
+Epoch 31/1500 - train_loss=1.18692e-04 - val_loss=2.81638e-05 - current_sparsity=0.07
+Epoch 32/1500 - train_loss=1.11206e-04 - val_loss=2.86301e-05 - current_sparsity=0.07
+Epoch 33/1500 - train_loss=1.07851e-04 - val_loss=2.60627e-05 - current_sparsity=0.07
+Epoch 34/1500 - train_loss=1.05068e-04 - val_loss=3.01911e-05 - current_sparsity=0.08
+Epoch 35/1500 - train_loss=1.03577e-04 - val_loss=3.05153e-05 - current_sparsity=0.08
+Epoch 36/1500 - train_loss=1.06531e-04 - val_loss=3.13664e-05 - current_sparsity=0.08
+Epoch 37/1500 - train_loss=9.54191e-05 - val_loss=2.42230e-05 - current_sparsity=0.08
+Epoch 38/1500 - train_loss=9.41861e-05 - val_loss=2.97548e-05 - current_sparsity=0.09
+Epoch 39/1500 - train_loss=9.22727e-05 - val_loss=2.30527e-05 - current_sparsity=0.09
+Epoch 40/1500 - train_loss=8.79729e-05 - val_loss=2.16790e-05 - current_sparsity=0.09
+Epoch 41/1500 - train_loss=8.49806e-05 - val_loss=2.07361e-05 - current_sparsity=0.10
+Epoch 42/1500 - train_loss=8.43770e-05 - val_loss=2.12891e-05 - current_sparsity=0.10
+Epoch 43/1500 - train_loss=8.39856e-05 - val_loss=2.72195e-05 - current_sparsity=0.10
+Epoch 44/1500 - train_loss=8.10535e-05 - val_loss=2.21903e-05 - current_sparsity=0.10
+Epoch 45/1500 - train_loss=8.06336e-05 - val_loss=2.49899e-05 - current_sparsity=0.11
+Epoch 46/1500 - train_loss=8.21102e-05 - val_loss=3.72495e-05 - current_sparsity=0.11
+Epoch 47/1500 - train_loss=7.90313e-05 - val_loss=2.01003e-05 - current_sparsity=0.11
+Epoch 48/1500 - train_loss=7.91292e-05 - val_loss=1.92527e-05 - current_sparsity=0.12
+Epoch 49/1500 - train_loss=7.39711e-05 - val_loss=2.31441e-05 - current_sparsity=0.12
+Epoch 50/1500 - train_loss=7.54101e-05 - val_loss=1.77960e-05 - current_sparsity=0.12
+Epoch 51/1500 - train_loss=7.19983e-05 - val_loss=2.39824e-05 - current_sparsity=0.12
+Epoch 52/1500 - train_loss=7.43374e-05 - val_loss=2.04753e-05 - current_sparsity=0.13
+Epoch 53/1500 - train_loss=7.61066e-05 - val_loss=1.88687e-05 - current_sparsity=0.13
+Epoch 54/1500 - train_loss=7.03813e-05 - val_loss=1.68161e-05 - current_sparsity=0.13
+Epoch 55/1500 - train_loss=6.86107e-05 - val_loss=2.02858e-05 - current_sparsity=0.14
+Epoch 56/1500 - train_loss=6.61225e-05 - val_loss=1.63624e-05 - current_sparsity=0.14
+Epoch 57/1500 - train_loss=6.51333e-05 - val_loss=1.72304e-05 - current_sparsity=0.14
+Epoch 58/1500 - train_loss=6.50102e-05 - val_loss=1.88784e-05 - current_sparsity=0.14
+Epoch 59/1500 - train_loss=6.19503e-05 - val_loss=1.43771e-05 - current_sparsity=0.14
+Epoch 60/1500 - train_loss=6.05176e-05 - val_loss=1.51233e-05 - current_sparsity=0.15
+Epoch 61/1500 - train_loss=5.99285e-05 - val_loss=1.62532e-05 - current_sparsity=0.15
+Epoch 62/1500 - train_loss=6.07569e-05 - val_loss=1.51512e-05 - current_sparsity=0.15
+Epoch 63/1500 - train_loss=6.24330e-05 - val_loss=2.00270e-05 - current_sparsity=0.16
+Epoch 64/1500 - train_loss=6.25225e-05 - val_loss=1.70479e-05 - current_sparsity=0.16
+Epoch 65/1500 - train_loss=5.83091e-05 - val_loss=1.56766e-05 - current_sparsity=0.16
+Epoch 66/1500 - train_loss=6.06818e-05 - val_loss=1.33633e-05 - current_sparsity=0.16
+Epoch 67/1500 - train_loss=6.28115e-05 - val_loss=1.35766e-05 - current_sparsity=0.17
+Epoch 68/1500 - train_loss=5.75890e-05 - val_loss=1.36538e-05 - current_sparsity=0.17
+Epoch 69/1500 - train_loss=5.61539e-05 - val_loss=1.98099e-05 - current_sparsity=0.17
+Epoch 70/1500 - train_loss=5.50295e-05 - val_loss=1.43778e-05 - current_sparsity=0.17
+Epoch 71/1500 - train_loss=5.51903e-05 - val_loss=1.67607e-05 - current_sparsity=0.18
+Epoch 72/1500 - train_loss=5.41522e-05 - val_loss=1.28034e-05 - current_sparsity=0.18
+Epoch 73/1500 - train_loss=5.46333e-05 - val_loss=1.87387e-05 - current_sparsity=0.18
+Epoch 74/1500 - train_loss=5.21205e-05 - val_loss=1.24602e-05 - current_sparsity=0.18
+Epoch 75/1500 - train_loss=5.15007e-05 - val_loss=1.35285e-05 - current_sparsity=0.19
+Epoch 76/1500 - train_loss=5.51702e-05 - val_loss=1.90115e-05 - current_sparsity=0.19
+Epoch 77/1500 - train_loss=5.43898e-05 - val_loss=1.39906e-05 - current_sparsity=0.19
+Epoch 78/1500 - train_loss=5.14351e-05 - val_loss=1.74040e-05 - current_sparsity=0.19
+Epoch 79/1500 - train_loss=5.14112e-05 - val_loss=1.67869e-05 - current_sparsity=0.20
+Epoch 80/1500 - train_loss=5.01820e-05 - val_loss=1.39582e-05 - current_sparsity=0.20
+Epoch 81/1500 - train_loss=5.02663e-05 - val_loss=1.27481e-05 - current_sparsity=0.20
+Epoch 82/1500 - train_loss=4.84651e-05 - val_loss=1.19804e-05 - current_sparsity=0.20
+Epoch 83/1500 - train_loss=4.65728e-05 - val_loss=1.28042e-05 - current_sparsity=0.21
+Epoch 84/1500 - train_loss=5.04291e-05 - val_loss=1.60488e-05 - current_sparsity=0.21
+Epoch 85/1500 - train_loss=4.63129e-05 - val_loss=1.24194e-05 - current_sparsity=0.21
+Epoch 86/1500 - train_loss=4.64051e-05 - val_loss=1.33569e-05 - current_sparsity=0.21
+Epoch 87/1500 - train_loss=4.53915e-05 - val_loss=1.17998e-05 - current_sparsity=0.22
+Epoch 88/1500 - train_loss=4.84298e-05 - val_loss=1.20871e-05 - current_sparsity=0.22
+Epoch 89/1500 - train_loss=4.62639e-05 - val_loss=1.25463e-05 - current_sparsity=0.22
+Epoch 90/1500 - train_loss=4.44308e-05 - val_loss=1.10109e-05 - current_sparsity=0.22
+Epoch 91/1500 - train_loss=4.49979e-05 - val_loss=1.43052e-05 - current_sparsity=0.23
+Epoch 92/1500 - train_loss=4.64500e-05 - val_loss=1.08182e-05 - current_sparsity=0.23
+Epoch 93/1500 - train_loss=4.35723e-05 - val_loss=1.12658e-05 - current_sparsity=0.23
+Epoch 94/1500 - train_loss=4.55934e-05 - val_loss=1.11546e-05 - current_sparsity=0.23
+Epoch 95/1500 - train_loss=4.19232e-05 - val_loss=1.06239e-05 - current_sparsity=0.24
+Epoch 96/1500 - train_loss=4.20221e-05 - val_loss=1.17936e-05 - current_sparsity=0.24
+Epoch 97/1500 - train_loss=4.19304e-05 - val_loss=1.10700e-05 - current_sparsity=0.24
+Epoch 98/1500 - train_loss=4.29498e-05 - val_loss=1.11369e-05 - current_sparsity=0.24
+Epoch 99/1500 - train_loss=4.19320e-05 - val_loss=1.08127e-05 - current_sparsity=0.25
+Epoch 100/1500 - train_loss=4.02686e-05 - val_loss=9.71995e-06 - current_sparsity=0.25
+Epoch 101/1500 - train_loss=4.10918e-05 - val_loss=1.02852e-05 - current_sparsity=0.25
+Epoch 102/1500 - train_loss=6.79716e-05 - val_loss=2.28619e-05 - current_sparsity=0.25
+Epoch 103/1500 - train_loss=5.58784e-05 - val_loss=1.27190e-05 - current_sparsity=0.25
+Epoch 104/1500 - train_loss=4.34090e-05 - val_loss=1.05503e-05 - current_sparsity=0.26
+Epoch 105/1500 - train_loss=3.92923e-05 - val_loss=1.03894e-05 - current_sparsity=0.26
+Epoch 106/1500 - train_loss=4.02618e-05 - val_loss=1.00697e-05 - current_sparsity=0.26
+Epoch 107/1500 - train_loss=3.90891e-05 - val_loss=1.02898e-05 - current_sparsity=0.26
+Epoch 108/1500 - train_loss=3.80214e-05 - val_loss=1.00724e-05 - current_sparsity=0.27
+Epoch 109/1500 - train_loss=3.95098e-05 - val_loss=1.14849e-05 - current_sparsity=0.27
+Epoch 110/1500 - train_loss=3.86992e-05 - val_loss=1.12429e-05 - current_sparsity=0.27
+Epoch 111/1500 - train_loss=4.16734e-05 - val_loss=9.71386e-06 - current_sparsity=0.27
+Epoch 112/1500 - train_loss=4.01367e-05 - val_loss=1.07409e-05 - current_sparsity=0.28
+Epoch 113/1500 - train_loss=3.98812e-05 - val_loss=9.37966e-06 - current_sparsity=0.28
+Epoch 114/1500 - train_loss=4.02809e-05 - val_loss=1.20841e-05 - current_sparsity=0.28
+Epoch 115/1500 - train_loss=3.79216e-05 - val_loss=1.13760e-05 - current_sparsity=0.28
+Epoch 116/1500 - train_loss=3.67029e-05 - val_loss=9.22941e-06 - current_sparsity=0.28
+Epoch 117/1500 - train_loss=3.51495e-05 - val_loss=8.83877e-06 - current_sparsity=0.29
+Epoch 118/1500 - train_loss=3.57086e-05 - val_loss=8.40308e-06 - current_sparsity=0.29
+Epoch 119/1500 - train_loss=3.54702e-05 - val_loss=1.03569e-05 - current_sparsity=0.29
+Epoch 120/1500 - train_loss=3.59915e-05 - val_loss=9.27017e-06 - current_sparsity=0.29
+Epoch 121/1500 - train_loss=3.96124e-05 - val_loss=9.72140e-06 - current_sparsity=0.30
+Epoch 122/1500 - train_loss=3.71309e-05 - val_loss=8.79536e-06 - current_sparsity=0.30
+Epoch 123/1500 - train_loss=3.73090e-05 - val_loss=1.41921e-05 - current_sparsity=0.30
+Epoch 124/1500 - train_loss=3.42120e-05 - val_loss=8.42470e-06 - current_sparsity=0.30
+Epoch 125/1500 - train_loss=3.55399e-05 - val_loss=9.03055e-06 - current_sparsity=0.30
+Epoch 126/1500 - train_loss=3.45105e-05 - val_loss=9.11619e-06 - current_sparsity=0.31
+Epoch 127/1500 - train_loss=3.33215e-05 - val_loss=8.59950e-06 - current_sparsity=0.31
+Epoch 128/1500 - train_loss=3.67363e-05 - val_loss=1.05545e-05 - current_sparsity=0.31
+Epoch 129/1500 - train_loss=3.59085e-05 - val_loss=9.15465e-06 - current_sparsity=0.31
+Epoch 130/1500 - train_loss=7.16293e-05 - val_loss=1.60020e-05 - current_sparsity=0.32
+Epoch 131/1500 - train_loss=4.97426e-05 - val_loss=9.52370e-06 - current_sparsity=0.32
+Epoch 132/1500 - train_loss=3.55424e-05 - val_loss=1.27664e-05 - current_sparsity=0.32
+Epoch 133/1500 - train_loss=3.40211e-05 - val_loss=8.11025e-06 - current_sparsity=0.32
+Epoch 134/1500 - train_loss=3.29221e-05 - val_loss=8.04408e-06 - current_sparsity=0.32
+Epoch 135/1500 - train_loss=3.22935e-05 - val_loss=9.20122e-06 - current_sparsity=0.32
+Epoch 136/1500 - train_loss=3.52261e-05 - val_loss=1.30310e-05 - current_sparsity=0.33
+Epoch 137/1500 - train_loss=3.32162e-05 - val_loss=9.63882e-06 - current_sparsity=0.33
+Epoch 138/1500 - train_loss=3.16685e-05 - val_loss=8.98681e-06 - current_sparsity=0.33
+Epoch 139/1500 - train_loss=3.39694e-05 - val_loss=2.22776e-05 - current_sparsity=0.33
+Epoch 140/1500 - train_loss=3.86733e-05 - val_loss=1.09290e-05 - current_sparsity=0.34
+Epoch 141/1500 - train_loss=3.14376e-05 - val_loss=8.24134e-06 - current_sparsity=0.34
+Epoch 142/1500 - train_loss=3.07562e-05 - val_loss=8.62733e-06 - current_sparsity=0.34
+Epoch 143/1500 - train_loss=3.10059e-05 - val_loss=7.55119e-06 - current_sparsity=0.34
+Epoch 144/1500 - train_loss=3.04217e-05 - val_loss=1.55754e-05 - current_sparsity=0.34
+Epoch 145/1500 - train_loss=3.16603e-05 - val_loss=7.52309e-06 - current_sparsity=0.35
+Epoch 146/1500 - train_loss=3.04064e-05 - val_loss=8.15901e-06 - current_sparsity=0.35
+Epoch 147/1500 - train_loss=2.93783e-05 - val_loss=8.14237e-06 - current_sparsity=0.35
+Epoch 148/1500 - train_loss=2.99989e-05 - val_loss=8.13121e-06 - current_sparsity=0.35
+Epoch 149/1500 - train_loss=3.11421e-05 - val_loss=1.16110e-05 - current_sparsity=0.35
+Epoch 150/1500 - train_loss=3.55832e-05 - val_loss=2.26222e-05 - current_sparsity=0.36
+Epoch 151/1500 - train_loss=3.42045e-05 - val_loss=7.44204e-06 - current_sparsity=0.36
+Epoch 152/1500 - train_loss=2.89127e-05 - val_loss=7.65584e-06 - current_sparsity=0.36
+Epoch 153/1500 - train_loss=3.21150e-05 - val_loss=8.02050e-06 - current_sparsity=0.36
+Epoch 154/1500 - train_loss=2.83441e-05 - val_loss=7.47293e-06 - current_sparsity=0.36
+Epoch 155/1500 - train_loss=2.92504e-05 - val_loss=7.43153e-06 - current_sparsity=0.37
+Epoch 156/1500 - train_loss=2.93856e-05 - val_loss=7.68914e-06 - current_sparsity=0.37
+Epoch 157/1500 - train_loss=3.10009e-05 - val_loss=9.07062e-06 - current_sparsity=0.37
+Epoch 158/1500 - train_loss=2.93514e-05 - val_loss=7.55328e-06 - current_sparsity=0.37
+Epoch 159/1500 - train_loss=2.90450e-05 - val_loss=8.98030e-06 - current_sparsity=0.37
+Epoch 160/1500 - train_loss=2.89111e-05 - val_loss=7.35799e-06 - current_sparsity=0.38
+Epoch 161/1500 - train_loss=5.44708e-05 - val_loss=1.68196e-05 - current_sparsity=0.38
+Epoch 162/1500 - train_loss=3.22119e-05 - val_loss=7.51164e-06 - current_sparsity=0.38
+Epoch 163/1500 - train_loss=2.99952e-05 - val_loss=9.04494e-06 - current_sparsity=0.38
+Epoch 164/1500 - train_loss=2.85099e-05 - val_loss=7.01311e-06 - current_sparsity=0.38
+Epoch 165/1500 - train_loss=3.02665e-05 - val_loss=1.13447e-05 - current_sparsity=0.39
+Epoch 166/1500 - train_loss=2.83696e-05 - val_loss=6.82714e-06 - current_sparsity=0.39
+Epoch 167/1500 - train_loss=3.05852e-05 - val_loss=9.42112e-06 - current_sparsity=0.39
+Epoch 168/1500 - train_loss=2.81558e-05 - val_loss=6.52842e-06 - current_sparsity=0.39
+Epoch 169/1500 - train_loss=2.75463e-05 - val_loss=6.70842e-06 - current_sparsity=0.39
+Epoch 170/1500 - train_loss=2.72779e-05 - val_loss=6.84481e-06 - current_sparsity=0.39
+Epoch 171/1500 - train_loss=3.21299e-05 - val_loss=7.69147e-06 - current_sparsity=0.40
+Epoch 172/1500 - train_loss=2.98487e-05 - val_loss=8.27003e-06 - current_sparsity=0.40
+Epoch 173/1500 - train_loss=2.70913e-05 - val_loss=7.35682e-06 - current_sparsity=0.40
+Epoch 174/1500 - train_loss=2.86102e-05 - val_loss=9.03456e-06 - current_sparsity=0.40
+Epoch 175/1500 - train_loss=2.96813e-05 - val_loss=9.77988e-06 - current_sparsity=0.40
+Epoch 176/1500 - train_loss=2.72911e-05 - val_loss=6.71071e-06 - current_sparsity=0.41
+Epoch 177/1500 - train_loss=2.59248e-05 - val_loss=7.63194e-06 - current_sparsity=0.41
+Epoch 178/1500 - train_loss=2.61384e-05 - val_loss=7.02423e-06 - current_sparsity=0.41
+Epoch 179/1500 - train_loss=2.56792e-05 - val_loss=6.52361e-06 - current_sparsity=0.41
+Epoch 180/1500 - train_loss=2.93649e-05 - val_loss=7.58219e-06 - current_sparsity=0.41
+Epoch 181/1500 - train_loss=2.59527e-05 - val_loss=7.75504e-06 - current_sparsity=0.41
+Epoch 182/1500 - train_loss=2.67041e-05 - val_loss=6.46863e-06 - current_sparsity=0.42
+Epoch 183/1500 - train_loss=2.55091e-05 - val_loss=6.85923e-06 - current_sparsity=0.42
+Epoch 184/1500 - train_loss=3.03073e-05 - val_loss=6.51384e-06 - current_sparsity=0.42
+Epoch 185/1500 - train_loss=2.69985e-05 - val_loss=6.01460e-06 - current_sparsity=0.42
+Epoch 186/1500 - train_loss=2.57905e-05 - val_loss=6.59315e-06 - current_sparsity=0.42
+Epoch 187/1500 - train_loss=2.69809e-05 - val_loss=7.37939e-06 - current_sparsity=0.43
+Epoch 188/1500 - train_loss=2.55179e-05 - val_loss=6.39112e-06 - current_sparsity=0.43
+Epoch 189/1500 - train_loss=2.44254e-05 - val_loss=6.23220e-06 - current_sparsity=0.43
+Epoch 190/1500 - train_loss=2.56036e-05 - val_loss=6.68863e-06 - current_sparsity=0.43
+Epoch 191/1500 - train_loss=2.57055e-05 - val_loss=6.68231e-06 - current_sparsity=0.43
+Epoch 192/1500 - train_loss=2.74270e-05 - val_loss=1.81404e-05 - current_sparsity=0.44
+Epoch 193/1500 - train_loss=2.75722e-05 - val_loss=6.35481e-06 - current_sparsity=0.44
+Epoch 194/1500 - train_loss=2.47147e-05 - val_loss=6.16317e-06 - current_sparsity=0.44
+Epoch 195/1500 - train_loss=4.25565e-05 - val_loss=1.47795e-05 - current_sparsity=0.44
+Epoch 196/1500 - train_loss=2.66257e-05 - val_loss=7.86845e-06 - current_sparsity=0.44
+Epoch 197/1500 - train_loss=2.52991e-05 - val_loss=6.88046e-06 - current_sparsity=0.44
+Epoch 198/1500 - train_loss=2.48491e-05 - val_loss=1.24934e-05 - current_sparsity=0.45
+Epoch 199/1500 - train_loss=2.60511e-05 - val_loss=5.83886e-06 - current_sparsity=0.45
+Epoch 200/1500 - train_loss=2.52118e-05 - val_loss=7.97358e-06 - current_sparsity=0.45
+Epoch 201/1500 - train_loss=2.64865e-05 - val_loss=1.21610e-05 - current_sparsity=0.45
+Epoch 202/1500 - train_loss=2.61942e-05 - val_loss=6.49879e-06 - current_sparsity=0.45
+Epoch 203/1500 - train_loss=2.46454e-05 - val_loss=6.20196e-06 - current_sparsity=0.45
+Epoch 204/1500 - train_loss=3.04547e-05 - val_loss=8.31273e-06 - current_sparsity=0.46
+Epoch 205/1500 - train_loss=2.51645e-05 - val_loss=5.96184e-06 - current_sparsity=0.46
+Epoch 206/1500 - train_loss=2.54371e-05 - val_loss=6.17300e-06 - current_sparsity=0.46
+Epoch 207/1500 - train_loss=2.32929e-05 - val_loss=5.74428e-06 - current_sparsity=0.46
+Epoch 208/1500 - train_loss=2.41076e-05 - val_loss=9.02656e-06 - current_sparsity=0.46
+Epoch 209/1500 - train_loss=2.34003e-05 - val_loss=5.73406e-06 - current_sparsity=0.46
+Epoch 210/1500 - train_loss=2.32203e-05 - val_loss=5.80832e-06 - current_sparsity=0.47
+Epoch 211/1500 - train_loss=2.33301e-05 - val_loss=5.58369e-06 - current_sparsity=0.47
+Epoch 212/1500 - train_loss=2.39555e-05 - val_loss=7.23331e-06 - current_sparsity=0.47
+Epoch 213/1500 - train_loss=2.46646e-05 - val_loss=5.87332e-06 - current_sparsity=0.47
+Epoch 214/1500 - train_loss=2.41997e-05 - val_loss=5.90537e-06 - current_sparsity=0.47
+Epoch 215/1500 - train_loss=2.43444e-05 - val_loss=7.81682e-06 - current_sparsity=0.48
+Epoch 216/1500 - train_loss=2.51470e-05 - val_loss=5.40258e-06 - current_sparsity=0.48
+Epoch 217/1500 - train_loss=2.25282e-05 - val_loss=6.06847e-06 - current_sparsity=0.48
+Epoch 218/1500 - train_loss=2.30755e-05 - val_loss=5.51258e-06 - current_sparsity=0.48
+Epoch 219/1500 - train_loss=2.20068e-05 - val_loss=5.93795e-06 - current_sparsity=0.48
+Epoch 220/1500 - train_loss=2.34023e-05 - val_loss=6.10065e-06 - current_sparsity=0.48
+Epoch 221/1500 - train_loss=2.37418e-05 - val_loss=5.98074e-06 - current_sparsity=0.48
+Epoch 222/1500 - train_loss=2.18836e-05 - val_loss=6.66493e-06 - current_sparsity=0.48
+Epoch 223/1500 - train_loss=3.17618e-05 - val_loss=6.12134e-06 - current_sparsity=0.49
+Epoch 224/1500 - train_loss=2.29600e-05 - val_loss=7.35782e-06 - current_sparsity=0.49
+Epoch 225/1500 - train_loss=2.49101e-05 - val_loss=6.35157e-06 - current_sparsity=0.49
+Epoch 226/1500 - train_loss=2.28556e-05 - val_loss=5.51815e-06 - current_sparsity=0.49
+Epoch 227/1500 - train_loss=2.13812e-05 - val_loss=5.46328e-06 - current_sparsity=0.49
+Epoch 228/1500 - train_loss=2.29262e-05 - val_loss=5.23805e-06 - current_sparsity=0.50
+Epoch 229/1500 - train_loss=2.09294e-05 - val_loss=5.73726e-06 - current_sparsity=0.50
+Epoch 230/1500 - train_loss=2.28783e-05 - val_loss=6.70130e-06 - current_sparsity=0.50
+Epoch 231/1500 - train_loss=2.24345e-05 - val_loss=5.61696e-06 - current_sparsity=0.50
+Epoch 232/1500 - train_loss=2.08294e-05 - val_loss=5.32846e-06 - current_sparsity=0.50
+Epoch 233/1500 - train_loss=4.44704e-05 - val_loss=7.82230e-06 - current_sparsity=0.50
+Epoch 234/1500 - train_loss=2.46986e-05 - val_loss=8.62589e-06 - current_sparsity=0.50
+Epoch 235/1500 - train_loss=2.55940e-05 - val_loss=6.42292e-06 - current_sparsity=0.51
+Epoch 236/1500 - train_loss=2.55604e-05 - val_loss=5.74522e-06 - current_sparsity=0.51
+Epoch 237/1500 - train_loss=2.23319e-05 - val_loss=7.05043e-06 - current_sparsity=0.51
+Epoch 238/1500 - train_loss=2.27949e-05 - val_loss=6.14766e-06 - current_sparsity=0.51
+Epoch 239/1500 - train_loss=2.19115e-05 - val_loss=5.41051e-06 - current_sparsity=0.51
+Epoch 240/1500 - train_loss=2.26973e-05 - val_loss=5.47048e-06 - current_sparsity=0.51
+Epoch 241/1500 - train_loss=2.15713e-05 - val_loss=5.32885e-06 - current_sparsity=0.52
+Epoch 242/1500 - train_loss=2.18711e-05 - val_loss=6.44128e-06 - current_sparsity=0.52
+Epoch 243/1500 - train_loss=2.22632e-05 - val_loss=5.72538e-06 - current_sparsity=0.52
+Epoch 244/1500 - train_loss=2.04642e-05 - val_loss=5.22029e-06 - current_sparsity=0.52
+Epoch 245/1500 - train_loss=2.04356e-05 - val_loss=5.32913e-06 - current_sparsity=0.52
+Epoch 246/1500 - train_loss=2.09533e-05 - val_loss=7.42609e-06 - current_sparsity=0.52
+Epoch 247/1500 - train_loss=2.20366e-05 - val_loss=5.52065e-06 - current_sparsity=0.52
+Epoch 248/1500 - train_loss=2.09971e-05 - val_loss=5.21772e-06 - current_sparsity=0.53
+Epoch 249/1500 - train_loss=2.06883e-05 - val_loss=5.11609e-06 - current_sparsity=0.53
+Epoch 250/1500 - train_loss=2.40154e-05 - val_loss=5.91829e-06 - current_sparsity=0.53
+Epoch 251/1500 - train_loss=2.25580e-05 - val_loss=7.01896e-06 - current_sparsity=0.53
+Epoch 252/1500 - train_loss=1.99037e-05 - val_loss=4.86398e-06 - current_sparsity=0.53
+Epoch 253/1500 - train_loss=2.05984e-05 - val_loss=7.61494e-06 - current_sparsity=0.53
+Epoch 254/1500 - train_loss=2.04376e-05 - val_loss=5.35449e-06 - current_sparsity=0.53
+Epoch 255/1500 - train_loss=1.97384e-05 - val_loss=5.25040e-06 - current_sparsity=0.54
+Epoch 256/1500 - train_loss=2.13182e-05 - val_loss=5.91481e-06 - current_sparsity=0.54
+Epoch 257/1500 - train_loss=2.07402e-05 - val_loss=5.51682e-06 - current_sparsity=0.54
+Epoch 258/1500 - train_loss=2.06692e-05 - val_loss=4.68470e-06 - current_sparsity=0.54
+Epoch 259/1500 - train_loss=2.07661e-05 - val_loss=6.88923e-06 - current_sparsity=0.54
+Epoch 260/1500 - train_loss=2.13881e-05 - val_loss=4.91584e-06 - current_sparsity=0.54
+Epoch 261/1500 - train_loss=1.99513e-05 - val_loss=7.48219e-06 - current_sparsity=0.55
+Epoch 262/1500 - train_loss=2.05211e-05 - val_loss=4.92793e-06 - current_sparsity=0.55
+Epoch 263/1500 - train_loss=2.05686e-05 - val_loss=6.73023e-06 - current_sparsity=0.55
+Epoch 264/1500 - train_loss=2.14972e-05 - val_loss=5.20082e-06 - current_sparsity=0.55
+Epoch 265/1500 - train_loss=2.11735e-05 - val_loss=4.95171e-06 - current_sparsity=0.55
+Epoch 266/1500 - train_loss=2.04588e-05 - val_loss=5.07854e-06 - current_sparsity=0.55
+Epoch 267/1500 - train_loss=2.14643e-05 - val_loss=5.44134e-06 - current_sparsity=0.55
+Epoch 268/1500 - train_loss=1.97053e-05 - val_loss=5.20265e-06 - current_sparsity=0.55
+Epoch 269/1500 - train_loss=1.96907e-05 - val_loss=4.72264e-06 - current_sparsity=0.55
+Epoch 270/1500 - train_loss=2.20479e-05 - val_loss=7.05195e-06 - current_sparsity=0.56
+Epoch 271/1500 - train_loss=2.02257e-05 - val_loss=5.00776e-06 - current_sparsity=0.56
+Epoch 272/1500 - train_loss=1.96373e-05 - val_loss=5.06063e-06 - current_sparsity=0.56
+Epoch 273/1500 - train_loss=2.81443e-05 - val_loss=6.14769e-06 - current_sparsity=0.56
+Epoch 274/1500 - train_loss=2.00419e-05 - val_loss=4.57023e-06 - current_sparsity=0.56
+Epoch 275/1500 - train_loss=1.89853e-05 - val_loss=4.49339e-06 - current_sparsity=0.56
+Epoch 276/1500 - train_loss=3.07401e-05 - val_loss=6.16357e-06 - current_sparsity=0.57
+Epoch 277/1500 - train_loss=2.06973e-05 - val_loss=5.52388e-06 - current_sparsity=0.57
+Epoch 278/1500 - train_loss=2.04640e-05 - val_loss=7.36674e-06 - current_sparsity=0.57
+Epoch 279/1500 - train_loss=2.09551e-05 - val_loss=5.35420e-06 - current_sparsity=0.57
+Epoch 280/1500 - train_loss=1.90141e-05 - val_loss=5.08170e-06 - current_sparsity=0.57
+Epoch 281/1500 - train_loss=2.02035e-05 - val_loss=5.24460e-06 - current_sparsity=0.57
+Epoch 282/1500 - train_loss=1.98165e-05 - val_loss=4.78683e-06 - current_sparsity=0.57
+Epoch 283/1500 - train_loss=1.89919e-05 - val_loss=5.03690e-06 - current_sparsity=0.57
+Epoch 284/1500 - train_loss=2.07501e-05 - val_loss=6.56950e-06 - current_sparsity=0.58
+Epoch 285/1500 - train_loss=2.08671e-05 - val_loss=5.71384e-06 - current_sparsity=0.58
+Epoch 286/1500 - train_loss=1.94486e-05 - val_loss=5.36355e-06 - current_sparsity=0.58
+Epoch 287/1500 - train_loss=1.93851e-05 - val_loss=5.14264e-06 - current_sparsity=0.58
+Epoch 288/1500 - train_loss=1.97941e-05 - val_loss=5.25713e-06 - current_sparsity=0.58
+Epoch 289/1500 - train_loss=1.83338e-05 - val_loss=4.55774e-06 - current_sparsity=0.58
+Epoch 290/1500 - train_loss=2.10511e-05 - val_loss=1.35982e-05 - current_sparsity=0.58
+Epoch 291/1500 - train_loss=2.13807e-05 - val_loss=6.74645e-06 - current_sparsity=0.59
+Epoch 292/1500 - train_loss=1.91318e-05 - val_loss=4.66256e-06 - current_sparsity=0.59
+Epoch 293/1500 - train_loss=1.95694e-05 - val_loss=7.79198e-06 - current_sparsity=0.59
+Epoch 294/1500 - train_loss=1.89675e-05 - val_loss=4.40068e-06 - current_sparsity=0.59
+Epoch 295/1500 - train_loss=1.84430e-05 - val_loss=4.70059e-06 - current_sparsity=0.59
+Epoch 296/1500 - train_loss=2.24067e-05 - val_loss=2.04778e-05 - current_sparsity=0.59
+Epoch 297/1500 - train_loss=2.20324e-05 - val_loss=4.66320e-06 - current_sparsity=0.59
+Epoch 298/1500 - train_loss=1.81521e-05 - val_loss=4.85844e-06 - current_sparsity=0.59
+Epoch 299/1500 - train_loss=1.87480e-05 - val_loss=7.55590e-06 - current_sparsity=0.60
+Epoch 300/1500 - train_loss=1.97130e-05 - val_loss=4.82426e-06 - current_sparsity=0.60
+Epoch 301/1500 - train_loss=1.81549e-05 - val_loss=4.77323e-06 - current_sparsity=0.60
+Epoch 302/1500 - train_loss=1.83087e-05 - val_loss=6.90661e-06 - current_sparsity=0.60
+Epoch 303/1500 - train_loss=1.86870e-05 - val_loss=4.94664e-06 - current_sparsity=0.60
+Epoch 304/1500 - train_loss=1.91376e-05 - val_loss=4.28949e-06 - current_sparsity=0.60
+Epoch 305/1500 - train_loss=1.75133e-05 - val_loss=4.35051e-06 - current_sparsity=0.60
+Epoch 306/1500 - train_loss=2.24863e-05 - val_loss=4.65726e-06 - current_sparsity=0.60
+Epoch 307/1500 - train_loss=1.77368e-05 - val_loss=5.95267e-06 - current_sparsity=0.60
+Epoch 308/1500 - train_loss=1.84278e-05 - val_loss=6.70381e-06 - current_sparsity=0.61
+Epoch 309/1500 - train_loss=2.02022e-05 - val_loss=5.98548e-06 - current_sparsity=0.61
+Epoch 310/1500 - train_loss=1.78203e-05 - val_loss=4.44198e-06 - current_sparsity=0.61
+Epoch 311/1500 - train_loss=1.75506e-05 - val_loss=4.45689e-06 - current_sparsity=0.61
+Epoch 312/1500 - train_loss=1.94427e-05 - val_loss=4.97985e-06 - current_sparsity=0.61
+Epoch 313/1500 - train_loss=1.79422e-05 - val_loss=4.57997e-06 - current_sparsity=0.61
+Epoch 314/1500 - train_loss=1.77633e-05 - val_loss=5.88007e-06 - current_sparsity=0.61
+Epoch 315/1500 - train_loss=1.86562e-05 - val_loss=5.57036e-06 - current_sparsity=0.62
+Epoch 316/1500 - train_loss=1.90629e-05 - val_loss=4.89005e-06 - current_sparsity=0.62
+Epoch 317/1500 - train_loss=1.74625e-05 - val_loss=4.36837e-06 - current_sparsity=0.62
+Epoch 318/1500 - train_loss=1.71518e-05 - val_loss=4.17167e-06 - current_sparsity=0.62
+Epoch 319/1500 - train_loss=2.51611e-05 - val_loss=4.90760e-06 - current_sparsity=0.62
+Epoch 320/1500 - train_loss=2.16717e-05 - val_loss=4.27368e-06 - current_sparsity=0.62
+Epoch 321/1500 - train_loss=1.94829e-05 - val_loss=5.18145e-06 - current_sparsity=0.62
+Epoch 322/1500 - train_loss=1.95719e-05 - val_loss=4.66511e-06 - current_sparsity=0.62
+Epoch 323/1500 - train_loss=1.79049e-05 - val_loss=4.50167e-06 - current_sparsity=0.62
+Epoch 324/1500 - train_loss=1.68114e-05 - val_loss=4.31654e-06 - current_sparsity=0.62
+Epoch 325/1500 - train_loss=2.73891e-05 - val_loss=1.22670e-05 - current_sparsity=0.63
+Epoch 326/1500 - train_loss=2.41893e-05 - val_loss=6.35274e-06 - current_sparsity=0.63
+Epoch 327/1500 - train_loss=1.79082e-05 - val_loss=4.52930e-06 - current_sparsity=0.63
+Epoch 328/1500 - train_loss=1.75930e-05 - val_loss=5.35087e-06 - current_sparsity=0.63
+Epoch 329/1500 - train_loss=1.84166e-05 - val_loss=4.29340e-06 - current_sparsity=0.63
+Epoch 330/1500 - train_loss=1.89658e-05 - val_loss=4.98221e-06 - current_sparsity=0.63
+Epoch 331/1500 - train_loss=1.73796e-05 - val_loss=4.32765e-06 - current_sparsity=0.63
+Epoch 332/1500 - train_loss=2.04430e-05 - val_loss=5.50717e-06 - current_sparsity=0.64
+Epoch 333/1500 - train_loss=1.75648e-05 - val_loss=4.55226e-06 - current_sparsity=0.64
+Epoch 334/1500 - train_loss=1.89909e-05 - val_loss=6.76608e-06 - current_sparsity=0.64
+Epoch 335/1500 - train_loss=1.82293e-05 - val_loss=4.82713e-06 - current_sparsity=0.64
+Epoch 336/1500 - train_loss=1.74840e-05 - val_loss=4.40829e-06 - current_sparsity=0.64
+Epoch 337/1500 - train_loss=1.88481e-05 - val_loss=4.20481e-06 - current_sparsity=0.64
+Epoch 338/1500 - train_loss=1.81333e-05 - val_loss=4.45211e-06 - current_sparsity=0.64
+Epoch 339/1500 - train_loss=2.43933e-05 - val_loss=7.78515e-06 - current_sparsity=0.64
+Epoch 340/1500 - train_loss=1.85830e-05 - val_loss=4.39659e-06 - current_sparsity=0.64
+Epoch 341/1500 - train_loss=1.76006e-05 - val_loss=4.48777e-06 - current_sparsity=0.64
+Epoch 342/1500 - train_loss=1.78381e-05 - val_loss=5.70139e-06 - current_sparsity=0.65
+Epoch 343/1500 - train_loss=1.89975e-05 - val_loss=4.10551e-06 - current_sparsity=0.65
+Epoch 344/1500 - train_loss=1.80987e-05 - val_loss=4.01254e-06 - current_sparsity=0.65
+Epoch 345/1500 - train_loss=1.64973e-05 - val_loss=4.05242e-06 - current_sparsity=0.65
+Epoch 346/1500 - train_loss=2.08662e-05 - val_loss=4.25309e-06 - current_sparsity=0.65
+Epoch 347/1500 - train_loss=1.78174e-05 - val_loss=4.52915e-06 - current_sparsity=0.65
+Epoch 348/1500 - train_loss=1.73602e-05 - val_loss=4.29990e-06 - current_sparsity=0.65
+Epoch 349/1500 - train_loss=1.72668e-05 - val_loss=4.13502e-06 - current_sparsity=0.65
+Epoch 350/1500 - train_loss=1.84151e-05 - val_loss=4.01650e-06 - current_sparsity=0.65
+Epoch 351/1500 - train_loss=1.65046e-05 - val_loss=4.48604e-06 - current_sparsity=0.66
+Epoch 352/1500 - train_loss=1.67567e-05 - val_loss=4.60785e-06 - current_sparsity=0.66
+Epoch 353/1500 - train_loss=2.29530e-05 - val_loss=4.90384e-06 - current_sparsity=0.66
+Epoch 354/1500 - train_loss=1.96131e-05 - val_loss=9.28282e-06 - current_sparsity=0.66
+Epoch 355/1500 - train_loss=1.77706e-05 - val_loss=4.02175e-06 - current_sparsity=0.66
+Epoch 356/1500 - train_loss=1.65987e-05 - val_loss=4.00400e-06 - current_sparsity=0.66
+Epoch 357/1500 - train_loss=1.80524e-05 - val_loss=4.33680e-06 - current_sparsity=0.66
+Epoch 358/1500 - train_loss=1.68115e-05 - val_loss=4.12512e-06 - current_sparsity=0.66
+Epoch 359/1500 - train_loss=1.73781e-05 - val_loss=6.08370e-06 - current_sparsity=0.66
+Epoch 360/1500 - train_loss=1.70832e-05 - val_loss=4.51304e-06 - current_sparsity=0.66
+Epoch 361/1500 - train_loss=2.11150e-05 - val_loss=4.83592e-06 - current_sparsity=0.67
+Epoch 362/1500 - train_loss=1.73893e-05 - val_loss=3.87207e-06 - current_sparsity=0.67
+Epoch 363/1500 - train_loss=1.61736e-05 - val_loss=4.23270e-06 - current_sparsity=0.67
+Epoch 364/1500 - train_loss=1.60729e-05 - val_loss=4.42672e-06 - current_sparsity=0.67
+Epoch 365/1500 - train_loss=1.62868e-05 - val_loss=4.17472e-06 - current_sparsity=0.67
+Epoch 366/1500 - train_loss=1.74935e-05 - val_loss=3.82506e-06 - current_sparsity=0.67
+Epoch 367/1500 - train_loss=1.58254e-05 - val_loss=3.96110e-06 - current_sparsity=0.67
+Epoch 368/1500 - train_loss=3.25311e-05 - val_loss=1.00812e-05 - current_sparsity=0.67
+Epoch 369/1500 - train_loss=2.34650e-05 - val_loss=7.27396e-06 - current_sparsity=0.68
+Epoch 370/1500 - train_loss=1.71224e-05 - val_loss=4.08893e-06 - current_sparsity=0.68
+Epoch 371/1500 - train_loss=1.62321e-05 - val_loss=4.18497e-06 - current_sparsity=0.68
+Epoch 372/1500 - train_loss=1.71664e-05 - val_loss=4.28580e-06 - current_sparsity=0.68
+Epoch 373/1500 - train_loss=1.63082e-05 - val_loss=4.19845e-06 - current_sparsity=0.68
+Epoch 374/1500 - train_loss=1.57719e-05 - val_loss=3.92328e-06 - current_sparsity=0.68
+Epoch 375/1500 - train_loss=1.63660e-05 - val_loss=3.99222e-06 - current_sparsity=0.68
+Epoch 376/1500 - train_loss=2.43256e-05 - val_loss=6.21393e-06 - current_sparsity=0.68
+Epoch 377/1500 - train_loss=1.78362e-05 - val_loss=4.01726e-06 - current_sparsity=0.68
+Epoch 378/1500 - train_loss=1.60477e-05 - val_loss=5.02952e-06 - current_sparsity=0.68
+Epoch 379/1500 - train_loss=1.66496e-05 - val_loss=4.48634e-06 - current_sparsity=0.68
+Epoch 380/1500 - train_loss=1.80769e-05 - val_loss=4.15918e-06 - current_sparsity=0.69
+Epoch 381/1500 - train_loss=1.62732e-05 - val_loss=3.93185e-06 - current_sparsity=0.69
+Epoch 382/1500 - train_loss=1.59210e-05 - val_loss=4.06017e-06 - current_sparsity=0.69
+Epoch 383/1500 - train_loss=1.79556e-05 - val_loss=4.00945e-06 - current_sparsity=0.69
+Epoch 384/1500 - train_loss=3.74548e-05 - val_loss=7.72357e-06 - current_sparsity=0.69
+Epoch 385/1500 - train_loss=1.98195e-05 - val_loss=4.25346e-06 - current_sparsity=0.69
+Epoch 386/1500 - train_loss=1.68689e-05 - val_loss=4.51819e-06 - current_sparsity=0.69
+Epoch 387/1500 - train_loss=1.69437e-05 - val_loss=3.90628e-06 - current_sparsity=0.69
+Epoch 388/1500 - train_loss=2.04522e-05 - val_loss=5.36908e-06 - current_sparsity=0.69
+Epoch 389/1500 - train_loss=1.75063e-05 - val_loss=4.00379e-06 - current_sparsity=0.69
+Epoch 390/1500 - train_loss=1.58475e-05 - val_loss=4.08078e-06 - current_sparsity=0.69
+Epoch 391/1500 - train_loss=1.61866e-05 - val_loss=3.96126e-06 - current_sparsity=0.70
+Epoch 392/1500 - train_loss=1.84688e-05 - val_loss=4.23015e-06 - current_sparsity=0.70
+Epoch 393/1500 - train_loss=1.63650e-05 - val_loss=4.18901e-06 - current_sparsity=0.70
+Epoch 394/1500 - train_loss=1.60536e-05 - val_loss=3.81675e-06 - current_sparsity=0.70
+Epoch 395/1500 - train_loss=1.66624e-05 - val_loss=4.52984e-06 - current_sparsity=0.70
+Epoch 396/1500 - train_loss=1.71839e-05 - val_loss=5.96242e-06 - current_sparsity=0.70
+Epoch 397/1500 - train_loss=1.65591e-05 - val_loss=4.04487e-06 - current_sparsity=0.70
+Epoch 398/1500 - train_loss=2.05749e-05 - val_loss=3.97768e-06 - current_sparsity=0.70
+Epoch 399/1500 - train_loss=1.79981e-05 - val_loss=4.00440e-06 - current_sparsity=0.70
+Epoch 400/1500 - train_loss=1.75623e-05 - val_loss=4.63220e-06 - current_sparsity=0.71
+Epoch 401/1500 - train_loss=1.69887e-05 - val_loss=3.91058e-06 - current_sparsity=0.71
+Epoch 402/1500 - train_loss=2.25135e-05 - val_loss=4.77064e-06 - current_sparsity=0.71
+Epoch 403/1500 - train_loss=1.70701e-05 - val_loss=4.98959e-06 - current_sparsity=0.71
+Epoch 404/1500 - train_loss=1.70983e-05 - val_loss=4.24666e-06 - current_sparsity=0.71
+Epoch 405/1500 - train_loss=1.97484e-05 - val_loss=4.84211e-06 - current_sparsity=0.71
+Epoch 406/1500 - train_loss=1.62543e-05 - val_loss=3.73192e-06 - current_sparsity=0.71
+Epoch 407/1500 - train_loss=1.64043e-05 - val_loss=4.10567e-06 - current_sparsity=0.71
+Epoch 408/1500 - train_loss=1.63215e-05 - val_loss=4.19367e-06 - current_sparsity=0.71
+Epoch 409/1500 - train_loss=1.86117e-05 - val_loss=3.95376e-06 - current_sparsity=0.71
+Epoch 410/1500 - train_loss=1.69551e-05 - val_loss=4.08350e-06 - current_sparsity=0.71
+Epoch 411/1500 - train_loss=1.61235e-05 - val_loss=3.87142e-06 - current_sparsity=0.71
+Epoch 412/1500 - train_loss=1.70818e-05 - val_loss=4.65021e-06 - current_sparsity=0.72
+Epoch 413/1500 - train_loss=1.96842e-05 - val_loss=9.44540e-06 - current_sparsity=0.72
+Epoch 414/1500 - train_loss=1.74760e-05 - val_loss=3.74690e-06 - current_sparsity=0.72
+Epoch 415/1500 - train_loss=1.62616e-05 - val_loss=3.72997e-06 - current_sparsity=0.72
+Epoch 416/1500 - train_loss=1.58565e-05 - val_loss=3.63084e-06 - current_sparsity=0.72
+Epoch 417/1500 - train_loss=1.54132e-05 - val_loss=3.57046e-06 - current_sparsity=0.72
+Epoch 418/1500 - train_loss=1.91279e-05 - val_loss=4.39675e-06 - current_sparsity=0.72
+Epoch 419/1500 - train_loss=1.60390e-05 - val_loss=3.87368e-06 - current_sparsity=0.72
+Epoch 420/1500 - train_loss=1.62216e-05 - val_loss=3.75254e-06 - current_sparsity=0.72
+Epoch 421/1500 - train_loss=1.54714e-05 - val_loss=3.57812e-06 - current_sparsity=0.72
+Epoch 422/1500 - train_loss=1.85718e-05 - val_loss=5.57483e-06 - current_sparsity=0.73
+Epoch 423/1500 - train_loss=1.70304e-05 - val_loss=4.05261e-06 - current_sparsity=0.73
+Epoch 424/1500 - train_loss=1.55685e-05 - val_loss=3.95587e-06 - current_sparsity=0.73
+Epoch 425/1500 - train_loss=1.66566e-05 - val_loss=4.17599e-06 - current_sparsity=0.73
+Epoch 426/1500 - train_loss=1.54420e-05 - val_loss=3.38895e-06 - current_sparsity=0.73
+Epoch 427/1500 - train_loss=2.65736e-05 - val_loss=5.70790e-06 - current_sparsity=0.73
+Epoch 428/1500 - train_loss=1.71390e-05 - val_loss=5.73724e-06 - current_sparsity=0.73
+Epoch 429/1500 - train_loss=1.60218e-05 - val_loss=3.77429e-06 - current_sparsity=0.73
+Epoch 430/1500 - train_loss=1.63601e-05 - val_loss=3.80223e-06 - current_sparsity=0.73
+Epoch 431/1500 - train_loss=2.22397e-05 - val_loss=2.37823e-05 - current_sparsity=0.73
+Epoch 432/1500 - train_loss=2.74125e-05 - val_loss=3.85119e-06 - current_sparsity=0.73
+Epoch 433/1500 - train_loss=1.61617e-05 - val_loss=3.66474e-06 - current_sparsity=0.73
+Epoch 434/1500 - train_loss=1.53692e-05 - val_loss=3.90189e-06 - current_sparsity=0.73
+Epoch 435/1500 - train_loss=1.67233e-05 - val_loss=5.13877e-06 - current_sparsity=0.73
+Epoch 436/1500 - train_loss=2.15001e-05 - val_loss=7.73408e-06 - current_sparsity=0.74
+Epoch 437/1500 - train_loss=1.82805e-05 - val_loss=3.71488e-06 - current_sparsity=0.74
+Epoch 438/1500 - train_loss=1.62266e-05 - val_loss=3.69125e-06 - current_sparsity=0.74
+Epoch 439/1500 - train_loss=1.62866e-05 - val_loss=3.65389e-06 - current_sparsity=0.74
+Epoch 440/1500 - train_loss=1.54395e-05 - val_loss=3.44777e-06 - current_sparsity=0.74
+Epoch 441/1500 - train_loss=1.80394e-05 - val_loss=4.31291e-06 - current_sparsity=0.74
+Epoch 442/1500 - train_loss=1.58392e-05 - val_loss=3.80027e-06 - current_sparsity=0.74
+Epoch 443/1500 - train_loss=1.57990e-05 - val_loss=3.97638e-06 - current_sparsity=0.74
+Epoch 444/1500 - train_loss=1.78881e-05 - val_loss=5.48256e-06 - current_sparsity=0.74
+Epoch 445/1500 - train_loss=1.68582e-05 - val_loss=3.72272e-06 - current_sparsity=0.74
+Epoch 446/1500 - train_loss=2.07058e-05 - val_loss=3.80480e-06 - current_sparsity=0.74
+Epoch 447/1500 - train_loss=1.57787e-05 - val_loss=3.68788e-06 - current_sparsity=0.75
+Epoch 448/1500 - train_loss=1.56231e-05 - val_loss=3.75228e-06 - current_sparsity=0.75
+Epoch 449/1500 - train_loss=1.58232e-05 - val_loss=3.61183e-06 - current_sparsity=0.75
+Epoch 450/1500 - train_loss=1.53007e-05 - val_loss=3.97020e-06 - current_sparsity=0.75
+Epoch 451/1500 - train_loss=2.00741e-05 - val_loss=5.74246e-06 - current_sparsity=0.75
+Epoch 452/1500 - train_loss=1.67426e-05 - val_loss=3.88087e-06 - current_sparsity=0.75
+Epoch 453/1500 - train_loss=1.58660e-05 - val_loss=3.82364e-06 - current_sparsity=0.75
+Epoch 454/1500 - train_loss=2.01145e-05 - val_loss=3.81831e-06 - current_sparsity=0.75
+Epoch 455/1500 - train_loss=1.66876e-05 - val_loss=3.53234e-06 - current_sparsity=0.75
+Epoch 456/1500 - train_loss=2.82595e-05 - val_loss=6.00308e-06 - current_sparsity=0.75
+Epoch 457/1500 - train_loss=2.26178e-05 - val_loss=8.73008e-06 - current_sparsity=0.75
+Epoch 458/1500 - train_loss=2.13357e-05 - val_loss=4.12839e-06 - current_sparsity=0.75
+Epoch 459/1500 - train_loss=1.78420e-05 - val_loss=4.87321e-06 - current_sparsity=0.75
+Epoch 460/1500 - train_loss=1.67561e-05 - val_loss=3.78093e-06 - current_sparsity=0.75
+Epoch 461/1500 - train_loss=2.18695e-05 - val_loss=4.03621e-06 - current_sparsity=0.76
+Epoch 462/1500 - train_loss=1.61909e-05 - val_loss=4.03863e-06 - current_sparsity=0.76
+Epoch 463/1500 - train_loss=1.60578e-05 - val_loss=3.66005e-06 - current_sparsity=0.76
+Epoch 464/1500 - train_loss=2.09630e-05 - val_loss=6.32786e-06 - current_sparsity=0.76
+Epoch 465/1500 - train_loss=1.89274e-05 - val_loss=4.28916e-06 - current_sparsity=0.76
+Epoch 466/1500 - train_loss=1.91742e-05 - val_loss=4.41614e-06 - current_sparsity=0.76
+Epoch 467/1500 - train_loss=1.63213e-05 - val_loss=3.77835e-06 - current_sparsity=0.76
+Epoch 468/1500 - train_loss=1.57986e-05 - val_loss=3.71383e-06 - current_sparsity=0.76
+Epoch 469/1500 - train_loss=1.61447e-05 - val_loss=4.48386e-06 - current_sparsity=0.76
+Epoch 470/1500 - train_loss=1.62091e-05 - val_loss=3.60025e-06 - current_sparsity=0.76
+Epoch 471/1500 - train_loss=2.20978e-05 - val_loss=4.74548e-06 - current_sparsity=0.76
+Epoch 472/1500 - train_loss=1.75654e-05 - val_loss=3.75512e-06 - current_sparsity=0.76
+Epoch 473/1500 - train_loss=1.67103e-05 - val_loss=3.67425e-06 - current_sparsity=0.77
+Epoch 474/1500 - train_loss=1.56324e-05 - val_loss=3.55353e-06 - current_sparsity=0.77
+Epoch 475/1500 - train_loss=1.63647e-05 - val_loss=3.62053e-06 - current_sparsity=0.77
+Epoch 476/1500 - train_loss=1.61004e-05 - val_loss=4.88694e-06 - current_sparsity=0.77
+Epoch 477/1500 - train_loss=1.66517e-05 - val_loss=3.75102e-06 - current_sparsity=0.77
+Epoch 478/1500 - train_loss=1.70811e-05 - val_loss=3.87956e-06 - current_sparsity=0.77
+Epoch 479/1500 - train_loss=1.60928e-05 - val_loss=4.38829e-06 - current_sparsity=0.77
+Epoch 480/1500 - train_loss=1.71263e-05 - val_loss=3.81641e-06 - current_sparsity=0.77
+Epoch 481/1500 - train_loss=1.55106e-05 - val_loss=3.68258e-06 - current_sparsity=0.77
+Epoch 482/1500 - train_loss=2.70191e-05 - val_loss=5.26249e-06 - current_sparsity=0.77
+Epoch 483/1500 - train_loss=1.66388e-05 - val_loss=3.64194e-06 - current_sparsity=0.77
+Epoch 484/1500 - train_loss=1.58443e-05 - val_loss=3.84373e-06 - current_sparsity=0.77
+Epoch 485/1500 - train_loss=1.57209e-05 - val_loss=4.48739e-06 - current_sparsity=0.77
+Epoch 486/1500 - train_loss=1.61421e-05 - val_loss=3.60105e-06 - current_sparsity=0.77
+Epoch 487/1500 - train_loss=1.94403e-05 - val_loss=5.89136e-06 - current_sparsity=0.78
+Epoch 488/1500 - train_loss=1.95764e-05 - val_loss=3.53412e-06 - current_sparsity=0.78
+Epoch 489/1500 - train_loss=1.71697e-05 - val_loss=4.85857e-06 - current_sparsity=0.78
+Epoch 490/1500 - train_loss=1.63571e-05 - val_loss=3.49273e-06 - current_sparsity=0.78
+Epoch 491/1500 - train_loss=1.74272e-05 - val_loss=3.51119e-06 - current_sparsity=0.78
+Epoch 492/1500 - train_loss=1.58713e-05 - val_loss=3.47190e-06 - current_sparsity=0.78
+Epoch 493/1500 - train_loss=1.73366e-05 - val_loss=3.98404e-06 - current_sparsity=0.78
+Epoch 494/1500 - train_loss=1.62372e-05 - val_loss=3.88978e-06 - current_sparsity=0.78
+Epoch 495/1500 - train_loss=1.66592e-05 - val_loss=3.51961e-06 - current_sparsity=0.78
+Epoch 496/1500 - train_loss=1.57104e-05 - val_loss=3.42173e-06 - current_sparsity=0.78
+Epoch 497/1500 - train_loss=1.69341e-05 - val_loss=3.41775e-06 - current_sparsity=0.78
+Epoch 498/1500 - train_loss=1.55190e-05 - val_loss=3.41715e-06 - current_sparsity=0.78
+Epoch 499/1500 - train_loss=2.66324e-05 - val_loss=5.52939e-06 - current_sparsity=0.78
+Epoch 500/1500 - train_loss=1.65874e-05 - val_loss=3.73517e-06 - current_sparsity=0.78
+Epoch 501/1500 - train_loss=2.23049e-05 - val_loss=4.34970e-06 - current_sparsity=0.78
+Epoch 502/1500 - train_loss=1.59645e-05 - val_loss=4.06499e-06 - current_sparsity=0.79
+Epoch 503/1500 - train_loss=1.60760e-05 - val_loss=3.51031e-06 - current_sparsity=0.79
+Epoch 504/1500 - train_loss=1.70783e-05 - val_loss=6.42862e-06 - current_sparsity=0.79
+Epoch 505/1500 - train_loss=1.83646e-05 - val_loss=3.45944e-06 - current_sparsity=0.79
+Epoch 506/1500 - train_loss=1.64602e-05 - val_loss=3.85046e-06 - current_sparsity=0.79
+Epoch 507/1500 - train_loss=1.64433e-05 - val_loss=4.19215e-06 - current_sparsity=0.79
+Epoch 508/1500 - train_loss=1.81345e-05 - val_loss=4.56646e-06 - current_sparsity=0.79
+Epoch 509/1500 - train_loss=1.84419e-05 - val_loss=3.44752e-06 - current_sparsity=0.79
+Epoch 510/1500 - train_loss=2.89154e-05 - val_loss=1.69108e-05 - current_sparsity=0.79
+Epoch 511/1500 - train_loss=3.00903e-05 - val_loss=3.99668e-06 - current_sparsity=0.79
+Epoch 512/1500 - train_loss=1.73061e-05 - val_loss=3.98320e-06 - current_sparsity=0.79
+Epoch 513/1500 - train_loss=1.62819e-05 - val_loss=3.51054e-06 - current_sparsity=0.79
+Epoch 514/1500 - train_loss=1.64738e-05 - val_loss=4.12117e-06 - current_sparsity=0.79
+Epoch 515/1500 - train_loss=1.66245e-05 - val_loss=3.39524e-06 - current_sparsity=0.79
+Epoch 516/1500 - train_loss=2.23697e-05 - val_loss=1.88926e-05 - current_sparsity=0.80
+Epoch 517/1500 - train_loss=2.22456e-05 - val_loss=3.90716e-06 - current_sparsity=0.80
+Epoch 518/1500 - train_loss=1.72658e-05 - val_loss=3.94726e-06 - current_sparsity=0.80
+Epoch 519/1500 - train_loss=1.69311e-05 - val_loss=3.75312e-06 - current_sparsity=0.80
+Epoch 520/1500 - train_loss=1.94509e-05 - val_loss=4.90090e-06 - current_sparsity=0.80
+Epoch 521/1500 - train_loss=2.09467e-05 - val_loss=4.39881e-06 - current_sparsity=0.80
+Epoch 522/1500 - train_loss=2.20019e-05 - val_loss=2.86979e-05 - current_sparsity=0.80
+Epoch 523/1500 - train_loss=2.85938e-05 - val_loss=4.04415e-06 - current_sparsity=0.80
+Epoch 524/1500 - train_loss=1.67862e-05 - val_loss=3.88100e-06 - current_sparsity=0.80
+Epoch 525/1500 - train_loss=1.80242e-05 - val_loss=3.69893e-06 - current_sparsity=0.80
+Epoch 526/1500 - train_loss=1.61223e-05 - val_loss=3.56161e-06 - current_sparsity=0.80
+Epoch 527/1500 - train_loss=1.66791e-05 - val_loss=3.66245e-06 - current_sparsity=0.80
+Epoch 528/1500 - train_loss=1.60831e-05 - val_loss=3.66618e-06 - current_sparsity=0.80
+Epoch 529/1500 - train_loss=2.15684e-05 - val_loss=4.14679e-06 - current_sparsity=0.80
+Epoch 530/1500 - train_loss=1.68737e-05 - val_loss=3.54865e-06 - current_sparsity=0.80
+Epoch 531/1500 - train_loss=1.72275e-05 - val_loss=3.99433e-06 - current_sparsity=0.80
+Epoch 532/1500 - train_loss=1.62619e-05 - val_loss=3.56579e-06 - current_sparsity=0.80
+Epoch 533/1500 - train_loss=3.21085e-05 - val_loss=6.56577e-06 - current_sparsity=0.80
+Epoch 534/1500 - train_loss=1.92426e-05 - val_loss=3.85678e-06 - current_sparsity=0.80
+Epoch 535/1500 - train_loss=1.91639e-05 - val_loss=5.14078e-06 - current_sparsity=0.81
+Epoch 536/1500 - train_loss=1.73753e-05 - val_loss=3.57951e-06 - current_sparsity=0.81
+Epoch 537/1500 - train_loss=1.88621e-05 - val_loss=6.36479e-06 - current_sparsity=0.81
+Epoch 538/1500 - train_loss=1.77760e-05 - val_loss=3.54817e-06 - current_sparsity=0.81
+Epoch 539/1500 - train_loss=1.72434e-05 - val_loss=5.17351e-06 - current_sparsity=0.81
+Epoch 540/1500 - train_loss=1.74315e-05 - val_loss=3.49535e-06 - current_sparsity=0.81
+Epoch 541/1500 - train_loss=1.60911e-05 - val_loss=3.40769e-06 - current_sparsity=0.81
+Epoch 542/1500 - train_loss=3.40794e-05 - val_loss=4.76941e-06 - current_sparsity=0.81
+Epoch 543/1500 - train_loss=1.71847e-05 - val_loss=3.59894e-06 - current_sparsity=0.81
+Epoch 544/1500 - train_loss=1.73089e-05 - val_loss=3.77126e-06 - current_sparsity=0.81
+Epoch 545/1500 - train_loss=1.61429e-05 - val_loss=3.67449e-06 - current_sparsity=0.81
+Epoch 546/1500 - train_loss=2.28818e-05 - val_loss=1.09195e-05 - current_sparsity=0.81
+Epoch 547/1500 - train_loss=1.80796e-05 - val_loss=3.46112e-06 - current_sparsity=0.81
+Epoch 548/1500 - train_loss=1.05169e-04 - val_loss=6.97841e-05 - current_sparsity=0.82
+Epoch 549/1500 - train_loss=5.27181e-05 - val_loss=8.23820e-06 - current_sparsity=0.82
+Epoch 550/1500 - train_loss=2.47990e-05 - val_loss=7.81088e-06 - current_sparsity=0.82
+Epoch 551/1500 - train_loss=2.25857e-05 - val_loss=4.89174e-06 - current_sparsity=0.82
+Epoch 552/1500 - train_loss=1.98038e-05 - val_loss=4.80936e-06 - current_sparsity=0.82
+Epoch 553/1500 - train_loss=2.06873e-05 - val_loss=4.19016e-06 - current_sparsity=0.82
+Epoch 554/1500 - train_loss=1.81854e-05 - val_loss=4.19627e-06 - current_sparsity=0.82
+Epoch 555/1500 - train_loss=2.16256e-05 - val_loss=5.55978e-06 - current_sparsity=0.82
+Epoch 556/1500 - train_loss=1.87320e-05 - val_loss=4.05380e-06 - current_sparsity=0.82
+Epoch 557/1500 - train_loss=1.88252e-05 - val_loss=4.06002e-06 - current_sparsity=0.82
+Epoch 558/1500 - train_loss=1.84345e-05 - val_loss=3.94724e-06 - current_sparsity=0.82
+Epoch 559/1500 - train_loss=1.73064e-05 - val_loss=3.68596e-06 - current_sparsity=0.82
+Epoch 560/1500 - train_loss=2.93357e-05 - val_loss=5.25718e-06 - current_sparsity=0.82
+Epoch 561/1500 - train_loss=1.78617e-05 - val_loss=3.63183e-06 - current_sparsity=0.82
+Epoch 562/1500 - train_loss=2.14078e-05 - val_loss=4.51630e-06 - current_sparsity=0.82
+Epoch 563/1500 - train_loss=1.84052e-05 - val_loss=4.29227e-06 - current_sparsity=0.82
+Epoch 564/1500 - train_loss=1.89138e-05 - val_loss=4.51385e-06 - current_sparsity=0.82
+Epoch 565/1500 - train_loss=1.79117e-05 - val_loss=3.81001e-06 - current_sparsity=0.82
+Epoch 566/1500 - train_loss=1.71817e-05 - val_loss=3.74748e-06 - current_sparsity=0.82
+Epoch 567/1500 - train_loss=1.83744e-05 - val_loss=3.87891e-06 - current_sparsity=0.82
+Epoch 568/1500 - train_loss=1.68851e-05 - val_loss=3.66722e-06 - current_sparsity=0.82
+Epoch 569/1500 - train_loss=2.22681e-05 - val_loss=4.84877e-06 - current_sparsity=0.83
+Epoch 570/1500 - train_loss=1.84398e-05 - val_loss=3.99114e-06 - current_sparsity=0.83
+Epoch 571/1500 - train_loss=1.92914e-05 - val_loss=7.30027e-06 - current_sparsity=0.83
+Epoch 572/1500 - train_loss=1.90731e-05 - val_loss=3.93934e-06 - current_sparsity=0.83
+Epoch 573/1500 - train_loss=1.70012e-05 - val_loss=4.01141e-06 - current_sparsity=0.83
+Epoch 574/1500 - train_loss=2.78424e-05 - val_loss=5.53391e-06 - current_sparsity=0.83
+Epoch 575/1500 - train_loss=1.84337e-05 - val_loss=3.81980e-06 - current_sparsity=0.83
+Epoch 576/1500 - train_loss=1.99057e-05 - val_loss=6.29413e-06 - current_sparsity=0.83
+Epoch 577/1500 - train_loss=2.01079e-05 - val_loss=4.28895e-06 - current_sparsity=0.83
+Epoch 578/1500 - train_loss=1.79670e-05 - val_loss=3.89026e-06 - current_sparsity=0.83
+Epoch 579/1500 - train_loss=2.07323e-05 - val_loss=4.00205e-06 - current_sparsity=0.83
+Epoch 580/1500 - train_loss=1.80043e-05 - val_loss=3.89163e-06 - current_sparsity=0.83
+Epoch 581/1500 - train_loss=1.82461e-05 - val_loss=4.31330e-06 - current_sparsity=0.83
+Epoch 582/1500 - train_loss=1.77298e-05 - val_loss=4.39788e-06 - current_sparsity=0.83
+Epoch 583/1500 - train_loss=1.74157e-05 - val_loss=3.85804e-06 - current_sparsity=0.83
+Epoch 584/1500 - train_loss=2.58583e-05 - val_loss=4.27575e-06 - current_sparsity=0.83
+Epoch 585/1500 - train_loss=1.85718e-05 - val_loss=3.92108e-06 - current_sparsity=0.83
+Epoch 586/1500 - train_loss=1.81840e-05 - val_loss=4.20656e-06 - current_sparsity=0.84
+Epoch 587/1500 - train_loss=1.77464e-05 - val_loss=3.83488e-06 - current_sparsity=0.84
+Epoch 588/1500 - train_loss=1.76469e-05 - val_loss=3.86233e-06 - current_sparsity=0.84
+Epoch 589/1500 - train_loss=1.94112e-05 - val_loss=3.92460e-06 - current_sparsity=0.84
+Epoch 590/1500 - train_loss=1.75963e-05 - val_loss=3.88609e-06 - current_sparsity=0.84
+Epoch 591/1500 - train_loss=1.87726e-05 - val_loss=4.58871e-06 - current_sparsity=0.84
+Epoch 592/1500 - train_loss=1.84863e-05 - val_loss=3.79853e-06 - current_sparsity=0.84
+Epoch 593/1500 - train_loss=1.77291e-05 - val_loss=3.70221e-06 - current_sparsity=0.84
+Epoch 594/1500 - train_loss=2.07135e-05 - val_loss=3.81361e-06 - current_sparsity=0.84
+Epoch 595/1500 - train_loss=1.73074e-05 - val_loss=3.82420e-06 - current_sparsity=0.84
+Epoch 596/1500 - train_loss=2.07636e-05 - val_loss=1.11119e-05 - current_sparsity=0.84
+Epoch 597/1500 - train_loss=1.97020e-05 - val_loss=4.44152e-06 - current_sparsity=0.84
+Epoch 598/1500 - train_loss=1.72540e-05 - val_loss=3.93525e-06 - current_sparsity=0.84
+Epoch 599/1500 - train_loss=2.07530e-05 - val_loss=4.26158e-06 - current_sparsity=0.84
+Epoch 600/1500 - train_loss=1.83615e-05 - val_loss=4.13849e-06 - current_sparsity=0.84
+Epoch 601/1500 - train_loss=1.78452e-05 - val_loss=5.06176e-06 - current_sparsity=0.84
+Epoch 602/1500 - train_loss=1.85638e-05 - val_loss=3.82705e-06 - current_sparsity=0.84
+Epoch 603/1500 - train_loss=1.75932e-05 - val_loss=3.74302e-06 - current_sparsity=0.84
+Epoch 604/1500 - train_loss=1.76949e-05 - val_loss=4.43546e-06 - current_sparsity=0.84
+Epoch 605/1500 - train_loss=1.73981e-05 - val_loss=3.76206e-06 - current_sparsity=0.84
+Epoch 606/1500 - train_loss=1.71018e-05 - val_loss=4.13474e-06 - current_sparsity=0.84
+Epoch 607/1500 - train_loss=2.91643e-05 - val_loss=5.27866e-06 - current_sparsity=0.85
+Epoch 608/1500 - train_loss=1.94887e-05 - val_loss=3.94798e-06 - current_sparsity=0.85
+Epoch 609/1500 - train_loss=1.75210e-05 - val_loss=4.33431e-06 - current_sparsity=0.85
+Epoch 610/1500 - train_loss=1.85334e-05 - val_loss=4.08881e-06 - current_sparsity=0.85
+Epoch 611/1500 - train_loss=1.74869e-05 - val_loss=3.82608e-06 - current_sparsity=0.85
+Epoch 612/1500 - train_loss=1.91400e-05 - val_loss=6.22450e-06 - current_sparsity=0.85
+Epoch 613/1500 - train_loss=1.85704e-05 - val_loss=3.92565e-06 - current_sparsity=0.85
+Epoch 614/1500 - train_loss=1.74572e-05 - val_loss=3.69286e-06 - current_sparsity=0.85
+Epoch 615/1500 - train_loss=1.95665e-05 - val_loss=4.44250e-06 - current_sparsity=0.85
+Epoch 616/1500 - train_loss=1.87442e-05 - val_loss=4.34256e-06 - current_sparsity=0.85
+Epoch 617/1500 - train_loss=1.82495e-05 - val_loss=3.91734e-06 - current_sparsity=0.85
+Epoch 618/1500 - train_loss=1.86433e-05 - val_loss=3.76180e-06 - current_sparsity=0.85
+Epoch 619/1500 - train_loss=1.74186e-05 - val_loss=3.81945e-06 - current_sparsity=0.85
+Epoch 620/1500 - train_loss=1.74162e-05 - val_loss=3.85739e-06 - current_sparsity=0.85
+Epoch 621/1500 - train_loss=1.84159e-05 - val_loss=3.68435e-06 - current_sparsity=0.85
+Epoch 622/1500 - train_loss=1.73137e-05 - val_loss=3.73379e-06 - current_sparsity=0.85
+Epoch 623/1500 - train_loss=2.08574e-05 - val_loss=1.44714e-05 - current_sparsity=0.85
+Epoch 624/1500 - train_loss=2.73659e-05 - val_loss=4.11045e-06 - current_sparsity=0.85
+Epoch 625/1500 - train_loss=1.82709e-05 - val_loss=4.43428e-06 - current_sparsity=0.85
+Epoch 626/1500 - train_loss=2.07431e-05 - val_loss=5.20662e-06 - current_sparsity=0.85
+Epoch 627/1500 - train_loss=2.02928e-05 - val_loss=4.50406e-06 - current_sparsity=0.85
+Epoch 628/1500 - train_loss=1.83202e-05 - val_loss=3.82130e-06 - current_sparsity=0.85
+Epoch 629/1500 - train_loss=1.93233e-05 - val_loss=4.45065e-06 - current_sparsity=0.86
+Epoch 630/1500 - train_loss=1.85587e-05 - val_loss=4.52173e-06 - current_sparsity=0.86
+Epoch 631/1500 - train_loss=1.84277e-05 - val_loss=3.96155e-06 - current_sparsity=0.86
+Epoch 632/1500 - train_loss=4.20862e-05 - val_loss=9.87478e-06 - current_sparsity=0.86
+Epoch 633/1500 - train_loss=2.29701e-05 - val_loss=4.27213e-06 - current_sparsity=0.86
+Epoch 634/1500 - train_loss=1.92053e-05 - val_loss=3.90252e-06 - current_sparsity=0.86
+Epoch 635/1500 - train_loss=2.04300e-05 - val_loss=4.26019e-06 - current_sparsity=0.86
+Epoch 636/1500 - train_loss=1.87960e-05 - val_loss=3.97918e-06 - current_sparsity=0.86
+Epoch 637/1500 - train_loss=1.84197e-05 - val_loss=4.05963e-06 - current_sparsity=0.86
+Epoch 638/1500 - train_loss=2.38052e-05 - val_loss=5.46805e-06 - current_sparsity=0.86
+Epoch 639/1500 - train_loss=1.96839e-05 - val_loss=3.85721e-06 - current_sparsity=0.86
+Epoch 640/1500 - train_loss=1.85198e-05 - val_loss=3.89881e-06 - current_sparsity=0.86
+Epoch 641/1500 - train_loss=3.09102e-05 - val_loss=5.69672e-06 - current_sparsity=0.86
+Epoch 642/1500 - train_loss=2.09641e-05 - val_loss=5.45381e-06 - current_sparsity=0.86
+Epoch 643/1500 - train_loss=2.00577e-05 - val_loss=5.10813e-06 - current_sparsity=0.86
+Epoch 644/1500 - train_loss=2.45687e-05 - val_loss=4.05597e-06 - current_sparsity=0.86
+Epoch 645/1500 - train_loss=1.98821e-05 - val_loss=3.81671e-06 - current_sparsity=0.86
+Epoch 646/1500 - train_loss=1.89357e-05 - val_loss=3.85207e-06 - current_sparsity=0.86
+Epoch 647/1500 - train_loss=2.10852e-05 - val_loss=5.24530e-06 - current_sparsity=0.86
+Epoch 648/1500 - train_loss=1.91594e-05 - val_loss=3.91613e-06 - current_sparsity=0.86
+Epoch 649/1500 - train_loss=1.88219e-05 - val_loss=3.96456e-06 - current_sparsity=0.86
+Epoch 650/1500 - train_loss=2.78486e-05 - val_loss=5.17584e-06 - current_sparsity=0.87
+Epoch 651/1500 - train_loss=2.07493e-05 - val_loss=4.25330e-06 - current_sparsity=0.87
+Epoch 652/1500 - train_loss=1.92579e-05 - val_loss=4.05201e-06 - current_sparsity=0.87
+Epoch 653/1500 - train_loss=2.83685e-05 - val_loss=5.80543e-06 - current_sparsity=0.87
+Epoch 654/1500 - train_loss=2.06569e-05 - val_loss=4.22390e-06 - current_sparsity=0.87
+Epoch 655/1500 - train_loss=1.88924e-05 - val_loss=4.11198e-06 - current_sparsity=0.87
+Epoch 656/1500 - train_loss=1.94120e-05 - val_loss=4.38938e-06 - current_sparsity=0.87
+Epoch 657/1500 - train_loss=1.90600e-05 - val_loss=3.93832e-06 - current_sparsity=0.87
+Epoch 658/1500 - train_loss=1.85350e-05 - val_loss=3.91254e-06 - current_sparsity=0.87
+Epoch 659/1500 - train_loss=3.24421e-05 - val_loss=1.91895e-05 - current_sparsity=0.87
+Epoch 660/1500 - train_loss=2.40292e-05 - val_loss=4.52022e-06 - current_sparsity=0.87
+Epoch 661/1500 - train_loss=1.96526e-05 - val_loss=4.42188e-06 - current_sparsity=0.87
+Epoch 662/1500 - train_loss=2.18222e-05 - val_loss=7.84538e-06 - current_sparsity=0.87
+Epoch 663/1500 - train_loss=2.37564e-05 - val_loss=4.27389e-06 - current_sparsity=0.87
+Epoch 664/1500 - train_loss=1.95774e-05 - val_loss=4.97143e-06 - current_sparsity=0.87
+Epoch 665/1500 - train_loss=1.88945e-05 - val_loss=4.19782e-06 - current_sparsity=0.87
+Epoch 666/1500 - train_loss=2.84174e-05 - val_loss=4.26398e-06 - current_sparsity=0.87
+Epoch 667/1500 - train_loss=1.90725e-05 - val_loss=5.09617e-06 - current_sparsity=0.87
+Epoch 668/1500 - train_loss=1.91670e-05 - val_loss=3.89071e-06 - current_sparsity=0.87
+Epoch 669/1500 - train_loss=2.95602e-05 - val_loss=5.96774e-06 - current_sparsity=0.87
+Epoch 670/1500 - train_loss=2.13488e-05 - val_loss=4.18468e-06 - current_sparsity=0.87
+Epoch 671/1500 - train_loss=2.00874e-05 - val_loss=4.52834e-06 - current_sparsity=0.87
+Epoch 672/1500 - train_loss=3.42828e-05 - val_loss=1.01222e-05 - current_sparsity=0.87
+Epoch 673/1500 - train_loss=2.26913e-05 - val_loss=3.98256e-06 - current_sparsity=0.87
+Epoch 674/1500 - train_loss=1.93952e-05 - val_loss=3.87735e-06 - current_sparsity=0.87
+Epoch 675/1500 - train_loss=2.00671e-05 - val_loss=6.44436e-06 - current_sparsity=0.88
+Epoch 676/1500 - train_loss=2.08235e-05 - val_loss=4.19875e-06 - current_sparsity=0.88
+Epoch 677/1500 - train_loss=1.92854e-05 - val_loss=4.19760e-06 - current_sparsity=0.88
+Epoch 678/1500 - train_loss=1.91760e-05 - val_loss=4.46421e-06 - current_sparsity=0.88
+Epoch 679/1500 - train_loss=1.33198e-04 - val_loss=2.33305e-05 - current_sparsity=0.88
+Epoch 680/1500 - train_loss=4.54997e-05 - val_loss=9.65666e-06 - current_sparsity=0.88
+Epoch 681/1500 - train_loss=3.29861e-05 - val_loss=8.09474e-06 - current_sparsity=0.88
+Epoch 682/1500 - train_loss=3.53495e-05 - val_loss=1.70806e-05 - current_sparsity=0.88
+Epoch 683/1500 - train_loss=3.03953e-05 - val_loss=6.89808e-06 - current_sparsity=0.88
+Epoch 684/1500 - train_loss=2.71399e-05 - val_loss=6.47707e-06 - current_sparsity=0.88
+Epoch 685/1500 - train_loss=2.71181e-05 - val_loss=1.60048e-05 - current_sparsity=0.88
+Epoch 686/1500 - train_loss=3.04326e-05 - val_loss=5.93222e-06 - current_sparsity=0.88
+Epoch 687/1500 - train_loss=2.54923e-05 - val_loss=6.47315e-06 - current_sparsity=0.88
+Epoch 688/1500 - train_loss=2.51189e-05 - val_loss=5.60292e-06 - current_sparsity=0.88
+Epoch 689/1500 - train_loss=7.96088e-05 - val_loss=1.94060e-05 - current_sparsity=0.88
+Epoch 690/1500 - train_loss=3.47229e-05 - val_loss=6.56996e-06 - current_sparsity=0.88
+Epoch 691/1500 - train_loss=2.59268e-05 - val_loss=5.75453e-06 - current_sparsity=0.88
+Epoch 692/1500 - train_loss=2.91356e-05 - val_loss=1.96189e-05 - current_sparsity=0.88
+Epoch 693/1500 - train_loss=3.29586e-05 - val_loss=6.94450e-06 - current_sparsity=0.88
+Epoch 694/1500 - train_loss=2.50095e-05 - val_loss=5.41686e-06 - current_sparsity=0.88
+Epoch 695/1500 - train_loss=2.41547e-05 - val_loss=5.79389e-06 - current_sparsity=0.88
+Epoch 696/1500 - train_loss=6.19158e-05 - val_loss=1.96555e-05 - current_sparsity=0.88
+Epoch 697/1500 - train_loss=2.91158e-05 - val_loss=5.50230e-06 - current_sparsity=0.88
+Epoch 698/1500 - train_loss=2.37552e-05 - val_loss=5.35832e-06 - current_sparsity=0.88
+Epoch 699/1500 - train_loss=2.80731e-05 - val_loss=2.11396e-05 - current_sparsity=0.89
+Epoch 700/1500 - train_loss=4.07810e-05 - val_loss=6.43020e-06 - current_sparsity=0.89
+Epoch 701/1500 - train_loss=2.49521e-05 - val_loss=6.24517e-06 - current_sparsity=0.89
+Epoch 702/1500 - train_loss=2.39392e-05 - val_loss=5.16599e-06 - current_sparsity=0.89
+Epoch 703/1500 - train_loss=3.31144e-05 - val_loss=1.72695e-05 - current_sparsity=0.89
+Epoch 704/1500 - train_loss=2.66279e-05 - val_loss=5.17381e-06 - current_sparsity=0.89
+Epoch 705/1500 - train_loss=2.33652e-05 - val_loss=4.95288e-06 - current_sparsity=0.89
+Epoch 706/1500 - train_loss=2.30571e-05 - val_loss=5.16655e-06 - current_sparsity=0.89
+Epoch 707/1500 - train_loss=2.51588e-05 - val_loss=5.33878e-06 - current_sparsity=0.89
+Epoch 708/1500 - train_loss=2.33833e-05 - val_loss=5.46272e-06 - current_sparsity=0.89
+Epoch 709/1500 - train_loss=2.29089e-05 - val_loss=5.29626e-06 - current_sparsity=0.89
+Epoch 710/1500 - train_loss=4.37531e-05 - val_loss=1.39682e-04 - current_sparsity=0.89
+Epoch 711/1500 - train_loss=6.75719e-05 - val_loss=9.38703e-06 - current_sparsity=0.89
+Epoch 712/1500 - train_loss=2.81346e-05 - val_loss=5.86041e-06 - current_sparsity=0.89
+Epoch 713/1500 - train_loss=2.52441e-05 - val_loss=5.29942e-06 - current_sparsity=0.89
+Epoch 714/1500 - train_loss=2.87550e-05 - val_loss=7.58267e-06 - current_sparsity=0.89
+Epoch 715/1500 - train_loss=2.59143e-05 - val_loss=5.55971e-06 - current_sparsity=0.89
+Epoch 716/1500 - train_loss=2.46494e-05 - val_loss=5.40309e-06 - current_sparsity=0.89
+Epoch 717/1500 - train_loss=2.42322e-05 - val_loss=5.12639e-06 - current_sparsity=0.89
+Epoch 718/1500 - train_loss=2.77816e-05 - val_loss=5.29595e-06 - current_sparsity=0.89
+Epoch 719/1500 - train_loss=2.44538e-05 - val_loss=5.07694e-06 - current_sparsity=0.89
+Epoch 720/1500 - train_loss=2.37231e-05 - val_loss=5.34008e-06 - current_sparsity=0.89
+Epoch 721/1500 - train_loss=2.34348e-05 - val_loss=5.06264e-06 - current_sparsity=0.89
+Epoch 722/1500 - train_loss=3.92233e-05 - val_loss=6.96805e-06 - current_sparsity=0.89
+Epoch 723/1500 - train_loss=2.73511e-05 - val_loss=5.90070e-06 - current_sparsity=0.89
+Epoch 724/1500 - train_loss=2.57160e-05 - val_loss=5.59492e-06 - current_sparsity=0.89
+Epoch 725/1500 - train_loss=2.49931e-05 - val_loss=5.70541e-06 - current_sparsity=0.89
+Epoch 726/1500 - train_loss=2.54105e-05 - val_loss=5.57293e-06 - current_sparsity=0.89
+Epoch 727/1500 - train_loss=2.43592e-05 - val_loss=5.26555e-06 - current_sparsity=0.89
+Epoch 728/1500 - train_loss=2.41826e-05 - val_loss=5.44906e-06 - current_sparsity=0.89
+Epoch 729/1500 - train_loss=2.39659e-05 - val_loss=5.50611e-06 - current_sparsity=0.89
+Epoch 730/1500 - train_loss=2.42591e-05 - val_loss=5.25766e-06 - current_sparsity=0.89
+Epoch 731/1500 - train_loss=2.35486e-05 - val_loss=5.19457e-06 - current_sparsity=0.89
+Epoch 732/1500 - train_loss=2.33216e-05 - val_loss=5.43002e-06 - current_sparsity=0.89
+Epoch 733/1500 - train_loss=4.00318e-05 - val_loss=2.20539e-05 - current_sparsity=0.90
+Epoch 734/1500 - train_loss=4.60181e-05 - val_loss=6.97571e-06 - current_sparsity=0.90
+Epoch 735/1500 - train_loss=2.67757e-05 - val_loss=6.11653e-06 - current_sparsity=0.90
+Epoch 736/1500 - train_loss=2.50591e-05 - val_loss=5.51907e-06 - current_sparsity=0.90
+Epoch 737/1500 - train_loss=3.30248e-05 - val_loss=1.36213e-05 - current_sparsity=0.90
+Epoch 738/1500 - train_loss=3.40083e-05 - val_loss=6.14127e-06 - current_sparsity=0.90
+Epoch 739/1500 - train_loss=2.49577e-05 - val_loss=5.27698e-06 - current_sparsity=0.90
+Epoch 740/1500 - train_loss=2.41837e-05 - val_loss=5.81600e-06 - current_sparsity=0.90
+Epoch 741/1500 - train_loss=2.67243e-05 - val_loss=2.32247e-05 - current_sparsity=0.90
+Epoch 742/1500 - train_loss=3.08077e-05 - val_loss=5.72293e-06 - current_sparsity=0.90
+Epoch 743/1500 - train_loss=2.40465e-05 - val_loss=5.23389e-06 - current_sparsity=0.90
+Epoch 744/1500 - train_loss=2.35843e-05 - val_loss=5.32749e-06 - current_sparsity=0.90
+Epoch 745/1500 - train_loss=2.32926e-05 - val_loss=5.27147e-06 - current_sparsity=0.90
+Epoch 746/1500 - train_loss=3.77428e-05 - val_loss=6.51997e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=746 - val_loss=6.51997e-06
+=============================================================
+Epoch 747/1500 - train_loss=2.60275e-05 - val_loss=5.96097e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=747 - val_loss=5.96097e-06
+=============================================================
+Epoch 748/1500 - train_loss=2.48668e-05 - val_loss=5.75122e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=748 - val_loss=5.75122e-06
+=============================================================
+Epoch 749/1500 - train_loss=2.51471e-05 - val_loss=5.52735e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=749 - val_loss=5.52735e-06
+=============================================================
+Epoch 750/1500 - train_loss=2.52954e-05 - val_loss=7.76398e-06 - current_sparsity=0.90
+Epoch 751/1500 - train_loss=2.55024e-05 - val_loss=5.13126e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=751 - val_loss=5.13126e-06
+=============================================================
+Epoch 752/1500 - train_loss=2.36220e-05 - val_loss=5.41923e-06 - current_sparsity=0.90
+Epoch 753/1500 - train_loss=2.36262e-05 - val_loss=5.06431e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=753 - val_loss=5.06431e-06
+=============================================================
+Epoch 754/1500 - train_loss=2.32648e-05 - val_loss=5.13626e-06 - current_sparsity=0.90
+Epoch 755/1500 - train_loss=2.32735e-05 - val_loss=5.18145e-06 - current_sparsity=0.90
+Epoch 756/1500 - train_loss=2.33787e-05 - val_loss=4.95713e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=756 - val_loss=4.95713e-06
+=============================================================
+Epoch 757/1500 - train_loss=2.27564e-05 - val_loss=4.96770e-06 - current_sparsity=0.90
+Epoch 758/1500 - train_loss=2.30589e-05 - val_loss=5.63815e-06 - current_sparsity=0.90
+Epoch 759/1500 - train_loss=2.29832e-05 - val_loss=5.05092e-06 - current_sparsity=0.90
+Epoch 760/1500 - train_loss=2.25317e-05 - val_loss=4.76864e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=760 - val_loss=4.76864e-06
+=============================================================
+Epoch 761/1500 - train_loss=2.26960e-05 - val_loss=5.09850e-06 - current_sparsity=0.90
+Epoch 762/1500 - train_loss=2.23382e-05 - val_loss=5.01234e-06 - current_sparsity=0.90
+Epoch 763/1500 - train_loss=2.23714e-05 - val_loss=5.04126e-06 - current_sparsity=0.90
+Epoch 764/1500 - train_loss=2.26772e-05 - val_loss=4.79047e-06 - current_sparsity=0.90
+Epoch 765/1500 - train_loss=2.21683e-05 - val_loss=5.74838e-06 - current_sparsity=0.90
+Epoch 766/1500 - train_loss=2.21788e-05 - val_loss=4.80287e-06 - current_sparsity=0.90
+Epoch 767/1500 - train_loss=2.21294e-05 - val_loss=4.76521e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=767 - val_loss=4.76521e-06
+=============================================================
+Epoch 768/1500 - train_loss=2.19570e-05 - val_loss=4.73338e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=768 - val_loss=4.73338e-06
+=============================================================
+Epoch 769/1500 - train_loss=2.23479e-05 - val_loss=4.85167e-06 - current_sparsity=0.90
+Epoch 770/1500 - train_loss=2.20092e-05 - val_loss=5.30719e-06 - current_sparsity=0.90
+Epoch 771/1500 - train_loss=2.18045e-05 - val_loss=4.60426e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=771 - val_loss=4.60426e-06
+=============================================================
+Epoch 772/1500 - train_loss=2.18069e-05 - val_loss=5.19487e-06 - current_sparsity=0.90
+Epoch 773/1500 - train_loss=2.19866e-05 - val_loss=5.64206e-06 - current_sparsity=0.90
+Epoch 774/1500 - train_loss=2.17547e-05 - val_loss=4.58689e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=774 - val_loss=4.58689e-06
+=============================================================
+Epoch 775/1500 - train_loss=2.15281e-05 - val_loss=4.45015e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=775 - val_loss=4.45015e-06
+=============================================================
+Epoch 776/1500 - train_loss=2.17120e-05 - val_loss=4.64558e-06 - current_sparsity=0.90
+Epoch 777/1500 - train_loss=2.16672e-05 - val_loss=4.75253e-06 - current_sparsity=0.90
+Epoch 778/1500 - train_loss=2.13834e-05 - val_loss=4.60177e-06 - current_sparsity=0.90
+Epoch 779/1500 - train_loss=2.10489e-05 - val_loss=4.81767e-06 - current_sparsity=0.90
+Epoch 780/1500 - train_loss=2.13823e-05 - val_loss=4.50467e-06 - current_sparsity=0.90
+Epoch 781/1500 - train_loss=2.20230e-05 - val_loss=5.89295e-06 - current_sparsity=0.90
+Epoch 782/1500 - train_loss=2.11301e-05 - val_loss=4.66223e-06 - current_sparsity=0.90
+Epoch 783/1500 - train_loss=2.11197e-05 - val_loss=4.49763e-06 - current_sparsity=0.90
+Epoch 784/1500 - train_loss=2.08508e-05 - val_loss=4.70095e-06 - current_sparsity=0.90
+Epoch 785/1500 - train_loss=2.11268e-05 - val_loss=4.78616e-06 - current_sparsity=0.90
+Epoch 786/1500 - train_loss=2.10714e-05 - val_loss=4.61381e-06 - current_sparsity=0.90
+Epoch 787/1500 - train_loss=2.08496e-05 - val_loss=5.55931e-06 - current_sparsity=0.90
+Epoch 788/1500 - train_loss=2.12185e-05 - val_loss=5.06778e-06 - current_sparsity=0.90
+Epoch 789/1500 - train_loss=2.09332e-05 - val_loss=4.54149e-06 - current_sparsity=0.90
+Epoch 790/1500 - train_loss=2.15873e-05 - val_loss=5.21704e-06 - current_sparsity=0.90
+Epoch 791/1500 - train_loss=2.08690e-05 - val_loss=4.43404e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=791 - val_loss=4.43404e-06
+=============================================================
+Epoch 792/1500 - train_loss=2.06937e-05 - val_loss=4.41591e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=792 - val_loss=4.41591e-06
+=============================================================
+Epoch 793/1500 - train_loss=2.04493e-05 - val_loss=4.31705e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=793 - val_loss=4.31705e-06
+=============================================================
+Epoch 794/1500 - train_loss=2.04423e-05 - val_loss=5.44511e-06 - current_sparsity=0.90
+Epoch 795/1500 - train_loss=2.04518e-05 - val_loss=4.62297e-06 - current_sparsity=0.90
+Epoch 796/1500 - train_loss=2.03732e-05 - val_loss=4.41417e-06 - current_sparsity=0.90
+Epoch 797/1500 - train_loss=2.09086e-05 - val_loss=4.53092e-06 - current_sparsity=0.90
+Epoch 798/1500 - train_loss=2.09851e-05 - val_loss=4.49008e-06 - current_sparsity=0.90
+Epoch 799/1500 - train_loss=2.03896e-05 - val_loss=4.28608e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=799 - val_loss=4.28608e-06
+=============================================================
+Epoch 800/1500 - train_loss=2.03616e-05 - val_loss=4.44967e-06 - current_sparsity=0.90
+Epoch 801/1500 - train_loss=2.09518e-05 - val_loss=5.00032e-06 - current_sparsity=0.90
+Epoch 802/1500 - train_loss=2.01412e-05 - val_loss=4.21082e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=802 - val_loss=4.21082e-06
+=============================================================
+Epoch 803/1500 - train_loss=2.01691e-05 - val_loss=4.42698e-06 - current_sparsity=0.90
+Epoch 804/1500 - train_loss=1.99663e-05 - val_loss=4.19283e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=804 - val_loss=4.19283e-06
+=============================================================
+Epoch 805/1500 - train_loss=2.03915e-05 - val_loss=5.29945e-06 - current_sparsity=0.90
+Epoch 806/1500 - train_loss=2.04550e-05 - val_loss=4.32407e-06 - current_sparsity=0.90
+Epoch 807/1500 - train_loss=2.06219e-05 - val_loss=4.53824e-06 - current_sparsity=0.90
+Epoch 808/1500 - train_loss=2.01364e-05 - val_loss=4.12810e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=808 - val_loss=4.12810e-06
+=============================================================
+Epoch 809/1500 - train_loss=1.98492e-05 - val_loss=4.45171e-06 - current_sparsity=0.90
+Epoch 810/1500 - train_loss=1.96518e-05 - val_loss=4.68530e-06 - current_sparsity=0.90
+Epoch 811/1500 - train_loss=2.00476e-05 - val_loss=4.21119e-06 - current_sparsity=0.90
+Epoch 812/1500 - train_loss=2.07358e-05 - val_loss=4.53692e-06 - current_sparsity=0.90
+Epoch 813/1500 - train_loss=1.97946e-05 - val_loss=4.56450e-06 - current_sparsity=0.90
+Epoch 814/1500 - train_loss=1.99879e-05 - val_loss=4.63040e-06 - current_sparsity=0.90
+Epoch 815/1500 - train_loss=1.98453e-05 - val_loss=4.51673e-06 - current_sparsity=0.90
+Epoch 816/1500 - train_loss=1.97596e-05 - val_loss=4.54118e-06 - current_sparsity=0.90
+Epoch 817/1500 - train_loss=1.98242e-05 - val_loss=4.37005e-06 - current_sparsity=0.90
+Epoch 818/1500 - train_loss=1.97524e-05 - val_loss=4.86355e-06 - current_sparsity=0.90
+Epoch 819/1500 - train_loss=2.00571e-05 - val_loss=4.11784e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=819 - val_loss=4.11784e-06
+=============================================================
+Epoch 820/1500 - train_loss=1.94643e-05 - val_loss=4.36576e-06 - current_sparsity=0.90
+Epoch 821/1500 - train_loss=1.97234e-05 - val_loss=4.61986e-06 - current_sparsity=0.90
+Epoch 822/1500 - train_loss=1.97724e-05 - val_loss=4.12576e-06 - current_sparsity=0.90
+Epoch 823/1500 - train_loss=1.96409e-05 - val_loss=4.10332e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=823 - val_loss=4.10332e-06
+=============================================================
+Epoch 824/1500 - train_loss=1.95190e-05 - val_loss=4.09622e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=824 - val_loss=4.09622e-06
+=============================================================
+Epoch 825/1500 - train_loss=1.92374e-05 - val_loss=3.95729e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=825 - val_loss=3.95729e-06
+=============================================================
+Epoch 826/1500 - train_loss=1.96285e-05 - val_loss=4.56799e-06 - current_sparsity=0.90
+Epoch 827/1500 - train_loss=1.97472e-05 - val_loss=4.42997e-06 - current_sparsity=0.90
+Epoch 828/1500 - train_loss=1.91328e-05 - val_loss=4.07343e-06 - current_sparsity=0.90
+Epoch 829/1500 - train_loss=1.91618e-05 - val_loss=4.07401e-06 - current_sparsity=0.90
+Epoch 830/1500 - train_loss=1.95564e-05 - val_loss=4.44242e-06 - current_sparsity=0.90
+Epoch 831/1500 - train_loss=1.93302e-05 - val_loss=4.00824e-06 - current_sparsity=0.90
+Epoch 832/1500 - train_loss=1.91203e-05 - val_loss=4.34711e-06 - current_sparsity=0.90
+Epoch 833/1500 - train_loss=1.89070e-05 - val_loss=4.32212e-06 - current_sparsity=0.90
+Epoch 834/1500 - train_loss=1.90726e-05 - val_loss=4.07693e-06 - current_sparsity=0.90
+Epoch 835/1500 - train_loss=1.89204e-05 - val_loss=4.30130e-06 - current_sparsity=0.90
+Epoch 836/1500 - train_loss=1.90277e-05 - val_loss=3.96096e-06 - current_sparsity=0.90
+Epoch 837/1500 - train_loss=1.90863e-05 - val_loss=4.19605e-06 - current_sparsity=0.90
+Epoch 838/1500 - train_loss=1.95583e-05 - val_loss=4.26210e-06 - current_sparsity=0.90
+Epoch 839/1500 - train_loss=1.88829e-05 - val_loss=4.07036e-06 - current_sparsity=0.90
+Epoch 840/1500 - train_loss=1.91515e-05 - val_loss=4.10205e-06 - current_sparsity=0.90
+Epoch 841/1500 - train_loss=1.88987e-05 - val_loss=3.97169e-06 - current_sparsity=0.90
+Epoch 842/1500 - train_loss=1.92420e-05 - val_loss=4.28458e-06 - current_sparsity=0.90
+Epoch 843/1500 - train_loss=1.89668e-05 - val_loss=4.13609e-06 - current_sparsity=0.90
+Epoch 844/1500 - train_loss=1.88768e-05 - val_loss=3.98119e-06 - current_sparsity=0.90
+Epoch 845/1500 - train_loss=1.91329e-05 - val_loss=3.91669e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=845 - val_loss=3.91669e-06
+=============================================================
+Epoch 846/1500 - train_loss=1.88641e-05 - val_loss=4.52810e-06 - current_sparsity=0.90
+Epoch 847/1500 - train_loss=1.87707e-05 - val_loss=3.85614e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=847 - val_loss=3.85614e-06
+=============================================================
+Epoch 848/1500 - train_loss=1.84221e-05 - val_loss=3.92762e-06 - current_sparsity=0.90
+Epoch 849/1500 - train_loss=1.87200e-05 - val_loss=3.84885e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=849 - val_loss=3.84885e-06
+=============================================================
+Epoch 850/1500 - train_loss=1.88296e-05 - val_loss=4.15598e-06 - current_sparsity=0.90
+Epoch 851/1500 - train_loss=1.89605e-05 - val_loss=4.28126e-06 - current_sparsity=0.90
+Epoch 852/1500 - train_loss=1.86399e-05 - val_loss=3.82057e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=852 - val_loss=3.82057e-06
+=============================================================
+Epoch 853/1500 - train_loss=1.83962e-05 - val_loss=4.24016e-06 - current_sparsity=0.90
+Epoch 854/1500 - train_loss=1.85356e-05 - val_loss=3.93825e-06 - current_sparsity=0.90
+Epoch 855/1500 - train_loss=1.83310e-05 - val_loss=4.00363e-06 - current_sparsity=0.90
+Epoch 856/1500 - train_loss=1.86181e-05 - val_loss=3.97756e-06 - current_sparsity=0.90
+Epoch 857/1500 - train_loss=1.85040e-05 - val_loss=3.93796e-06 - current_sparsity=0.90
+Epoch 858/1500 - train_loss=1.84829e-05 - val_loss=4.26275e-06 - current_sparsity=0.90
+Epoch 859/1500 - train_loss=1.94474e-05 - val_loss=3.86210e-06 - current_sparsity=0.90
+Epoch 860/1500 - train_loss=1.87940e-05 - val_loss=4.88762e-06 - current_sparsity=0.90
+Epoch 861/1500 - train_loss=1.86832e-05 - val_loss=4.35647e-06 - current_sparsity=0.90
+Epoch 862/1500 - train_loss=1.83766e-05 - val_loss=3.91622e-06 - current_sparsity=0.90
+Epoch 863/1500 - train_loss=1.83216e-05 - val_loss=3.93192e-06 - current_sparsity=0.90
+Epoch 864/1500 - train_loss=1.85017e-05 - val_loss=4.72821e-06 - current_sparsity=0.90
+Epoch 865/1500 - train_loss=1.85082e-05 - val_loss=3.85748e-06 - current_sparsity=0.90
+Epoch 866/1500 - train_loss=1.85388e-05 - val_loss=4.08865e-06 - current_sparsity=0.90
+Epoch 867/1500 - train_loss=1.84266e-05 - val_loss=4.68766e-06 - current_sparsity=0.90
+Epoch 868/1500 - train_loss=1.86334e-05 - val_loss=3.86681e-06 - current_sparsity=0.90
+Epoch 869/1500 - train_loss=1.81767e-05 - val_loss=3.71586e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=869 - val_loss=3.71586e-06
+=============================================================
+Epoch 870/1500 - train_loss=1.81301e-05 - val_loss=4.13837e-06 - current_sparsity=0.90
+Epoch 871/1500 - train_loss=1.86935e-05 - val_loss=3.75488e-06 - current_sparsity=0.90
+Epoch 872/1500 - train_loss=1.85737e-05 - val_loss=4.08068e-06 - current_sparsity=0.90
+Epoch 873/1500 - train_loss=1.85146e-05 - val_loss=4.00597e-06 - current_sparsity=0.90
+Epoch 874/1500 - train_loss=1.80878e-05 - val_loss=4.03528e-06 - current_sparsity=0.90
+Epoch 875/1500 - train_loss=1.85358e-05 - val_loss=3.88306e-06 - current_sparsity=0.90
+Epoch 876/1500 - train_loss=1.84189e-05 - val_loss=3.83499e-06 - current_sparsity=0.90
+Epoch 877/1500 - train_loss=1.89436e-05 - val_loss=4.10847e-06 - current_sparsity=0.90
+Epoch 878/1500 - train_loss=1.78914e-05 - val_loss=3.87129e-06 - current_sparsity=0.90
+Epoch 879/1500 - train_loss=1.81159e-05 - val_loss=3.83460e-06 - current_sparsity=0.90
+Epoch 880/1500 - train_loss=1.84826e-05 - val_loss=4.70722e-06 - current_sparsity=0.90
+Epoch 881/1500 - train_loss=1.83848e-05 - val_loss=3.94674e-06 - current_sparsity=0.90
+Epoch 882/1500 - train_loss=1.80191e-05 - val_loss=3.75177e-06 - current_sparsity=0.90
+Epoch 883/1500 - train_loss=1.82260e-05 - val_loss=5.14628e-06 - current_sparsity=0.90
+Epoch 884/1500 - train_loss=1.80311e-05 - val_loss=3.90131e-06 - current_sparsity=0.90
+Epoch 885/1500 - train_loss=1.79419e-05 - val_loss=4.20032e-06 - current_sparsity=0.90
+Epoch 886/1500 - train_loss=1.78927e-05 - val_loss=3.74594e-06 - current_sparsity=0.90
+Epoch 887/1500 - train_loss=1.78922e-05 - val_loss=3.69991e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=887 - val_loss=3.69991e-06
+=============================================================
+Epoch 888/1500 - train_loss=1.83037e-05 - val_loss=4.13736e-06 - current_sparsity=0.90
+Epoch 889/1500 - train_loss=1.79891e-05 - val_loss=3.97896e-06 - current_sparsity=0.90
+Epoch 890/1500 - train_loss=1.77822e-05 - val_loss=3.96233e-06 - current_sparsity=0.90
+Epoch 891/1500 - train_loss=1.81146e-05 - val_loss=4.16628e-06 - current_sparsity=0.90
+Epoch 892/1500 - train_loss=1.78726e-05 - val_loss=3.74187e-06 - current_sparsity=0.90
+Epoch 893/1500 - train_loss=1.82329e-05 - val_loss=3.87160e-06 - current_sparsity=0.90
+Epoch 894/1500 - train_loss=1.81288e-05 - val_loss=5.17712e-06 - current_sparsity=0.90
+Epoch 895/1500 - train_loss=1.77763e-05 - val_loss=3.59847e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=895 - val_loss=3.59847e-06
+=============================================================
+Epoch 896/1500 - train_loss=1.76803e-05 - val_loss=3.71054e-06 - current_sparsity=0.90
+Epoch 897/1500 - train_loss=1.80346e-05 - val_loss=3.74830e-06 - current_sparsity=0.90
+Epoch 898/1500 - train_loss=1.78538e-05 - val_loss=4.98952e-06 - current_sparsity=0.90
+Epoch 899/1500 - train_loss=1.82443e-05 - val_loss=3.77405e-06 - current_sparsity=0.90
+Epoch 900/1500 - train_loss=1.79051e-05 - val_loss=3.98924e-06 - current_sparsity=0.90
+Epoch 901/1500 - train_loss=1.78723e-05 - val_loss=3.90328e-06 - current_sparsity=0.90
+Epoch 902/1500 - train_loss=1.76127e-05 - val_loss=3.64474e-06 - current_sparsity=0.90
+Epoch 903/1500 - train_loss=1.74751e-05 - val_loss=3.96044e-06 - current_sparsity=0.90
+Epoch 904/1500 - train_loss=1.79759e-05 - val_loss=4.06590e-06 - current_sparsity=0.90
+Epoch 905/1500 - train_loss=1.74598e-05 - val_loss=4.13928e-06 - current_sparsity=0.90
+Epoch 906/1500 - train_loss=1.75698e-05 - val_loss=3.77714e-06 - current_sparsity=0.90
+Epoch 907/1500 - train_loss=1.75393e-05 - val_loss=3.89044e-06 - current_sparsity=0.90
+Epoch 908/1500 - train_loss=1.81127e-05 - val_loss=3.76596e-06 - current_sparsity=0.90
+Epoch 909/1500 - train_loss=1.77277e-05 - val_loss=3.72650e-06 - current_sparsity=0.90
+Epoch 910/1500 - train_loss=1.75217e-05 - val_loss=3.57944e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=910 - val_loss=3.57944e-06
+=============================================================
+Epoch 911/1500 - train_loss=1.81724e-05 - val_loss=3.53383e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=911 - val_loss=3.53383e-06
+=============================================================
+Epoch 912/1500 - train_loss=1.74305e-05 - val_loss=5.05816e-06 - current_sparsity=0.90
+Epoch 913/1500 - train_loss=1.75128e-05 - val_loss=3.91897e-06 - current_sparsity=0.90
+Epoch 914/1500 - train_loss=1.76667e-05 - val_loss=3.61330e-06 - current_sparsity=0.90
+Epoch 915/1500 - train_loss=1.76464e-05 - val_loss=3.86611e-06 - current_sparsity=0.90
+Epoch 916/1500 - train_loss=1.78721e-05 - val_loss=4.53368e-06 - current_sparsity=0.90
+Epoch 917/1500 - train_loss=1.74457e-05 - val_loss=3.57616e-06 - current_sparsity=0.90
+Epoch 918/1500 - train_loss=1.74393e-05 - val_loss=3.79879e-06 - current_sparsity=0.90
+Epoch 919/1500 - train_loss=1.75217e-05 - val_loss=3.62575e-06 - current_sparsity=0.90
+Epoch 920/1500 - train_loss=1.77356e-05 - val_loss=4.19183e-06 - current_sparsity=0.90
+Epoch 921/1500 - train_loss=1.85855e-05 - val_loss=3.77384e-06 - current_sparsity=0.90
+Epoch 922/1500 - train_loss=1.81582e-05 - val_loss=3.69008e-06 - current_sparsity=0.90
+Epoch 923/1500 - train_loss=1.74821e-05 - val_loss=4.07501e-06 - current_sparsity=0.90
+Epoch 924/1500 - train_loss=1.73228e-05 - val_loss=3.53976e-06 - current_sparsity=0.90
+Epoch 925/1500 - train_loss=1.72941e-05 - val_loss=3.56075e-06 - current_sparsity=0.90
+Epoch 926/1500 - train_loss=1.74007e-05 - val_loss=3.65502e-06 - current_sparsity=0.90
+Epoch 927/1500 - train_loss=1.75688e-05 - val_loss=3.79345e-06 - current_sparsity=0.90
+Epoch 928/1500 - train_loss=1.81133e-05 - val_loss=3.98762e-06 - current_sparsity=0.90
+Epoch 929/1500 - train_loss=1.76736e-05 - val_loss=4.05180e-06 - current_sparsity=0.90
+Epoch 930/1500 - train_loss=1.70805e-05 - val_loss=3.66960e-06 - current_sparsity=0.90
+Epoch 931/1500 - train_loss=1.71366e-05 - val_loss=3.42243e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=931 - val_loss=3.42243e-06
+=============================================================
+Epoch 932/1500 - train_loss=1.72704e-05 - val_loss=3.54968e-06 - current_sparsity=0.90
+Epoch 933/1500 - train_loss=1.72700e-05 - val_loss=3.56340e-06 - current_sparsity=0.90
+Epoch 934/1500 - train_loss=1.71757e-05 - val_loss=3.65171e-06 - current_sparsity=0.90
+Epoch 935/1500 - train_loss=1.71043e-05 - val_loss=3.50145e-06 - current_sparsity=0.90
+Epoch 936/1500 - train_loss=1.70402e-05 - val_loss=4.14140e-06 - current_sparsity=0.90
+Epoch 937/1500 - train_loss=1.79939e-05 - val_loss=3.90744e-06 - current_sparsity=0.90
+Epoch 938/1500 - train_loss=1.76549e-05 - val_loss=4.42964e-06 - current_sparsity=0.90
+Epoch 939/1500 - train_loss=1.74014e-05 - val_loss=4.19234e-06 - current_sparsity=0.90
+Epoch 940/1500 - train_loss=1.74287e-05 - val_loss=4.18162e-06 - current_sparsity=0.90
+Epoch 941/1500 - train_loss=1.74818e-05 - val_loss=3.52842e-06 - current_sparsity=0.90
+Epoch 942/1500 - train_loss=1.74111e-05 - val_loss=3.63734e-06 - current_sparsity=0.90
+Epoch 943/1500 - train_loss=1.72046e-05 - val_loss=3.54333e-06 - current_sparsity=0.90
+Epoch 944/1500 - train_loss=1.74990e-05 - val_loss=3.93591e-06 - current_sparsity=0.90
+Epoch 945/1500 - train_loss=1.71186e-05 - val_loss=3.41850e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=945 - val_loss=3.41850e-06
+=============================================================
+Epoch 946/1500 - train_loss=1.69217e-05 - val_loss=3.65888e-06 - current_sparsity=0.90
+Epoch 947/1500 - train_loss=1.70923e-05 - val_loss=3.51377e-06 - current_sparsity=0.90
+Epoch 948/1500 - train_loss=1.73572e-05 - val_loss=4.22989e-06 - current_sparsity=0.90
+Epoch 949/1500 - train_loss=1.72880e-05 - val_loss=3.49572e-06 - current_sparsity=0.90
+Epoch 950/1500 - train_loss=1.71335e-05 - val_loss=4.09492e-06 - current_sparsity=0.90
+Epoch 951/1500 - train_loss=1.72786e-05 - val_loss=4.06503e-06 - current_sparsity=0.90
+Epoch 952/1500 - train_loss=1.74738e-05 - val_loss=3.71508e-06 - current_sparsity=0.90
+Epoch 953/1500 - train_loss=1.71725e-05 - val_loss=3.71218e-06 - current_sparsity=0.90
+Epoch 954/1500 - train_loss=1.77895e-05 - val_loss=3.62227e-06 - current_sparsity=0.90
+Epoch 955/1500 - train_loss=1.73366e-05 - val_loss=3.53459e-06 - current_sparsity=0.90
+Epoch 956/1500 - train_loss=1.68801e-05 - val_loss=3.40053e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=956 - val_loss=3.40053e-06
+=============================================================
+Epoch 957/1500 - train_loss=1.68385e-05 - val_loss=3.58302e-06 - current_sparsity=0.90
+Epoch 958/1500 - train_loss=1.70214e-05 - val_loss=3.44324e-06 - current_sparsity=0.90
+Epoch 959/1500 - train_loss=1.70497e-05 - val_loss=3.69469e-06 - current_sparsity=0.90
+Epoch 960/1500 - train_loss=1.68872e-05 - val_loss=4.00576e-06 - current_sparsity=0.90
+Epoch 961/1500 - train_loss=1.70470e-05 - val_loss=4.32883e-06 - current_sparsity=0.90
+Epoch 962/1500 - train_loss=1.70554e-05 - val_loss=3.62748e-06 - current_sparsity=0.90
+Epoch 963/1500 - train_loss=1.66551e-05 - val_loss=3.77523e-06 - current_sparsity=0.90
+Epoch 964/1500 - train_loss=1.69424e-05 - val_loss=3.75424e-06 - current_sparsity=0.90
+Epoch 965/1500 - train_loss=1.71986e-05 - val_loss=3.42915e-06 - current_sparsity=0.90
+Epoch 966/1500 - train_loss=1.68640e-05 - val_loss=3.55949e-06 - current_sparsity=0.90
+Epoch 967/1500 - train_loss=1.75270e-05 - val_loss=3.54540e-06 - current_sparsity=0.90
+Epoch 968/1500 - train_loss=1.71387e-05 - val_loss=3.36353e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=968 - val_loss=3.36353e-06
+=============================================================
+Epoch 969/1500 - train_loss=1.65626e-05 - val_loss=3.54624e-06 - current_sparsity=0.90
+Epoch 970/1500 - train_loss=1.68837e-05 - val_loss=4.02071e-06 - current_sparsity=0.90
+Epoch 971/1500 - train_loss=1.69976e-05 - val_loss=4.25959e-06 - current_sparsity=0.90
+Epoch 972/1500 - train_loss=1.71220e-05 - val_loss=4.56703e-06 - current_sparsity=0.90
+Epoch 973/1500 - train_loss=1.70666e-05 - val_loss=3.41241e-06 - current_sparsity=0.90
+Epoch 974/1500 - train_loss=1.67053e-05 - val_loss=3.44321e-06 - current_sparsity=0.90
+Epoch 975/1500 - train_loss=1.68442e-05 - val_loss=3.58827e-06 - current_sparsity=0.90
+Epoch 976/1500 - train_loss=1.66647e-05 - val_loss=3.62775e-06 - current_sparsity=0.90
+Epoch 977/1500 - train_loss=1.65407e-05 - val_loss=3.84008e-06 - current_sparsity=0.90
+Epoch 978/1500 - train_loss=1.71569e-05 - val_loss=4.76844e-06 - current_sparsity=0.90
+Epoch 979/1500 - train_loss=1.71432e-05 - val_loss=3.78469e-06 - current_sparsity=0.90
+Epoch 980/1500 - train_loss=1.76059e-05 - val_loss=6.89403e-06 - current_sparsity=0.90
+Epoch 981/1500 - train_loss=1.84901e-05 - val_loss=4.58920e-06 - current_sparsity=0.90
+Epoch 982/1500 - train_loss=1.71191e-05 - val_loss=3.43876e-06 - current_sparsity=0.90
+Epoch 983/1500 - train_loss=1.66477e-05 - val_loss=3.74406e-06 - current_sparsity=0.90
+Epoch 984/1500 - train_loss=1.66795e-05 - val_loss=3.46688e-06 - current_sparsity=0.90
+Epoch 985/1500 - train_loss=1.67722e-05 - val_loss=3.41175e-06 - current_sparsity=0.90
+Epoch 986/1500 - train_loss=1.66134e-05 - val_loss=3.54831e-06 - current_sparsity=0.90
+Epoch 987/1500 - train_loss=1.65003e-05 - val_loss=3.45662e-06 - current_sparsity=0.90
+Epoch 988/1500 - train_loss=1.69921e-05 - val_loss=4.15900e-06 - current_sparsity=0.90
+Epoch 989/1500 - train_loss=1.68335e-05 - val_loss=3.34575e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=989 - val_loss=3.34575e-06
+=============================================================
+Epoch 990/1500 - train_loss=1.68223e-05 - val_loss=4.31214e-06 - current_sparsity=0.90
+Epoch 991/1500 - train_loss=1.68705e-05 - val_loss=3.58205e-06 - current_sparsity=0.90
+Epoch 992/1500 - train_loss=1.63578e-05 - val_loss=3.47431e-06 - current_sparsity=0.90
+Epoch 993/1500 - train_loss=1.69141e-05 - val_loss=3.68076e-06 - current_sparsity=0.90
+Epoch 994/1500 - train_loss=1.64996e-05 - val_loss=3.44089e-06 - current_sparsity=0.90
+Epoch 995/1500 - train_loss=1.70419e-05 - val_loss=6.21888e-06 - current_sparsity=0.90
+Epoch 996/1500 - train_loss=1.73449e-05 - val_loss=4.66253e-06 - current_sparsity=0.90
+Epoch 997/1500 - train_loss=1.65926e-05 - val_loss=3.49626e-06 - current_sparsity=0.90
+Epoch 998/1500 - train_loss=1.65173e-05 - val_loss=4.10612e-06 - current_sparsity=0.90
+Epoch 999/1500 - train_loss=1.67430e-05 - val_loss=3.85460e-06 - current_sparsity=0.90
+Epoch 1000/1500 - train_loss=1.66374e-05 - val_loss=3.30716e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1000 - val_loss=3.30716e-06
+=============================================================
+Epoch 1001/1500 - train_loss=1.67183e-05 - val_loss=3.96115e-06 - current_sparsity=0.90
+Epoch 1002/1500 - train_loss=1.68569e-05 - val_loss=3.40419e-06 - current_sparsity=0.90
+Epoch 1003/1500 - train_loss=1.65100e-05 - val_loss=3.71777e-06 - current_sparsity=0.90
+Epoch 1004/1500 - train_loss=1.67248e-05 - val_loss=3.76453e-06 - current_sparsity=0.90
+Epoch 1005/1500 - train_loss=1.71219e-05 - val_loss=3.32788e-06 - current_sparsity=0.90
+Epoch 1006/1500 - train_loss=1.67853e-05 - val_loss=3.41160e-06 - current_sparsity=0.90
+Epoch 1007/1500 - train_loss=1.68832e-05 - val_loss=3.45298e-06 - current_sparsity=0.90
+Epoch 1008/1500 - train_loss=1.68641e-05 - val_loss=3.58022e-06 - current_sparsity=0.90
+Epoch 1009/1500 - train_loss=1.62387e-05 - val_loss=3.41490e-06 - current_sparsity=0.90
+Epoch 1010/1500 - train_loss=1.65256e-05 - val_loss=3.56631e-06 - current_sparsity=0.90
+Epoch 1011/1500 - train_loss=1.65026e-05 - val_loss=3.61308e-06 - current_sparsity=0.90
+Epoch 1012/1500 - train_loss=1.65762e-05 - val_loss=3.27923e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1012 - val_loss=3.27923e-06
+=============================================================
+Epoch 1013/1500 - train_loss=1.66496e-05 - val_loss=5.38208e-06 - current_sparsity=0.90
+Epoch 1014/1500 - train_loss=1.68013e-05 - val_loss=3.29544e-06 - current_sparsity=0.90
+Epoch 1015/1500 - train_loss=1.67047e-05 - val_loss=3.77626e-06 - current_sparsity=0.90
+Epoch 1016/1500 - train_loss=1.64850e-05 - val_loss=3.34938e-06 - current_sparsity=0.90
+Epoch 1017/1500 - train_loss=1.65966e-05 - val_loss=3.69427e-06 - current_sparsity=0.90
+Epoch 1018/1500 - train_loss=1.68907e-05 - val_loss=3.66383e-06 - current_sparsity=0.90
+Epoch 1019/1500 - train_loss=1.67233e-05 - val_loss=5.35222e-06 - current_sparsity=0.90
+Epoch 1020/1500 - train_loss=1.71118e-05 - val_loss=3.67534e-06 - current_sparsity=0.90
+Epoch 1021/1500 - train_loss=1.63397e-05 - val_loss=3.92890e-06 - current_sparsity=0.90
+Epoch 1022/1500 - train_loss=1.63907e-05 - val_loss=3.38807e-06 - current_sparsity=0.90
+Epoch 1023/1500 - train_loss=1.76165e-05 - val_loss=5.10769e-06 - current_sparsity=0.90
+Epoch 1024/1500 - train_loss=1.69779e-05 - val_loss=3.24524e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1024 - val_loss=3.24524e-06
+=============================================================
+Epoch 1025/1500 - train_loss=1.64517e-05 - val_loss=3.23959e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1025 - val_loss=3.23959e-06
+=============================================================
+Epoch 1026/1500 - train_loss=1.68666e-05 - val_loss=3.42960e-06 - current_sparsity=0.90
+Epoch 1027/1500 - train_loss=1.64931e-05 - val_loss=3.46211e-06 - current_sparsity=0.90
+Epoch 1028/1500 - train_loss=1.68068e-05 - val_loss=3.33147e-06 - current_sparsity=0.90
+Epoch 1029/1500 - train_loss=1.68013e-05 - val_loss=3.34001e-06 - current_sparsity=0.90
+Epoch 1030/1500 - train_loss=1.66328e-05 - val_loss=3.65982e-06 - current_sparsity=0.90
+Epoch 1031/1500 - train_loss=1.63948e-05 - val_loss=3.49002e-06 - current_sparsity=0.90
+Epoch 1032/1500 - train_loss=1.63125e-05 - val_loss=3.33650e-06 - current_sparsity=0.90
+Epoch 1033/1500 - train_loss=1.66526e-05 - val_loss=3.57028e-06 - current_sparsity=0.90
+Epoch 1034/1500 - train_loss=1.73703e-05 - val_loss=3.63112e-06 - current_sparsity=0.90
+Epoch 1035/1500 - train_loss=1.70899e-05 - val_loss=3.24895e-06 - current_sparsity=0.90
+Epoch 1036/1500 - train_loss=1.61914e-05 - val_loss=3.43519e-06 - current_sparsity=0.90
+Epoch 1037/1500 - train_loss=1.61610e-05 - val_loss=3.73798e-06 - current_sparsity=0.90
+Epoch 1038/1500 - train_loss=1.62548e-05 - val_loss=5.39901e-06 - current_sparsity=0.90
+Epoch 1039/1500 - train_loss=1.65841e-05 - val_loss=3.75856e-06 - current_sparsity=0.90
+Epoch 1040/1500 - train_loss=1.65050e-05 - val_loss=3.46638e-06 - current_sparsity=0.90
+Epoch 1041/1500 - train_loss=1.61824e-05 - val_loss=4.18614e-06 - current_sparsity=0.90
+Epoch 1042/1500 - train_loss=1.66161e-05 - val_loss=3.82672e-06 - current_sparsity=0.90
+Epoch 1043/1500 - train_loss=1.68504e-05 - val_loss=3.55021e-06 - current_sparsity=0.90
+Epoch 1044/1500 - train_loss=1.65508e-05 - val_loss=3.37261e-06 - current_sparsity=0.90
+Epoch 1045/1500 - train_loss=1.60979e-05 - val_loss=3.28989e-06 - current_sparsity=0.90
+Epoch 1046/1500 - train_loss=1.60883e-05 - val_loss=3.34327e-06 - current_sparsity=0.90
+Epoch 1047/1500 - train_loss=1.61874e-05 - val_loss=3.26550e-06 - current_sparsity=0.90
+Epoch 1048/1500 - train_loss=1.61265e-05 - val_loss=3.54880e-06 - current_sparsity=0.90
+Epoch 1049/1500 - train_loss=1.60907e-05 - val_loss=3.25787e-06 - current_sparsity=0.90
+Epoch 1050/1500 - train_loss=1.62451e-05 - val_loss=3.66437e-06 - current_sparsity=0.90
+Epoch 1051/1500 - train_loss=1.62256e-05 - val_loss=3.31383e-06 - current_sparsity=0.90
+Epoch 1052/1500 - train_loss=1.60065e-05 - val_loss=3.29620e-06 - current_sparsity=0.90
+Epoch 1053/1500 - train_loss=1.60497e-05 - val_loss=3.23755e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1053 - val_loss=3.23755e-06
+=============================================================
+Epoch 1054/1500 - train_loss=1.61207e-05 - val_loss=3.49713e-06 - current_sparsity=0.90
+Epoch 1055/1500 - train_loss=1.65978e-05 - val_loss=3.61696e-06 - current_sparsity=0.90
+Epoch 1056/1500 - train_loss=1.64739e-05 - val_loss=3.51851e-06 - current_sparsity=0.90
+Epoch 1057/1500 - train_loss=1.60791e-05 - val_loss=3.55013e-06 - current_sparsity=0.90
+Epoch 1058/1500 - train_loss=1.61331e-05 - val_loss=3.36397e-06 - current_sparsity=0.90
+Epoch 1059/1500 - train_loss=1.65434e-05 - val_loss=3.27256e-06 - current_sparsity=0.90
+Epoch 1060/1500 - train_loss=1.62328e-05 - val_loss=3.77073e-06 - current_sparsity=0.90
+Epoch 1061/1500 - train_loss=1.60704e-05 - val_loss=3.51979e-06 - current_sparsity=0.90
+Epoch 1062/1500 - train_loss=1.64366e-05 - val_loss=3.55966e-06 - current_sparsity=0.90
+Epoch 1063/1500 - train_loss=1.60860e-05 - val_loss=3.36363e-06 - current_sparsity=0.90
+Epoch 1064/1500 - train_loss=1.62964e-05 - val_loss=3.88451e-06 - current_sparsity=0.90
+Epoch 1065/1500 - train_loss=1.60431e-05 - val_loss=3.40281e-06 - current_sparsity=0.90
+Epoch 1066/1500 - train_loss=1.63782e-05 - val_loss=3.51018e-06 - current_sparsity=0.90
+Epoch 1067/1500 - train_loss=1.60861e-05 - val_loss=3.33989e-06 - current_sparsity=0.90
+Epoch 1068/1500 - train_loss=1.58824e-05 - val_loss=3.68018e-06 - current_sparsity=0.90
+Epoch 1069/1500 - train_loss=1.61660e-05 - val_loss=3.32774e-06 - current_sparsity=0.90
+Epoch 1070/1500 - train_loss=1.64199e-05 - val_loss=4.18689e-06 - current_sparsity=0.90
+Epoch 1071/1500 - train_loss=1.59851e-05 - val_loss=3.40041e-06 - current_sparsity=0.90
+Epoch 1072/1500 - train_loss=1.60914e-05 - val_loss=3.23975e-06 - current_sparsity=0.90
+Epoch 1073/1500 - train_loss=1.63479e-05 - val_loss=3.53793e-06 - current_sparsity=0.90
+Epoch 1074/1500 - train_loss=1.60267e-05 - val_loss=3.27625e-06 - current_sparsity=0.90
+Epoch 1075/1500 - train_loss=1.60691e-05 - val_loss=4.95619e-06 - current_sparsity=0.90
+Epoch 1076/1500 - train_loss=1.59990e-05 - val_loss=3.39678e-06 - current_sparsity=0.90
+Epoch 1077/1500 - train_loss=1.58215e-05 - val_loss=3.38685e-06 - current_sparsity=0.90
+Epoch 1078/1500 - train_loss=1.59822e-05 - val_loss=4.54340e-06 - current_sparsity=0.90
+Epoch 1079/1500 - train_loss=1.61329e-05 - val_loss=3.42769e-06 - current_sparsity=0.90
+Epoch 1080/1500 - train_loss=1.63214e-05 - val_loss=4.59213e-06 - current_sparsity=0.90
+Epoch 1081/1500 - train_loss=1.63970e-05 - val_loss=3.40008e-06 - current_sparsity=0.90
+Epoch 1082/1500 - train_loss=1.63178e-05 - val_loss=3.41629e-06 - current_sparsity=0.90
+Epoch 1083/1500 - train_loss=1.60473e-05 - val_loss=3.85973e-06 - current_sparsity=0.90
+Epoch 1084/1500 - train_loss=1.65153e-05 - val_loss=4.25217e-06 - current_sparsity=0.90
+Epoch 1085/1500 - train_loss=1.64715e-05 - val_loss=3.30159e-06 - current_sparsity=0.90
+Epoch 1086/1500 - train_loss=1.63137e-05 - val_loss=3.39318e-06 - current_sparsity=0.90
+Epoch 1087/1500 - train_loss=1.59530e-05 - val_loss=4.44711e-06 - current_sparsity=0.90
+Epoch 1088/1500 - train_loss=1.61401e-05 - val_loss=3.52509e-06 - current_sparsity=0.90
+Epoch 1089/1500 - train_loss=1.62062e-05 - val_loss=3.42120e-06 - current_sparsity=0.90
+Epoch 1090/1500 - train_loss=1.57798e-05 - val_loss=3.32765e-06 - current_sparsity=0.90
+Epoch 1091/1500 - train_loss=1.65845e-05 - val_loss=3.77550e-06 - current_sparsity=0.90
+Epoch 1092/1500 - train_loss=1.59557e-05 - val_loss=3.37971e-06 - current_sparsity=0.90
+Epoch 1093/1500 - train_loss=1.61564e-05 - val_loss=3.52979e-06 - current_sparsity=0.90
+Epoch 1094/1500 - train_loss=1.59023e-05 - val_loss=3.74519e-06 - current_sparsity=0.90
+Epoch 1095/1500 - train_loss=1.58573e-05 - val_loss=3.21572e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1095 - val_loss=3.21572e-06
+=============================================================
+Epoch 1096/1500 - train_loss=1.57802e-05 - val_loss=3.27359e-06 - current_sparsity=0.90
+Epoch 1097/1500 - train_loss=1.59625e-05 - val_loss=3.91070e-06 - current_sparsity=0.90
+Epoch 1098/1500 - train_loss=1.63246e-05 - val_loss=3.43866e-06 - current_sparsity=0.90
+Epoch 1099/1500 - train_loss=1.62905e-05 - val_loss=4.73043e-06 - current_sparsity=0.90
+Epoch 1100/1500 - train_loss=1.61597e-05 - val_loss=3.40632e-06 - current_sparsity=0.90
+Epoch 1101/1500 - train_loss=1.62641e-05 - val_loss=3.27102e-06 - current_sparsity=0.90
+Epoch 1102/1500 - train_loss=1.69676e-05 - val_loss=4.78591e-06 - current_sparsity=0.90
+Epoch 1103/1500 - train_loss=1.62917e-05 - val_loss=3.96508e-06 - current_sparsity=0.90
+Epoch 1104/1500 - train_loss=1.59895e-05 - val_loss=3.30687e-06 - current_sparsity=0.90
+Epoch 1105/1500 - train_loss=1.57854e-05 - val_loss=3.67069e-06 - current_sparsity=0.90
+Epoch 1106/1500 - train_loss=1.57743e-05 - val_loss=3.44847e-06 - current_sparsity=0.90
+Epoch 1107/1500 - train_loss=1.58918e-05 - val_loss=3.08593e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1107 - val_loss=3.08593e-06
+=============================================================
+Epoch 1108/1500 - train_loss=1.55375e-05 - val_loss=3.28683e-06 - current_sparsity=0.90
+Epoch 1109/1500 - train_loss=1.58340e-05 - val_loss=3.80376e-06 - current_sparsity=0.90
+Epoch 1110/1500 - train_loss=1.56884e-05 - val_loss=3.18936e-06 - current_sparsity=0.90
+Epoch 1111/1500 - train_loss=1.56920e-05 - val_loss=3.47690e-06 - current_sparsity=0.90
+Epoch 1112/1500 - train_loss=1.58850e-05 - val_loss=4.01682e-06 - current_sparsity=0.90
+Epoch 1113/1500 - train_loss=1.58511e-05 - val_loss=3.16867e-06 - current_sparsity=0.90
+Epoch 1114/1500 - train_loss=1.56692e-05 - val_loss=3.58543e-06 - current_sparsity=0.90
+Epoch 1115/1500 - train_loss=1.63239e-05 - val_loss=3.56384e-06 - current_sparsity=0.90
+Epoch 1116/1500 - train_loss=1.59607e-05 - val_loss=3.54366e-06 - current_sparsity=0.90
+Epoch 1117/1500 - train_loss=1.60315e-05 - val_loss=3.15458e-06 - current_sparsity=0.90
+Epoch 1118/1500 - train_loss=1.61524e-05 - val_loss=3.17949e-06 - current_sparsity=0.90
+Epoch 1119/1500 - train_loss=1.55818e-05 - val_loss=3.41704e-06 - current_sparsity=0.90
+Epoch 1120/1500 - train_loss=1.58347e-05 - val_loss=3.33721e-06 - current_sparsity=0.90
+Epoch 1121/1500 - train_loss=1.54971e-05 - val_loss=3.14295e-06 - current_sparsity=0.90
+Epoch 1122/1500 - train_loss=1.58296e-05 - val_loss=3.32820e-06 - current_sparsity=0.90
+Epoch 1123/1500 - train_loss=1.56467e-05 - val_loss=3.52707e-06 - current_sparsity=0.90
+Epoch 1124/1500 - train_loss=1.55317e-05 - val_loss=3.46776e-06 - current_sparsity=0.90
+Epoch 1125/1500 - train_loss=1.56032e-05 - val_loss=3.13746e-06 - current_sparsity=0.90
+Epoch 1126/1500 - train_loss=1.54956e-05 - val_loss=3.26251e-06 - current_sparsity=0.90
+Epoch 1127/1500 - train_loss=1.56586e-05 - val_loss=3.48542e-06 - current_sparsity=0.90
+Epoch 1128/1500 - train_loss=1.55349e-05 - val_loss=3.14281e-06 - current_sparsity=0.90
+Epoch 1129/1500 - train_loss=1.56726e-05 - val_loss=3.17458e-06 - current_sparsity=0.90
+Epoch 1130/1500 - train_loss=1.57838e-05 - val_loss=3.18603e-06 - current_sparsity=0.90
+Epoch 1131/1500 - train_loss=1.56408e-05 - val_loss=3.90292e-06 - current_sparsity=0.90
+Epoch 1132/1500 - train_loss=1.57335e-05 - val_loss=3.29235e-06 - current_sparsity=0.90
+Epoch 1133/1500 - train_loss=1.56113e-05 - val_loss=3.17177e-06 - current_sparsity=0.90
+Epoch 1134/1500 - train_loss=1.63803e-05 - val_loss=3.85823e-06 - current_sparsity=0.90
+Epoch 1135/1500 - train_loss=1.58529e-05 - val_loss=3.39126e-06 - current_sparsity=0.90
+Epoch 1136/1500 - train_loss=1.57509e-05 - val_loss=3.35726e-06 - current_sparsity=0.90
+Epoch 1137/1500 - train_loss=1.56256e-05 - val_loss=3.55749e-06 - current_sparsity=0.90
+Epoch 1138/1500 - train_loss=1.59915e-05 - val_loss=3.26267e-06 - current_sparsity=0.90
+Epoch 1139/1500 - train_loss=1.56824e-05 - val_loss=3.67480e-06 - current_sparsity=0.90
+Epoch 1140/1500 - train_loss=1.55030e-05 - val_loss=3.14540e-06 - current_sparsity=0.90
+Epoch 1141/1500 - train_loss=1.56058e-05 - val_loss=3.10916e-06 - current_sparsity=0.90
+Epoch 1142/1500 - train_loss=1.53945e-05 - val_loss=3.07119e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1142 - val_loss=3.07119e-06
+=============================================================
+Epoch 1143/1500 - train_loss=1.52862e-05 - val_loss=3.15443e-06 - current_sparsity=0.90
+Epoch 1144/1500 - train_loss=1.53881e-05 - val_loss=3.17398e-06 - current_sparsity=0.90
+Epoch 1145/1500 - train_loss=1.55396e-05 - val_loss=3.38089e-06 - current_sparsity=0.90
+Epoch 1146/1500 - train_loss=1.56807e-05 - val_loss=3.49627e-06 - current_sparsity=0.90
+Epoch 1147/1500 - train_loss=1.56183e-05 - val_loss=3.23982e-06 - current_sparsity=0.90
+Epoch 1148/1500 - train_loss=1.54749e-05 - val_loss=3.44011e-06 - current_sparsity=0.90
+Epoch 1149/1500 - train_loss=1.58761e-05 - val_loss=5.35882e-06 - current_sparsity=0.90
+Epoch 1150/1500 - train_loss=1.59286e-05 - val_loss=3.15596e-06 - current_sparsity=0.90
+Epoch 1151/1500 - train_loss=1.54544e-05 - val_loss=3.18410e-06 - current_sparsity=0.90
+Epoch 1152/1500 - train_loss=1.54624e-05 - val_loss=3.18215e-06 - current_sparsity=0.90
+Epoch 1153/1500 - train_loss=1.55667e-05 - val_loss=3.55509e-06 - current_sparsity=0.90
+Epoch 1154/1500 - train_loss=1.55187e-05 - val_loss=3.57458e-06 - current_sparsity=0.90
+Epoch 1155/1500 - train_loss=1.53781e-05 - val_loss=3.07740e-06 - current_sparsity=0.90
+Epoch 1156/1500 - train_loss=1.54988e-05 - val_loss=3.47356e-06 - current_sparsity=0.90
+Epoch 1157/1500 - train_loss=1.53918e-05 - val_loss=3.44106e-06 - current_sparsity=0.90
+Epoch 1158/1500 - train_loss=1.62119e-05 - val_loss=3.25968e-06 - current_sparsity=0.90
+Epoch 1159/1500 - train_loss=1.60228e-05 - val_loss=3.48742e-06 - current_sparsity=0.90
+Epoch 1160/1500 - train_loss=1.65804e-05 - val_loss=3.48895e-06 - current_sparsity=0.90
+Epoch 1161/1500 - train_loss=1.61412e-05 - val_loss=3.35329e-06 - current_sparsity=0.90
+Epoch 1162/1500 - train_loss=1.57999e-05 - val_loss=3.16051e-06 - current_sparsity=0.90
+Epoch 1163/1500 - train_loss=1.57870e-05 - val_loss=3.19367e-06 - current_sparsity=0.90
+Epoch 1164/1500 - train_loss=1.56103e-05 - val_loss=4.68606e-06 - current_sparsity=0.90
+Epoch 1165/1500 - train_loss=1.56820e-05 - val_loss=3.26234e-06 - current_sparsity=0.90
+Epoch 1166/1500 - train_loss=1.52862e-05 - val_loss=3.14747e-06 - current_sparsity=0.90
+Epoch 1167/1500 - train_loss=1.56519e-05 - val_loss=4.11166e-06 - current_sparsity=0.90
+Epoch 1168/1500 - train_loss=1.55594e-05 - val_loss=3.46421e-06 - current_sparsity=0.90
+Epoch 1169/1500 - train_loss=1.54948e-05 - val_loss=3.07593e-06 - current_sparsity=0.90
+Epoch 1170/1500 - train_loss=1.55556e-05 - val_loss=3.38198e-06 - current_sparsity=0.90
+Epoch 1171/1500 - train_loss=1.53611e-05 - val_loss=3.09776e-06 - current_sparsity=0.90
+Epoch 1172/1500 - train_loss=1.58184e-05 - val_loss=3.21396e-06 - current_sparsity=0.90
+Epoch 1173/1500 - train_loss=1.55592e-05 - val_loss=4.73954e-06 - current_sparsity=0.90
+Epoch 1174/1500 - train_loss=1.63617e-05 - val_loss=5.52902e-06 - current_sparsity=0.90
+Epoch 1175/1500 - train_loss=1.63129e-05 - val_loss=3.21743e-06 - current_sparsity=0.90
+Epoch 1176/1500 - train_loss=1.57983e-05 - val_loss=3.38781e-06 - current_sparsity=0.90
+Epoch 1177/1500 - train_loss=1.56244e-05 - val_loss=3.13056e-06 - current_sparsity=0.90
+Epoch 1178/1500 - train_loss=1.52116e-05 - val_loss=3.15305e-06 - current_sparsity=0.90
+Epoch 1179/1500 - train_loss=1.53829e-05 - val_loss=3.27604e-06 - current_sparsity=0.90
+Epoch 1180/1500 - train_loss=1.53319e-05 - val_loss=3.15326e-06 - current_sparsity=0.90
+Epoch 1181/1500 - train_loss=1.51259e-05 - val_loss=3.26798e-06 - current_sparsity=0.90
+Epoch 1182/1500 - train_loss=1.54945e-05 - val_loss=3.34641e-06 - current_sparsity=0.90
+Epoch 1183/1500 - train_loss=1.57639e-05 - val_loss=3.23995e-06 - current_sparsity=0.90
+Epoch 1184/1500 - train_loss=1.53232e-05 - val_loss=3.59709e-06 - current_sparsity=0.90
+Epoch 1185/1500 - train_loss=1.53376e-05 - val_loss=3.17902e-06 - current_sparsity=0.90
+Epoch 1186/1500 - train_loss=1.53325e-05 - val_loss=3.13833e-06 - current_sparsity=0.90
+Epoch 1187/1500 - train_loss=1.65808e-05 - val_loss=3.78633e-06 - current_sparsity=0.90
+Epoch 1188/1500 - train_loss=1.58416e-05 - val_loss=3.28277e-06 - current_sparsity=0.90
+Epoch 1189/1500 - train_loss=1.53737e-05 - val_loss=3.60059e-06 - current_sparsity=0.90
+Epoch 1190/1500 - train_loss=1.60555e-05 - val_loss=4.35313e-06 - current_sparsity=0.90
+Epoch 1191/1500 - train_loss=1.57971e-05 - val_loss=3.20439e-06 - current_sparsity=0.90
+Epoch 1192/1500 - train_loss=1.58962e-05 - val_loss=5.11153e-06 - current_sparsity=0.90
+Epoch 1193/1500 - train_loss=1.56157e-05 - val_loss=3.07275e-06 - current_sparsity=0.90
+Epoch 1194/1500 - train_loss=1.59195e-05 - val_loss=3.67424e-06 - current_sparsity=0.90
+Epoch 1195/1500 - train_loss=1.56285e-05 - val_loss=3.23008e-06 - current_sparsity=0.90
+Epoch 1196/1500 - train_loss=1.51865e-05 - val_loss=3.14625e-06 - current_sparsity=0.90
+Epoch 1197/1500 - train_loss=1.53100e-05 - val_loss=3.42206e-06 - current_sparsity=0.90
+Epoch 1198/1500 - train_loss=1.53026e-05 - val_loss=3.29202e-06 - current_sparsity=0.90
+Epoch 1199/1500 - train_loss=1.54019e-05 - val_loss=3.09162e-06 - current_sparsity=0.90
+Epoch 1200/1500 - train_loss=1.58139e-05 - val_loss=3.23352e-06 - current_sparsity=0.90
+Epoch 1201/1500 - train_loss=1.55794e-05 - val_loss=3.12012e-06 - current_sparsity=0.90
+Epoch 1202/1500 - train_loss=1.58816e-05 - val_loss=3.13175e-06 - current_sparsity=0.90
+Epoch 1203/1500 - train_loss=1.57338e-05 - val_loss=3.58163e-06 - current_sparsity=0.90
+Epoch 1204/1500 - train_loss=1.53242e-05 - val_loss=3.07506e-06 - current_sparsity=0.90
+Epoch 1205/1500 - train_loss=1.51733e-05 - val_loss=3.21598e-06 - current_sparsity=0.90
+Epoch 1206/1500 - train_loss=1.52534e-05 - val_loss=3.07266e-06 - current_sparsity=0.90
+Epoch 1207/1500 - train_loss=1.51615e-05 - val_loss=3.40717e-06 - current_sparsity=0.90
+Epoch 1208/1500 - train_loss=1.53043e-05 - val_loss=3.23410e-06 - current_sparsity=0.90
+Epoch 1209/1500 - train_loss=1.51019e-05 - val_loss=3.81427e-06 - current_sparsity=0.90
+Epoch 1210/1500 - train_loss=1.66483e-05 - val_loss=3.88222e-06 - current_sparsity=0.90
+Epoch 1211/1500 - train_loss=1.53293e-05 - val_loss=3.17657e-06 - current_sparsity=0.90
+Epoch 1212/1500 - train_loss=1.54439e-05 - val_loss=3.81448e-06 - current_sparsity=0.90
+Epoch 1213/1500 - train_loss=1.54885e-05 - val_loss=3.47947e-06 - current_sparsity=0.90
+Epoch 1214/1500 - train_loss=1.52317e-05 - val_loss=3.29113e-06 - current_sparsity=0.90
+Epoch 1215/1500 - train_loss=1.51575e-05 - val_loss=3.07933e-06 - current_sparsity=0.90
+Epoch 1216/1500 - train_loss=1.51121e-05 - val_loss=3.07807e-06 - current_sparsity=0.90
+Epoch 1217/1500 - train_loss=1.53213e-05 - val_loss=3.27712e-06 - current_sparsity=0.90
+Epoch 1218/1500 - train_loss=1.53739e-05 - val_loss=3.76239e-06 - current_sparsity=0.90
+Epoch 1219/1500 - train_loss=1.56666e-05 - val_loss=2.99765e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1219 - val_loss=2.99765e-06
+=============================================================
+Epoch 1220/1500 - train_loss=1.53368e-05 - val_loss=3.04880e-06 - current_sparsity=0.90
+Epoch 1221/1500 - train_loss=1.50784e-05 - val_loss=3.12080e-06 - current_sparsity=0.90
+Epoch 1222/1500 - train_loss=1.51542e-05 - val_loss=3.58095e-06 - current_sparsity=0.90
+Epoch 1223/1500 - train_loss=1.53123e-05 - val_loss=3.08078e-06 - current_sparsity=0.90
+Epoch 1224/1500 - train_loss=1.51000e-05 - val_loss=3.13790e-06 - current_sparsity=0.90
+Epoch 1225/1500 - train_loss=1.52010e-05 - val_loss=3.01256e-06 - current_sparsity=0.90
+Epoch 1226/1500 - train_loss=1.49956e-05 - val_loss=3.21464e-06 - current_sparsity=0.90
+Epoch 1227/1500 - train_loss=1.48841e-05 - val_loss=3.24486e-06 - current_sparsity=0.90
+Epoch 1228/1500 - train_loss=1.52283e-05 - val_loss=2.98564e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1228 - val_loss=2.98564e-06
+=============================================================
+Epoch 1229/1500 - train_loss=1.50165e-05 - val_loss=3.50451e-06 - current_sparsity=0.90
+Epoch 1230/1500 - train_loss=1.55426e-05 - val_loss=3.10093e-06 - current_sparsity=0.90
+Epoch 1231/1500 - train_loss=1.51908e-05 - val_loss=3.01191e-06 - current_sparsity=0.90
+Epoch 1232/1500 - train_loss=1.53616e-05 - val_loss=3.19114e-06 - current_sparsity=0.90
+Epoch 1233/1500 - train_loss=1.51827e-05 - val_loss=3.32783e-06 - current_sparsity=0.90
+Epoch 1234/1500 - train_loss=1.51141e-05 - val_loss=3.23490e-06 - current_sparsity=0.90
+Epoch 1235/1500 - train_loss=1.52686e-05 - val_loss=3.09683e-06 - current_sparsity=0.90
+Epoch 1236/1500 - train_loss=1.53467e-05 - val_loss=3.22518e-06 - current_sparsity=0.90
+Epoch 1237/1500 - train_loss=1.52770e-05 - val_loss=3.42127e-06 - current_sparsity=0.90
+Epoch 1238/1500 - train_loss=1.54813e-05 - val_loss=4.27608e-06 - current_sparsity=0.90
+Epoch 1239/1500 - train_loss=1.64443e-05 - val_loss=3.48441e-06 - current_sparsity=0.90
+Epoch 1240/1500 - train_loss=1.50404e-05 - val_loss=3.23236e-06 - current_sparsity=0.90
+Epoch 1241/1500 - train_loss=1.54847e-05 - val_loss=3.07491e-06 - current_sparsity=0.90
+Epoch 1242/1500 - train_loss=1.54723e-05 - val_loss=3.08100e-06 - current_sparsity=0.90
+Epoch 1243/1500 - train_loss=1.51257e-05 - val_loss=3.11461e-06 - current_sparsity=0.90
+Epoch 1244/1500 - train_loss=1.49967e-05 - val_loss=3.06988e-06 - current_sparsity=0.90
+Epoch 1245/1500 - train_loss=1.53878e-05 - val_loss=3.02023e-06 - current_sparsity=0.90
+Epoch 1246/1500 - train_loss=1.50048e-05 - val_loss=3.01694e-06 - current_sparsity=0.90
+Epoch 1247/1500 - train_loss=1.52361e-05 - val_loss=3.14359e-06 - current_sparsity=0.90
+Epoch 1248/1500 - train_loss=1.57001e-05 - val_loss=3.21732e-06 - current_sparsity=0.90
+Epoch 1249/1500 - train_loss=1.54183e-05 - val_loss=3.60457e-06 - current_sparsity=0.90
+Epoch 1250/1500 - train_loss=1.51495e-05 - val_loss=4.44987e-06 - current_sparsity=0.90
+Epoch 1251/1500 - train_loss=1.55732e-05 - val_loss=3.85044e-06 - current_sparsity=0.90
+Epoch 1252/1500 - train_loss=1.50863e-05 - val_loss=3.23246e-06 - current_sparsity=0.90
+Epoch 1253/1500 - train_loss=1.56654e-05 - val_loss=4.19634e-06 - current_sparsity=0.90
+Epoch 1254/1500 - train_loss=1.51371e-05 - val_loss=3.09852e-06 - current_sparsity=0.90
+Epoch 1255/1500 - train_loss=1.51142e-05 - val_loss=3.35846e-06 - current_sparsity=0.90
+Epoch 1256/1500 - train_loss=1.51803e-05 - val_loss=3.32105e-06 - current_sparsity=0.90
+Epoch 1257/1500 - train_loss=1.51794e-05 - val_loss=3.53770e-06 - current_sparsity=0.90
+Epoch 1258/1500 - train_loss=1.54254e-05 - val_loss=3.25946e-06 - current_sparsity=0.90
+Epoch 1259/1500 - train_loss=1.52321e-05 - val_loss=3.28206e-06 - current_sparsity=0.90
+Epoch 1260/1500 - train_loss=1.48926e-05 - val_loss=3.20514e-06 - current_sparsity=0.90
+Epoch 1261/1500 - train_loss=1.52477e-05 - val_loss=3.05421e-06 - current_sparsity=0.90
+Epoch 1262/1500 - train_loss=1.49883e-05 - val_loss=3.09669e-06 - current_sparsity=0.90
+Epoch 1263/1500 - train_loss=1.49236e-05 - val_loss=3.24665e-06 - current_sparsity=0.90
+Epoch 1264/1500 - train_loss=1.51133e-05 - val_loss=4.16850e-06 - current_sparsity=0.90
+Epoch 1265/1500 - train_loss=1.51147e-05 - val_loss=3.18122e-06 - current_sparsity=0.90
+Epoch 1266/1500 - train_loss=1.49098e-05 - val_loss=3.35760e-06 - current_sparsity=0.90
+Epoch 1267/1500 - train_loss=1.49485e-05 - val_loss=3.15818e-06 - current_sparsity=0.90
+Epoch 1268/1500 - train_loss=1.49782e-05 - val_loss=3.46087e-06 - current_sparsity=0.90
+Epoch 1269/1500 - train_loss=1.53151e-05 - val_loss=3.09875e-06 - current_sparsity=0.90
+Epoch 1270/1500 - train_loss=1.50264e-05 - val_loss=3.29546e-06 - current_sparsity=0.90
+Epoch 1271/1500 - train_loss=1.54385e-05 - val_loss=2.99771e-06 - current_sparsity=0.90
+Epoch 1272/1500 - train_loss=1.52152e-05 - val_loss=3.02079e-06 - current_sparsity=0.90
+Epoch 1273/1500 - train_loss=1.51304e-05 - val_loss=3.03284e-06 - current_sparsity=0.90
+Epoch 1274/1500 - train_loss=1.49552e-05 - val_loss=3.05111e-06 - current_sparsity=0.90
+Epoch 1275/1500 - train_loss=1.47418e-05 - val_loss=3.48313e-06 - current_sparsity=0.90
+Epoch 1276/1500 - train_loss=1.54214e-05 - val_loss=3.92800e-06 - current_sparsity=0.90
+Epoch 1277/1500 - train_loss=1.60445e-05 - val_loss=4.57888e-06 - current_sparsity=0.90
+Epoch 1278/1500 - train_loss=1.56846e-05 - val_loss=3.16477e-06 - current_sparsity=0.90
+Epoch 1279/1500 - train_loss=1.50047e-05 - val_loss=3.59339e-06 - current_sparsity=0.90
+Epoch 1280/1500 - train_loss=1.57087e-05 - val_loss=5.70786e-06 - current_sparsity=0.90
+Epoch 1281/1500 - train_loss=1.55190e-05 - val_loss=3.57345e-06 - current_sparsity=0.90
+Epoch 1282/1500 - train_loss=1.48004e-05 - val_loss=2.99984e-06 - current_sparsity=0.90
+Epoch 1283/1500 - train_loss=1.49318e-05 - val_loss=3.03497e-06 - current_sparsity=0.90
+Epoch 1284/1500 - train_loss=1.46411e-05 - val_loss=3.47748e-06 - current_sparsity=0.90
+Epoch 1285/1500 - train_loss=1.48967e-05 - val_loss=3.03128e-06 - current_sparsity=0.90
+Epoch 1286/1500 - train_loss=1.49867e-05 - val_loss=2.89541e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1286 - val_loss=2.89541e-06
+=============================================================
+Epoch 1287/1500 - train_loss=1.49441e-05 - val_loss=3.42702e-06 - current_sparsity=0.90
+Epoch 1288/1500 - train_loss=1.50758e-05 - val_loss=3.03436e-06 - current_sparsity=0.90
+Epoch 1289/1500 - train_loss=1.48725e-05 - val_loss=3.14977e-06 - current_sparsity=0.90
+Epoch 1290/1500 - train_loss=1.50132e-05 - val_loss=3.09633e-06 - current_sparsity=0.90
+Epoch 1291/1500 - train_loss=1.50524e-05 - val_loss=4.30219e-06 - current_sparsity=0.90
+Epoch 1292/1500 - train_loss=1.49752e-05 - val_loss=3.22402e-06 - current_sparsity=0.90
+Epoch 1293/1500 - train_loss=1.48468e-05 - val_loss=3.27731e-06 - current_sparsity=0.90
+Epoch 1294/1500 - train_loss=1.50691e-05 - val_loss=3.21317e-06 - current_sparsity=0.90
+Epoch 1295/1500 - train_loss=1.48895e-05 - val_loss=3.69807e-06 - current_sparsity=0.90
+Epoch 1296/1500 - train_loss=1.48767e-05 - val_loss=2.95810e-06 - current_sparsity=0.90
+Epoch 1297/1500 - train_loss=1.47465e-05 - val_loss=2.95283e-06 - current_sparsity=0.90
+Epoch 1298/1500 - train_loss=1.49085e-05 - val_loss=3.97298e-06 - current_sparsity=0.90
+Epoch 1299/1500 - train_loss=1.55608e-05 - val_loss=3.09222e-06 - current_sparsity=0.90
+Epoch 1300/1500 - train_loss=1.48348e-05 - val_loss=3.32268e-06 - current_sparsity=0.90
+Epoch 1301/1500 - train_loss=1.50745e-05 - val_loss=2.98338e-06 - current_sparsity=0.90
+Epoch 1302/1500 - train_loss=1.48406e-05 - val_loss=3.74321e-06 - current_sparsity=0.90
+Epoch 1303/1500 - train_loss=1.47424e-05 - val_loss=3.02707e-06 - current_sparsity=0.90
+Epoch 1304/1500 - train_loss=1.48408e-05 - val_loss=3.12915e-06 - current_sparsity=0.90
+Epoch 1305/1500 - train_loss=1.47689e-05 - val_loss=3.44429e-06 - current_sparsity=0.90
+Epoch 1306/1500 - train_loss=1.52320e-05 - val_loss=4.54689e-06 - current_sparsity=0.90
+Epoch 1307/1500 - train_loss=1.53226e-05 - val_loss=3.22368e-06 - current_sparsity=0.90
+Epoch 1308/1500 - train_loss=1.51346e-05 - val_loss=3.30231e-06 - current_sparsity=0.90
+Epoch 1309/1500 - train_loss=1.47730e-05 - val_loss=3.23382e-06 - current_sparsity=0.90
+Epoch 1310/1500 - train_loss=1.53582e-05 - val_loss=3.24386e-06 - current_sparsity=0.90
+Epoch 1311/1500 - train_loss=1.46232e-05 - val_loss=3.09039e-06 - current_sparsity=0.90
+Epoch 1312/1500 - train_loss=1.48051e-05 - val_loss=4.36916e-06 - current_sparsity=0.90
+Epoch 1313/1500 - train_loss=1.51571e-05 - val_loss=3.26328e-06 - current_sparsity=0.90
+Epoch 1314/1500 - train_loss=1.51722e-05 - val_loss=3.14314e-06 - current_sparsity=0.90
+Epoch 1315/1500 - train_loss=1.46283e-05 - val_loss=3.16534e-06 - current_sparsity=0.90
+Epoch 1316/1500 - train_loss=1.50047e-05 - val_loss=3.01580e-06 - current_sparsity=0.90
+Epoch 1317/1500 - train_loss=1.50025e-05 - val_loss=3.16695e-06 - current_sparsity=0.90
+Epoch 1318/1500 - train_loss=1.46196e-05 - val_loss=2.94814e-06 - current_sparsity=0.90
+Epoch 1319/1500 - train_loss=1.48985e-05 - val_loss=3.64892e-06 - current_sparsity=0.90
+Epoch 1320/1500 - train_loss=1.50071e-05 - val_loss=2.97740e-06 - current_sparsity=0.90
+Epoch 1321/1500 - train_loss=1.50329e-05 - val_loss=3.03052e-06 - current_sparsity=0.90
+Epoch 1322/1500 - train_loss=1.51007e-05 - val_loss=3.13358e-06 - current_sparsity=0.90
+Epoch 1323/1500 - train_loss=1.51951e-05 - val_loss=3.23552e-06 - current_sparsity=0.90
+Epoch 1324/1500 - train_loss=1.54508e-05 - val_loss=3.33025e-06 - current_sparsity=0.90
+Epoch 1325/1500 - train_loss=1.51455e-05 - val_loss=3.06777e-06 - current_sparsity=0.90
+Epoch 1326/1500 - train_loss=1.48534e-05 - val_loss=3.61498e-06 - current_sparsity=0.90
+Epoch 1327/1500 - train_loss=1.49807e-05 - val_loss=2.99658e-06 - current_sparsity=0.90
+Epoch 1328/1500 - train_loss=1.47803e-05 - val_loss=3.04746e-06 - current_sparsity=0.90
+Epoch 1329/1500 - train_loss=1.47552e-05 - val_loss=3.72005e-06 - current_sparsity=0.90
+Epoch 1330/1500 - train_loss=1.50314e-05 - val_loss=3.12992e-06 - current_sparsity=0.90
+Epoch 1331/1500 - train_loss=1.48309e-05 - val_loss=3.35899e-06 - current_sparsity=0.90
+Epoch 1332/1500 - train_loss=1.47257e-05 - val_loss=3.04250e-06 - current_sparsity=0.90
+Epoch 1333/1500 - train_loss=1.52653e-05 - val_loss=2.88951e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1333 - val_loss=2.88951e-06
+=============================================================
+Epoch 1334/1500 - train_loss=1.53618e-05 - val_loss=3.06388e-06 - current_sparsity=0.90
+Epoch 1335/1500 - train_loss=1.46739e-05 - val_loss=3.43705e-06 - current_sparsity=0.90
+Epoch 1336/1500 - train_loss=1.46207e-05 - val_loss=3.11893e-06 - current_sparsity=0.90
+Epoch 1337/1500 - train_loss=1.46988e-05 - val_loss=3.31465e-06 - current_sparsity=0.90
+Epoch 1338/1500 - train_loss=1.48899e-05 - val_loss=3.20544e-06 - current_sparsity=0.90
+Epoch 1339/1500 - train_loss=1.47210e-05 - val_loss=2.93387e-06 - current_sparsity=0.90
+Epoch 1340/1500 - train_loss=1.46713e-05 - val_loss=3.07289e-06 - current_sparsity=0.90
+Epoch 1341/1500 - train_loss=1.49105e-05 - val_loss=3.12409e-06 - current_sparsity=0.90
+Epoch 1342/1500 - train_loss=1.48750e-05 - val_loss=2.94667e-06 - current_sparsity=0.90
+Epoch 1343/1500 - train_loss=1.50822e-05 - val_loss=3.04620e-06 - current_sparsity=0.90
+Epoch 1344/1500 - train_loss=1.47037e-05 - val_loss=2.98848e-06 - current_sparsity=0.90
+Epoch 1345/1500 - train_loss=1.45022e-05 - val_loss=3.00903e-06 - current_sparsity=0.90
+Epoch 1346/1500 - train_loss=1.50939e-05 - val_loss=3.14441e-06 - current_sparsity=0.90
+Epoch 1347/1500 - train_loss=1.47592e-05 - val_loss=3.02500e-06 - current_sparsity=0.90
+Epoch 1348/1500 - train_loss=1.45208e-05 - val_loss=4.31096e-06 - current_sparsity=0.90
+Epoch 1349/1500 - train_loss=1.46633e-05 - val_loss=2.97491e-06 - current_sparsity=0.90
+Epoch 1350/1500 - train_loss=1.46421e-05 - val_loss=2.91800e-06 - current_sparsity=0.90
+Epoch 1351/1500 - train_loss=1.47265e-05 - val_loss=2.98758e-06 - current_sparsity=0.90
+Epoch 1352/1500 - train_loss=1.46671e-05 - val_loss=3.18289e-06 - current_sparsity=0.90
+Epoch 1353/1500 - train_loss=1.48535e-05 - val_loss=3.65186e-06 - current_sparsity=0.90
+Epoch 1354/1500 - train_loss=1.51657e-05 - val_loss=3.25163e-06 - current_sparsity=0.90
+Epoch 1355/1500 - train_loss=1.45449e-05 - val_loss=4.17268e-06 - current_sparsity=0.90
+Epoch 1356/1500 - train_loss=1.52258e-05 - val_loss=3.08752e-06 - current_sparsity=0.90
+Epoch 1357/1500 - train_loss=1.46640e-05 - val_loss=5.02426e-06 - current_sparsity=0.90
+Epoch 1358/1500 - train_loss=1.51532e-05 - val_loss=3.17891e-06 - current_sparsity=0.90
+Epoch 1359/1500 - train_loss=1.50598e-05 - val_loss=3.03987e-06 - current_sparsity=0.90
+Epoch 1360/1500 - train_loss=1.49585e-05 - val_loss=3.50148e-06 - current_sparsity=0.90
+Epoch 1361/1500 - train_loss=1.56662e-05 - val_loss=3.72372e-06 - current_sparsity=0.90
+Epoch 1362/1500 - train_loss=1.47389e-05 - val_loss=3.23427e-06 - current_sparsity=0.90
+Epoch 1363/1500 - train_loss=1.46417e-05 - val_loss=3.06166e-06 - current_sparsity=0.90
+Epoch 1364/1500 - train_loss=1.49884e-05 - val_loss=3.06937e-06 - current_sparsity=0.90
+Epoch 1365/1500 - train_loss=1.45497e-05 - val_loss=2.94623e-06 - current_sparsity=0.90
+Epoch 1366/1500 - train_loss=1.43966e-05 - val_loss=3.14589e-06 - current_sparsity=0.90
+Epoch 1367/1500 - train_loss=1.46988e-05 - val_loss=3.00721e-06 - current_sparsity=0.90
+Epoch 1368/1500 - train_loss=1.46970e-05 - val_loss=3.04070e-06 - current_sparsity=0.90
+Epoch 1369/1500 - train_loss=1.43788e-05 - val_loss=3.20773e-06 - current_sparsity=0.90
+Epoch 1370/1500 - train_loss=1.48145e-05 - val_loss=4.24831e-06 - current_sparsity=0.90
+Epoch 1371/1500 - train_loss=1.47333e-05 - val_loss=3.10178e-06 - current_sparsity=0.90
+Epoch 1372/1500 - train_loss=1.46801e-05 - val_loss=3.68373e-06 - current_sparsity=0.90
+Epoch 1373/1500 - train_loss=1.48042e-05 - val_loss=3.04087e-06 - current_sparsity=0.90
+Epoch 1374/1500 - train_loss=1.47375e-05 - val_loss=3.76948e-06 - current_sparsity=0.90
+Epoch 1375/1500 - train_loss=1.48212e-05 - val_loss=3.48551e-06 - current_sparsity=0.90
+Epoch 1376/1500 - train_loss=1.45282e-05 - val_loss=3.24812e-06 - current_sparsity=0.90
+Epoch 1377/1500 - train_loss=1.45804e-05 - val_loss=3.22165e-06 - current_sparsity=0.90
+Epoch 1378/1500 - train_loss=1.47838e-05 - val_loss=2.94146e-06 - current_sparsity=0.90
+Epoch 1379/1500 - train_loss=1.49174e-05 - val_loss=3.33313e-06 - current_sparsity=0.90
+Epoch 1380/1500 - train_loss=1.51262e-05 - val_loss=3.21664e-06 - current_sparsity=0.90
+Epoch 1381/1500 - train_loss=1.47046e-05 - val_loss=3.05624e-06 - current_sparsity=0.90
+Epoch 1382/1500 - train_loss=1.46031e-05 - val_loss=3.04178e-06 - current_sparsity=0.90
+Epoch 1383/1500 - train_loss=1.44728e-05 - val_loss=3.21110e-06 - current_sparsity=0.90
+Epoch 1384/1500 - train_loss=1.42874e-05 - val_loss=3.09861e-06 - current_sparsity=0.90
+Epoch 1385/1500 - train_loss=1.44956e-05 - val_loss=3.51232e-06 - current_sparsity=0.90
+Epoch 1386/1500 - train_loss=1.49363e-05 - val_loss=3.53878e-06 - current_sparsity=0.90
+Epoch 1387/1500 - train_loss=1.46805e-05 - val_loss=3.70761e-06 - current_sparsity=0.90
+Epoch 1388/1500 - train_loss=1.45558e-05 - val_loss=3.06310e-06 - current_sparsity=0.90
+Epoch 1389/1500 - train_loss=1.49066e-05 - val_loss=4.39078e-06 - current_sparsity=0.90
+Epoch 1390/1500 - train_loss=1.51411e-05 - val_loss=3.26959e-06 - current_sparsity=0.90
+Epoch 1391/1500 - train_loss=1.47195e-05 - val_loss=2.97765e-06 - current_sparsity=0.90
+Epoch 1392/1500 - train_loss=1.45195e-05 - val_loss=3.29286e-06 - current_sparsity=0.90
+Epoch 1393/1500 - train_loss=1.50822e-05 - val_loss=3.19774e-06 - current_sparsity=0.90
+Epoch 1394/1500 - train_loss=1.58355e-05 - val_loss=6.09731e-06 - current_sparsity=0.90
+Epoch 1395/1500 - train_loss=1.51455e-05 - val_loss=4.19889e-06 - current_sparsity=0.90
+Epoch 1396/1500 - train_loss=1.48253e-05 - val_loss=2.99280e-06 - current_sparsity=0.90
+Epoch 1397/1500 - train_loss=1.46628e-05 - val_loss=3.15869e-06 - current_sparsity=0.90
+Epoch 1398/1500 - train_loss=1.47006e-05 - val_loss=4.17530e-06 - current_sparsity=0.90
+Epoch 1399/1500 - train_loss=1.49836e-05 - val_loss=2.88257e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1399 - val_loss=2.88257e-06
+=============================================================
+Epoch 1400/1500 - train_loss=1.45042e-05 - val_loss=2.94863e-06 - current_sparsity=0.90
+Epoch 1401/1500 - train_loss=1.46440e-05 - val_loss=3.73146e-06 - current_sparsity=0.90
+Epoch 1402/1500 - train_loss=1.46001e-05 - val_loss=2.79287e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1402 - val_loss=2.79287e-06
+=============================================================
+Epoch 1403/1500 - train_loss=1.43520e-05 - val_loss=3.05253e-06 - current_sparsity=0.90
+Epoch 1404/1500 - train_loss=1.49926e-05 - val_loss=3.32463e-06 - current_sparsity=0.90
+Epoch 1405/1500 - train_loss=1.47455e-05 - val_loss=2.91722e-06 - current_sparsity=0.90
+Epoch 1406/1500 - train_loss=1.44470e-05 - val_loss=3.28188e-06 - current_sparsity=0.90
+Epoch 1407/1500 - train_loss=1.44703e-05 - val_loss=3.02810e-06 - current_sparsity=0.90
+Epoch 1408/1500 - train_loss=1.45111e-05 - val_loss=3.06134e-06 - current_sparsity=0.90
+Epoch 1409/1500 - train_loss=1.42818e-05 - val_loss=2.88342e-06 - current_sparsity=0.90
+Epoch 1410/1500 - train_loss=1.48973e-05 - val_loss=3.14618e-06 - current_sparsity=0.90
+Epoch 1411/1500 - train_loss=1.46531e-05 - val_loss=3.24389e-06 - current_sparsity=0.90
+Epoch 1412/1500 - train_loss=1.45672e-05 - val_loss=3.06994e-06 - current_sparsity=0.90
+Epoch 1413/1500 - train_loss=1.44083e-05 - val_loss=2.97965e-06 - current_sparsity=0.90
+Epoch 1414/1500 - train_loss=1.43180e-05 - val_loss=2.94737e-06 - current_sparsity=0.90
+Epoch 1415/1500 - train_loss=1.57223e-05 - val_loss=3.65118e-06 - current_sparsity=0.90
+Epoch 1416/1500 - train_loss=1.49247e-05 - val_loss=3.29081e-06 - current_sparsity=0.90
+Epoch 1417/1500 - train_loss=1.47882e-05 - val_loss=3.12055e-06 - current_sparsity=0.90
+Epoch 1418/1500 - train_loss=1.44717e-05 - val_loss=3.48460e-06 - current_sparsity=0.90
+Epoch 1419/1500 - train_loss=1.47450e-05 - val_loss=3.53766e-06 - current_sparsity=0.90
+Epoch 1420/1500 - train_loss=1.43444e-05 - val_loss=2.93112e-06 - current_sparsity=0.90
+Epoch 1421/1500 - train_loss=1.44188e-05 - val_loss=4.08057e-06 - current_sparsity=0.90
+Epoch 1422/1500 - train_loss=1.46008e-05 - val_loss=3.19949e-06 - current_sparsity=0.90
+Epoch 1423/1500 - train_loss=1.46867e-05 - val_loss=5.08878e-06 - current_sparsity=0.90
+Epoch 1424/1500 - train_loss=1.49771e-05 - val_loss=3.79769e-06 - current_sparsity=0.90
+Epoch 1425/1500 - train_loss=1.47667e-05 - val_loss=3.63180e-06 - current_sparsity=0.90
+Epoch 1426/1500 - train_loss=1.46379e-05 - val_loss=3.29086e-06 - current_sparsity=0.90
+Epoch 1427/1500 - train_loss=1.42236e-05 - val_loss=2.98365e-06 - current_sparsity=0.90
+Epoch 1428/1500 - train_loss=1.45461e-05 - val_loss=3.35627e-06 - current_sparsity=0.90
+Epoch 1429/1500 - train_loss=1.52959e-05 - val_loss=3.27829e-06 - current_sparsity=0.90
+Epoch 1430/1500 - train_loss=1.45396e-05 - val_loss=3.12276e-06 - current_sparsity=0.90
+Epoch 1431/1500 - train_loss=1.45459e-05 - val_loss=4.07443e-06 - current_sparsity=0.90
+Epoch 1432/1500 - train_loss=1.48447e-05 - val_loss=3.02722e-06 - current_sparsity=0.90
+Epoch 1433/1500 - train_loss=1.42666e-05 - val_loss=2.96627e-06 - current_sparsity=0.90
+Epoch 1434/1500 - train_loss=1.43649e-05 - val_loss=3.15498e-06 - current_sparsity=0.90
+Epoch 1435/1500 - train_loss=1.45333e-05 - val_loss=3.58120e-06 - current_sparsity=0.90
+Epoch 1436/1500 - train_loss=1.44024e-05 - val_loss=2.91376e-06 - current_sparsity=0.90
+Epoch 1437/1500 - train_loss=1.43573e-05 - val_loss=3.05291e-06 - current_sparsity=0.90
+Epoch 1438/1500 - train_loss=1.42904e-05 - val_loss=4.09362e-06 - current_sparsity=0.90
+Epoch 1439/1500 - train_loss=1.50456e-05 - val_loss=2.96355e-06 - current_sparsity=0.90
+Epoch 1440/1500 - train_loss=1.47867e-05 - val_loss=3.51267e-06 - current_sparsity=0.90
+Epoch 1441/1500 - train_loss=1.47544e-05 - val_loss=3.01175e-06 - current_sparsity=0.90
+Epoch 1442/1500 - train_loss=1.42965e-05 - val_loss=3.07096e-06 - current_sparsity=0.90
+Epoch 1443/1500 - train_loss=1.42363e-05 - val_loss=3.04686e-06 - current_sparsity=0.90
+Epoch 1444/1500 - train_loss=1.41836e-05 - val_loss=2.83635e-06 - current_sparsity=0.90
+Epoch 1445/1500 - train_loss=1.43753e-05 - val_loss=3.00362e-06 - current_sparsity=0.90
+Epoch 1446/1500 - train_loss=1.42728e-05 - val_loss=3.10786e-06 - current_sparsity=0.90
+Epoch 1447/1500 - train_loss=1.44597e-05 - val_loss=3.27896e-06 - current_sparsity=0.90
+Epoch 1448/1500 - train_loss=1.46489e-05 - val_loss=2.85599e-06 - current_sparsity=0.90
+Epoch 1449/1500 - train_loss=1.42476e-05 - val_loss=3.04715e-06 - current_sparsity=0.90
+Epoch 1450/1500 - train_loss=1.43791e-05 - val_loss=3.09464e-06 - current_sparsity=0.90
+Epoch 1451/1500 - train_loss=1.44911e-05 - val_loss=3.40140e-06 - current_sparsity=0.90
+Epoch 1452/1500 - train_loss=1.48806e-05 - val_loss=2.85157e-06 - current_sparsity=0.90
+Epoch 1453/1500 - train_loss=1.47252e-05 - val_loss=3.18795e-06 - current_sparsity=0.90
+Epoch 1454/1500 - train_loss=1.46361e-05 - val_loss=3.02797e-06 - current_sparsity=0.90
+Epoch 1455/1500 - train_loss=1.45938e-05 - val_loss=2.88586e-06 - current_sparsity=0.90
+Epoch 1456/1500 - train_loss=1.43176e-05 - val_loss=3.07524e-06 - current_sparsity=0.90
+Epoch 1457/1500 - train_loss=1.45999e-05 - val_loss=2.99740e-06 - current_sparsity=0.90
+Epoch 1458/1500 - train_loss=1.42698e-05 - val_loss=2.93488e-06 - current_sparsity=0.90
+Epoch 1459/1500 - train_loss=1.43443e-05 - val_loss=3.50529e-06 - current_sparsity=0.90
+Epoch 1460/1500 - train_loss=1.48266e-05 - val_loss=4.31816e-06 - current_sparsity=0.90
+Epoch 1461/1500 - train_loss=1.48797e-05 - val_loss=3.51357e-06 - current_sparsity=0.90
+Epoch 1462/1500 - train_loss=1.48087e-05 - val_loss=2.86473e-06 - current_sparsity=0.90
+Epoch 1463/1500 - train_loss=1.44107e-05 - val_loss=2.93740e-06 - current_sparsity=0.90
+Epoch 1464/1500 - train_loss=1.47363e-05 - val_loss=2.77400e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1464 - val_loss=2.77400e-06
+=============================================================
+Epoch 1465/1500 - train_loss=1.44648e-05 - val_loss=2.95109e-06 - current_sparsity=0.90
+Epoch 1466/1500 - train_loss=1.43666e-05 - val_loss=3.06235e-06 - current_sparsity=0.90
+Epoch 1467/1500 - train_loss=1.42873e-05 - val_loss=2.83363e-06 - current_sparsity=0.90
+Epoch 1468/1500 - train_loss=1.42520e-05 - val_loss=2.92028e-06 - current_sparsity=0.90
+Epoch 1469/1500 - train_loss=1.42481e-05 - val_loss=3.05783e-06 - current_sparsity=0.90
+Epoch 1470/1500 - train_loss=1.43683e-05 - val_loss=3.19808e-06 - current_sparsity=0.90
+Epoch 1471/1500 - train_loss=1.43072e-05 - val_loss=2.99234e-06 - current_sparsity=0.90
+Epoch 1472/1500 - train_loss=1.42274e-05 - val_loss=3.29387e-06 - current_sparsity=0.90
+Epoch 1473/1500 - train_loss=1.42203e-05 - val_loss=3.05148e-06 - current_sparsity=0.90
+Epoch 1474/1500 - train_loss=1.47966e-05 - val_loss=3.39894e-06 - current_sparsity=0.90
+Epoch 1475/1500 - train_loss=1.42067e-05 - val_loss=2.98312e-06 - current_sparsity=0.90
+Epoch 1476/1500 - train_loss=1.43534e-05 - val_loss=2.84727e-06 - current_sparsity=0.90
+Epoch 1477/1500 - train_loss=1.46214e-05 - val_loss=4.13671e-06 - current_sparsity=0.90
+Epoch 1478/1500 - train_loss=1.51700e-05 - val_loss=2.87563e-06 - current_sparsity=0.90
+Epoch 1479/1500 - train_loss=1.43747e-05 - val_loss=2.89824e-06 - current_sparsity=0.90
+Epoch 1480/1500 - train_loss=1.42884e-05 - val_loss=3.33936e-06 - current_sparsity=0.90
+Epoch 1481/1500 - train_loss=1.42965e-05 - val_loss=2.86953e-06 - current_sparsity=0.90
+Epoch 1482/1500 - train_loss=1.40568e-05 - val_loss=2.91528e-06 - current_sparsity=0.90
+Epoch 1483/1500 - train_loss=1.42632e-05 - val_loss=4.29456e-06 - current_sparsity=0.90
+Epoch 1484/1500 - train_loss=1.47792e-05 - val_loss=3.18815e-06 - current_sparsity=0.90
+Epoch 1485/1500 - train_loss=1.45667e-05 - val_loss=3.09488e-06 - current_sparsity=0.90
+Epoch 1486/1500 - train_loss=1.43854e-05 - val_loss=2.95414e-06 - current_sparsity=0.90
+Epoch 1487/1500 - train_loss=1.42322e-05 - val_loss=2.84234e-06 - current_sparsity=0.90
+Epoch 1488/1500 - train_loss=1.41833e-05 - val_loss=2.95245e-06 - current_sparsity=0.90
+Epoch 1489/1500 - train_loss=1.49338e-05 - val_loss=3.23286e-06 - current_sparsity=0.90
+Epoch 1490/1500 - train_loss=1.43248e-05 - val_loss=2.90518e-06 - current_sparsity=0.90
+Epoch 1491/1500 - train_loss=1.45509e-05 - val_loss=3.06902e-06 - current_sparsity=0.90
+Epoch 1492/1500 - train_loss=1.44322e-05 - val_loss=2.97745e-06 - current_sparsity=0.90
+Epoch 1493/1500 - train_loss=1.45132e-05 - val_loss=3.21484e-06 - current_sparsity=0.90
+Epoch 1494/1500 - train_loss=1.44032e-05 - val_loss=2.76992e-06 - current_sparsity=0.90
+=============================================================
+Updated best model - epoch=1494 - val_loss=2.76992e-06
+=============================================================
+Epoch 1495/1500 - train_loss=1.44599e-05 - val_loss=3.17135e-06 - current_sparsity=0.90
+Epoch 1496/1500 - train_loss=1.49736e-05 - val_loss=3.48901e-06 - current_sparsity=0.90
+Epoch 1497/1500 - train_loss=1.41815e-05 - val_loss=2.83253e-06 - current_sparsity=0.90
+Epoch 1498/1500 - train_loss=1.40458e-05 - val_loss=3.03975e-06 - current_sparsity=0.90
+Epoch 1499/1500 - train_loss=1.42437e-05 - val_loss=2.88078e-06 - current_sparsity=0.90
+Epoch 1500/1500 - train_loss=1.40948e-05 - val_loss=2.92531e-06 - current_sparsity=0.90
+Final sparsity check:
+  - Target sparsity: 0.900000
+  - Achieved sparsity: 0.901759
+  - Delta: 0.001759
+  - Total parameters: 21913
+  - Total prunable parameters: 21152
+  - Total parameters pruned: 19074
+  - Sparsity (pruned/prunable): 0.901759
+  - Actual sparsity (pruned/total): 0.870442
+Training complete. best_epoch=1494 - best_val_loss=2.76992e-06 - checkpoints\output-b40-lr0.001-e1500-p90-local-exponential-ps10-pe750-2026-03-10_10-41-36-427138\output-b40-lr0.001-e1500-p90-local-exponential-ps10-pe750-2026-03-10_10-41-36-427138-epoch_1494-loss_2.76992e-06.pt
+Total runtime: 02:11:33.976
