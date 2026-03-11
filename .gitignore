@@ -1,6 +1,5 @@
 */__pycache__/
 checkpoints/
-outputs/
 .vscode/
 .DS_Store
 *.asd
