@@ -6,6 +6,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+import soundfile as sf
 
 
 ROOT = Path(__file__).resolve().parent
@@ -114,13 +115,13 @@ def plot_prune_scheduler() -> None:
     ax.plot(
         epochs,
         exp * 100.0,
-        label="Exponential (ps=10, pe=750, p=90%)",
+        label=r"Exponential ($e_{\mathrm{start}}=10$, $e_{\mathrm{end}}=750$, $s_{\max}=90\%$)",
         color="tab:blue",
     )
     ax.plot(
         epochs,
         linear * 100.0,
-        label="Linear (ps=10, pe=750, p=90%)",
+        label=r"Linear ($e_{\mathrm{start}}=10$, $e_{\mathrm{end}}=750$, $s_{\max}=90\%$)",
         color="tab:orange",
     )
     ax.set_xlabel("Epoch")
@@ -232,6 +233,69 @@ def plot_sparsity_sweep() -> None:
     plt.close(fig)
 
 
+def _read_mono_audio(path: Path) -> tuple[np.ndarray, int]:
+    audio, sample_rate = sf.read(path)
+    if audio.ndim > 1:
+        audio = np.mean(audio, axis=1)
+    return np.asarray(audio, dtype=float), int(sample_rate)
+
+
+def plot_waveform_overlap(
+    model_output_wav: Path,
+    target_wav: Path,
+    output_png: Path,
+    start_sec: float = 0.7,
+    window_sec: float = 0.008,
+) -> None:
+    model_audio, sr_model = _read_mono_audio(model_output_wav)
+    target_audio, sr_target = _read_mono_audio(target_wav)
+    if sr_model != sr_target:
+        raise ValueError(f"Sample-rate mismatch: {sr_model} vs {sr_target}")
+
+    start_idx = int(round(start_sec * sr_model))
+    end_idx = start_idx + int(round(window_sec * sr_model))
+    n = min(len(model_audio), len(target_audio))
+    if end_idx > n:
+        raise ValueError(f"Requested window exceeds available audio length: {n / sr_model:.3f}s")
+
+    model_seg = model_audio[start_idx:end_idx]
+    target_seg = target_audio[start_idx:end_idx]
+    time_ms = (np.arange(len(model_seg)) / sr_model) * 1000.0
+
+    fig, ax = plt.subplots(figsize=(7.0, 2.8))
+    ax.plot(time_ms, target_seg, color="tab:blue", linewidth=1.0, label="Target")
+    ax.plot(time_ms, model_seg, color="tab:orange", linewidth=1.0, linestyle="--", label="Model output")
+    ax.set_xlabel("Time (ms)")
+    ax.set_ylabel("Amplitude")
+    ax.legend(loc="upper right", frameon=True)
+    fig.savefig(output_png)
+    plt.close(fig)
+
+
+def plot_waveform_overlaps() -> None:
+    plot_waveform_overlap(
+        model_output_wav=ROOT
+        / "models/sparsity_level_sweep/output-b40-lr0.001-e1500-p90-local-exponential-ps10-pe750-2026-03-10_10-41-36-427138/model_output.wav",
+        target_wav=ROOT
+        / "models/sparsity_level_sweep/output-b40-lr0.001-e1500-p90-local-exponential-ps10-pe750-2026-03-10_10-41-36-427138/target.wav",
+        output_png=OUT_DIR / "waveform_overlap_imp_p90_ieee.png",
+    )
+    plot_waveform_overlap(
+        model_output_wav=ROOT
+        / "models/one_shot_sweep/p90/model_output.wav",
+        target_wav=ROOT
+        / "models/one_shot_sweep/p90/target.wav",
+        output_png=OUT_DIR / "waveform_overlap_oneshot_p90_high_ieee.png",
+    )
+    plot_waveform_overlap(
+        model_output_wav=ROOT
+        / "models/sparsity_level_sweep/output-b40-lr0.001-e1500-2026-03-09_18-18-33-026461/model_output.wav",
+        target_wav=ROOT
+        / "models/sparsity_level_sweep/output-b40-lr0.001-e1500-2026-03-09_18-18-33-026461/target.wav",
+        output_png=OUT_DIR / "waveform_overlap_not_pruned_high_ieee.png",
+    )
+
+
 def _latex_escape(text: str) -> str:
     return text.replace("_", r"\_")
 
@@ -295,6 +359,7 @@ def main() -> None:
     plot_prune_scheduler()
     plot_loss_curves()
     plot_sparsity_sweep()
+    plot_waveform_overlaps()
     amp_rows = build_amp_capture_rows()
     latex_table = make_latex_esr_table(amp_rows)
     print(f"Saved plots to: {OUT_DIR}")
