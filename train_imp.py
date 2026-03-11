@@ -299,11 +299,16 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
             loss.backward()
             optimizer.step()
 
-            # Track batch loss
-            loss_value = float(loss.item())
+            # Compute ESR (Error-to-Signal Ratio) loss
+            numerator = torch.sum((y_pre - pred_pre) ** 2)
+            denominator = torch.sum(y_pre ** 2) + 1e-12
+            esr_value = numerator / denominator
+
+            # Track batch esr train loss
+            loss_value = float(esr_value.item())
             epoch_losses.append(loss_value)
 
-        # Compute average train loss
+        # Compute average esr train loss
         avg_train_loss = float(np.mean(epoch_losses)) if epoch_losses else float("nan")
 
         # Validation loop
@@ -323,13 +328,15 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
                 y_valid = yb[:, valid_start:]
                 pred_pre = pre_emphasis(pred_valid)
                 y_pre = pre_emphasis(y_valid)
-                val_loss = mse(pred_pre, y_pre)
+                numerator = torch.sum((y_pre - pred_pre) ** 2)
+                denominator = torch.sum(y_pre ** 2) + 1e-12
+                esr_value = numerator / denominator
 
-                # Track batch validation loss
-                val_loss_value = float(val_loss.item())
+                # Track batch esr validation loss
+                val_loss_value = float(esr_value.item())
                 val_losses.append(val_loss_value)
 
-        # Compute average validation loss
+        # Compute average esr validation loss
         avg_val_loss = float(np.mean(val_losses)) if val_losses else float("nan")
 
         # Print epoch results

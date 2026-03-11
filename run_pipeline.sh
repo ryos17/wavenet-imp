@@ -49,8 +49,9 @@ for pairing in "${PAIRINGS[@]}"; do
   echo "Pair: ${INPUT_WAV}  ->  ${TARGET_WAV}"
   echo "-----------------------------------------------"
 
-  python train_imp.py \
+  python train.py \
     --model_cfg "${MODEL_CFG}" \
     --input_wav "${INPUT_WAV}" \
-    --target_wav "${TARGET_WAV}"
+    --target_wav "${TARGET_WAV}" \
+    --epochs 1
 done
