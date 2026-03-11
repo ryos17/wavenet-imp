@@ -183,8 +183,10 @@ def run_one_shot_from_checkpoint(
                 pred = model(xb)
                 pred_valid = pred[:, valid_start:]
                 y_valid = yb[:, valid_start:]
-                loss = mse(pre_emphasis(pred_valid), pre_emphasis(y_valid))
-                val_losses.append(float(loss.item()))
+                numerator = torch.sum((y_valid - pred_valid) ** 2)
+                denominator = torch.sum(y_valid ** 2) + 1e-12
+                esr_value = numerator / denominator
+                val_losses.append(float(esr_value.item()))
         val_loss_recomputed = float(np.mean(val_losses)) if val_losses else float("nan")
         # For p00, use the checkpoint's stored best_val_loss to match old logs exactly.
         if abs(target_sparsity) < 1e-12 and "best_val_loss" in ckpt:
@@ -254,13 +256,13 @@ def main() -> None:
         "--sparsity_target",
         type=float,
         nargs="+",
-        default=[0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0],
+        default=[0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0],
         help="One or more target sparsities.",
     )
     parser.add_argument(
         "--prune_type",
         type=str,
-        default="global",
+        default="local",
         help="Pruning type: global or local.",
     )
     parser.add_argument(
