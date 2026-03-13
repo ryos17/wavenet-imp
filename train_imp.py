@@ -293,6 +293,7 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
             pred_pre = pre_emphasis(pred_valid)
             y_pre = pre_emphasis(y_valid)
             loss = mse(pred_pre, y_pre)
+            print("train: ", len(pred_pre), len(y_pre))
 
             # Backward pass and optimization
             optimizer.zero_grad(set_to_none=True)
@@ -331,6 +332,7 @@ def train(model_cfg: Dict, train_cfg: Dict) -> None:
                 numerator = torch.sum((y_pre - pred_pre) ** 2)
                 denominator = torch.sum(y_pre ** 2) + 1e-12
                 esr_value = numerator / denominator
+                print("val: ", len(pred_pre), len(y_pre))
 
                 # Track batch esr validation loss
                 val_loss_value = float(esr_value.item())

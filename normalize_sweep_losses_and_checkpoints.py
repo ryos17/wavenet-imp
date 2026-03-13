@@ -3,13 +3,14 @@ import re
 from pathlib import Path
 
 
-TRAIN_DIVISOR = 94.51431595651727
-VAL_DIVISOR = 43.31156539916992
+TRAIN_DIVISOR = 1.0/40
+VAL_DIVISOR = 1.0/40
 
 SWEEP_DIRS = [
     Path("models/prune_end_sweep"),
     Path("models/prune_type_schedule"),
     Path("models/sparsity_level_sweep"),
+    Path("models/amp_captures"),
 ]
 
 LOSS_PATTERN = re.compile(r"^(?P<prefix>.*-loss_)(?P<loss>[0-9eE+\-.]+)(?P<suffix>\.pt)$")

@@ -1,4 +1,4 @@
-Loaded checkpoint: models/sparsity_level_sweep/output-b40-lr0.001-e1500-2026-03-09_18-18-33-026461/output-b40-lr0.001-e1500-2026-03-09_18-18-33-026461-epoch_1500-loss_6.80141e-07.pt
+Loaded checkpoint: models/sparsity_level_sweep/output-b40-lr0.001-e1500-2026-03-09_18-18-33-026461/output-b40-lr0.001-e1500-2026-03-09_18-18-33-026461-epoch_1500-loss_6.28136e-07.pt
 Sparsity targets: [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
 Prune type: local
 Seed: 42
@@ -22,4 +22,4 @@ One-shot prune p85 - val_loss=2.68582e+01 - target=0.850000 - before=0.000000 - 
 One-shot prune p90 - val_loss=3.27407e+01 - target=0.900000 - before=0.000000 - after=0.901759 - pruned/prunable=0.901759 - pruned/total=0.870442 - val_loss_recomputed=3.27407e+01 - total parameters: 21913 - total prunable parameters: 21152 - total pruned parameters: 19074
 One-shot prune p95 - val_loss=1.97852e+01 - target=0.950000 - before=0.000000 - after=0.951778 - pruned/prunable=0.951778 - pruned/total=0.918724 - val_loss_recomputed=1.97852e+01 - total parameters: 21913 - total prunable parameters: 21152 - total pruned parameters: 20132
 One-shot prune p100 - val_loss=1.92209e+01 - target=1.000000 - before=0.000000 - after=1.000000 - pruned/prunable=1.000000 - pruned/total=0.965272 - val_loss_recomputed=1.92209e+01 - total parameters: 21913 - total prunable parameters: 21152 - total pruned parameters: 21152
-Completed one-shot pruning sweep in 8.10s.
+Completed one-shot pruning sweep in 6.76s.
