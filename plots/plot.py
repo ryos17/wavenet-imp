@@ -4,6 +4,8 @@ import json
 import re
 from pathlib import Path
 
+import librosa
+import librosa.display
 import matplotlib.pyplot as plt
 import numpy as np
 import soundfile as sf
@@ -22,6 +24,7 @@ def setup_ieee_style() -> None:
             "figure.dpi": 300,
             "font.family": "serif",
             "font.serif": ["Times New Roman", "Times", "DejaVu Serif"],
+            "mathtext.fontset": "stix",
             "font.size": 8,
             "axes.labelsize": 8,
             "axes.titlesize": 8,
@@ -296,6 +299,133 @@ def plot_waveform_overlaps() -> None:
     )
 
 
+def plot_spectrogram_pair(
+    model_output_wav: Path,
+    target_wav: Path,
+    output_png: Path,
+    n_fft: int = 1024,
+    hop_length: int = 256,
+    win_length: int = 1024,
+    gain_db: float = 20.0,
+    range_db: float = 80.0,
+    f_min: float = 50.0,
+    f_max: float = 24000.0,
+) -> None:
+    # Audacity-style mel-scale spectrogram. STFT (Hann 1024, hop 256, 75%
+    # overlap) shown on mel-spaced y-axis via matplotlib FuncScale -- avoids
+    # mel-filterbank striping when n_mels approaches FFT bin count.
+    model_audio, sr_model = _read_mono_audio(model_output_wav)
+    target_audio, sr_target = _read_mono_audio(target_wav)
+    if sr_model != sr_target:
+        raise ValueError(f"Sample-rate mismatch: {sr_model} vs {sr_target}")
+
+    n = min(len(model_audio), len(target_audio))
+    model_audio = model_audio[:n]
+    target_audio = target_audio[:n]
+
+    window = np.hanning(win_length)
+    S_model = np.abs(
+        librosa.stft(model_audio, n_fft=n_fft, hop_length=hop_length, win_length=win_length, window=window)
+    )
+    S_target = np.abs(
+        librosa.stft(target_audio, n_fft=n_fft, hop_length=hop_length, win_length=win_length, window=window)
+    )
+
+    ref = float(max(S_model.max(), S_target.max()))
+    S_model_db = librosa.amplitude_to_db(S_model, ref=ref) + gain_db
+    S_target_db = librosa.amplitude_to_db(S_target, ref=ref) + gain_db
+
+    vmax = gain_db
+    vmin = gain_db - range_db
+
+    nyquist = sr_model / 2.0
+    f_max_eff = min(f_max, nyquist)
+    yticks_all = (
+        list(range(100, 1000, 100))
+        + list(range(1000, 10000, 1000))
+        + [10000, 20000, 24000]
+    )
+    label_map = {
+        100: r"$10^{2}$",
+        1000: r"$10^{3}$",
+        10000: r"$10^{4}$",
+        24000: r"$2.4\times10^{4}$",
+    }
+    major_ticks = [f for f in yticks_all if f in label_map and f_min <= f <= f_max_eff]
+    minor_ticks = [f for f in yticks_all if f not in label_map and f_min <= f <= f_max_eff]
+    major_labels = [label_map[f] for f in major_ticks]
+
+    def hz_to_mel(f):
+        return 2595.0 * np.log10(1.0 + np.asarray(f) / 700.0)
+
+    def mel_to_hz(m):
+        return 700.0 * (10.0 ** (np.asarray(m) / 2595.0) - 1.0)
+
+    fig, axes = plt.subplots(2, 1, figsize=(5, 3.5), sharex=True, dpi=400)
+    for ax, S_db in zip(axes, [S_model_db, S_target_db]):
+        librosa.display.specshow(
+            S_db,
+            sr=sr_model,
+            hop_length=hop_length,
+            x_axis="time",
+            y_axis="linear",
+            cmap="magma",
+            ax=ax,
+            vmin=vmin,
+            vmax=vmax,
+            rasterized=True,
+            shading="gouraud",
+        )
+        ax.set_yscale("function", functions=(hz_to_mel, mel_to_hz))
+        ax.set_ylim(f_min, f_max_eff)
+        ax.set_yticks(major_ticks)
+        ax.set_yticklabels(major_labels)
+        ax.set_yticks(minor_ticks, minor=True)
+        ax.set_yticklabels([], minor=True)
+        ax.tick_params(axis="y", which="major", length=4)
+        ax.tick_params(axis="y", which="minor", length=2)
+        ax.set_ylabel("Hz", labelpad=1)
+        ax.yaxis.set_label_coords(-0.07, 0.5)
+        ax.grid(False)
+
+    axes[0].set_xlabel("")
+    axes[1].set_xlabel("Time (s)")
+    fig.tight_layout()
+    fig.savefig(output_png, dpi=400)
+    plt.close(fig)
+
+
+def multi_resolution_stft_distance(
+    model_output_wav: Path,
+    target_wav: Path,
+    fft_sizes: tuple[int, ...] = (512, 1024, 2048),
+    hop_sizes: tuple[int, ...] = (50, 120, 240),
+    win_sizes: tuple[int, ...] = (240, 600, 1200),
+) -> tuple[float, float]:
+    # Multi-resolution STFT loss (Yamamoto et al., 2020): mean of spectral
+    # convergence and log-magnitude L1 over multiple FFT resolutions.
+    model_audio, sr_model = _read_mono_audio(model_output_wav)
+    target_audio, sr_target = _read_mono_audio(target_wav)
+    if sr_model != sr_target:
+        raise ValueError(f"Sample-rate mismatch: {sr_model} vs {sr_target}")
+
+    n = min(len(model_audio), len(target_audio))
+    m = model_audio[:n]
+    t = target_audio[:n]
+
+    eps = 1e-7
+    sc_sum = 0.0
+    mag_sum = 0.0
+    for n_fft, hop, win in zip(fft_sizes, hop_sizes, win_sizes):
+        Mm = np.abs(librosa.stft(m, n_fft=n_fft, hop_length=hop, win_length=win))
+        Mt = np.abs(librosa.stft(t, n_fft=n_fft, hop_length=hop, win_length=win))
+        sc_sum += float(np.linalg.norm(Mt - Mm) / (np.linalg.norm(Mt) + eps))
+        mag_sum += float(np.mean(np.abs(np.log(Mt + eps) - np.log(Mm + eps))))
+
+    k = len(fft_sizes)
+    return sc_sum / k, mag_sum / k
+
+
 def _latex_escape(text: str) -> str:
     return text.replace("_", r"\_")
 
@@ -360,10 +490,35 @@ def main() -> None:
     plot_loss_curves()
     plot_sparsity_sweep()
     plot_waveform_overlaps()
+
+    nam_run = ROOT / "models/sparsity_level_sweep/output-b40-lr0.001-e1500-p90-local-exponential-ps10-pe750-2026-03-10_10-41-36-427138"
+    fuzz_run = ROOT / "models/amp_captures/fuzzface_high-b40-lr0.001-e1500-p90-local-exponential-ps10-pe750-2026-03-10_06-36-14-432369"
+
+    plot_spectrogram_pair(
+        model_output_wav=nam_run / "model_output.wav",
+        target_wav=nam_run / "target.wav",
+        output_png=OUT_DIR / "nam_spectrogram_ieee.png",
+    )
+    plot_spectrogram_pair(
+        model_output_wav=fuzz_run / "model_output.wav",
+        target_wav=fuzz_run / "target.wav",
+        output_png=OUT_DIR / "fuzzface_high_spectrogram_ieee.png",
+    )
+
     amp_rows = build_amp_capture_rows()
     latex_table = make_latex_esr_table(amp_rows)
     print(f"Saved plots to: {OUT_DIR}")
     print()
+
+    print("Multi-resolution STFT distance (spectral convergence, log-magnitude L1):")
+    for name, run_dir in [("NAM", nam_run), ("fuzzface_high", fuzz_run)]:
+        sc, mag = multi_resolution_stft_distance(
+            model_output_wav=run_dir / "model_output.wav",
+            target_wav=run_dir / "target.wav",
+        )
+        print(f"  {name:14s}  SC={sc:.4f}  LogMag={mag:.4f}")
+    print()
+
     print("LaTeX table (copy-paste):")
     print(latex_table)
 
