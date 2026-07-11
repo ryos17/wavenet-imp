@@ -1,0 +1,117 @@
+from __future__ import annotations
+
+import json
+import random
+from pathlib import Path
+from typing import Any, Dict, Tuple
+
+import numpy as np
+import soundfile as sf
+import torch
+import torch.nn as nn
+from torch.utils.data import DataLoader, Dataset
+
+
+def load_json(path: str | Path) -> Dict[str, Any]:
+    """Load a JSON file into a dictionary."""
+    with Path(path).open("r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def log_message(path: str | Path, message: str) -> None:
+    """Print a message and append it to a log file."""
+    print(message)
+    log_path = Path(path)
+    with log_path.open("a", encoding="utf-8") as f:
+        f.write(message + "\n")
+
+
+def get_activation(name: str) -> nn.Module:
+    """Return a torch activation module from a readable name."""
+    key = name.strip().lower()
+    if key == "tanh":
+        return nn.Tanh()
+    if key == "relu":
+        return nn.ReLU()
+    if key in {"leakyrelu", "leaky_relu"}:
+        return nn.LeakyReLU(negative_slope=0.2)
+    if key in {"gelu"}:
+        return nn.GELU()
+    raise ValueError(f"Unsupported activation: {name}")
+
+
+def set_seed(seed: int) -> None:
+    """Set the seed for all random number generators."""
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+
+def read_audio_mono(path: str | Path) -> Tuple[np.ndarray, int]:
+    """Read audio file and return mono signal and sample rate."""
+    x, sr = sf.read(str(Path(path)), dtype="float32")
+    if x.ndim > 1:
+        x = x.mean(axis=1)
+    return x.astype(np.float32), int(sr)
+
+
+def pre_emphasis(x: torch.Tensor, coeff: float=0.95) -> torch.Tensor:
+    """
+    Pre-emphasis IIR filter: y[t] = x[t] - coeff * x[t-1].
+    Applied along the time dimension.
+    """
+    if coeff <= 0.0:
+        return x
+    y = torch.empty_like(x)
+    y[..., 0] = x[..., 0]
+    y[..., 1:] = x[..., 1:] - coeff * x[..., :-1]
+    return y
+
+
+class FixedChunkDataset(Dataset):
+    """
+    Split paired waveforms into aligned fixed-size chunks.
+    """
+
+    def __init__(self, x: np.ndarray, y: np.ndarray, chunk_size: int):
+        """Initialize the dataset."""
+        self.x = torch.from_numpy(x)
+        self.y = torch.from_numpy(y)
+        self.chunk_size = int(chunk_size)
+        self.num_chunks = len(x) // self.chunk_size
+        if self.num_chunks <= 0:
+            raise ValueError("Not enough samples to build fixed chunks.")
+
+    def __len__(self) -> int:
+        """Return the number of chunks in the dataset."""
+        return self.num_chunks
+
+    def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor]:
+        """Get chunk by index."""
+        start = idx * self.chunk_size
+        end = start + self.chunk_size
+        return self.x[start:end], self.y[start:end]
+
+
+def build_dataloader(
+    x: np.ndarray,
+    y: np.ndarray,
+    batch_size: int,
+    chunk_size: int,
+    num_workers: int,
+) -> DataLoader:
+    """Build a fixed-chunk shuffled data loader."""
+    ds = FixedChunkDataset(
+        x=x,
+        y=y,
+        chunk_size=chunk_size,
+    )
+    return DataLoader(
+        ds,
+        batch_size=batch_size,
+        shuffle=True,
+        drop_last=False,
+        num_workers=num_workers,
+        pin_memory=torch.cuda.is_available(),
+    )

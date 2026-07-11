@@ -1,0 +1,42 @@
+{
+    "layers_configs": [
+        {
+            "input_size": 1,
+            "channels": 1,
+            "head_size": 1,
+            "kernel_size": 3,
+            "dilations": [
+                1,
+                2,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256
+            ],
+            "activation": "tanh",
+            "gated": false
+        },
+        {
+            "input_size": 1,
+            "channels": 1,
+            "head_size": 1,
+            "kernel_size": 3,
+            "dilations": [
+                1,
+                2,
+                4,
+                8,
+                16,
+                32,
+                64,
+                128,
+                256
+            ],
+            "activation": "tanh",
+            "gated": false
+        }
+    ]
+}

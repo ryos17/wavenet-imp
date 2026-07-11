@@ -1,0 +1,14 @@
+*/__pycache__/
+__pycache__
+checkpoints/
+old/
+.vscode/
+.DS_Store
+*.asd
+
+# plot.py regenerates these locally; only the two hero figures are committed.
+plots/loss_curves_ieee.png
+plots/prune_scheduler_ieee.png
+plots/nam_spectrogram_ieee.png
+plots/fuzzface_high_spectrogram_ieee.png
+outputs/
